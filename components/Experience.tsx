@@ -165,7 +165,7 @@ export default function Experience() {
             <div className="absolute top-1/2 -left-4 w-8 h-8 bg-white peer-hover:bg-[#ff80ab] border-l-4 border-b-4 border-black transform rotate-45 -translate-y-1/2 hidden md:block transition-all duration-300 peer-hover:rounded-none"></div>
             
             <p className="text-xl font-medium mb-4 transition-colors duration-300">
-              10 years of experience in video editing and motion design, working with major streaming platforms and media companies.
+              I have spent the last 6 years mastering the art of the edit. My background in the competitive AMV scene taught me the importance of frame-perfect timing
             </p>
             <p className="text-lg text-gray-700 peer-hover:text-black mb-4 transition-colors duration-300">
               I don&apos;t just cut clips together; I craft stories, build pacing, and create emotional resonance through visual rhythm.
