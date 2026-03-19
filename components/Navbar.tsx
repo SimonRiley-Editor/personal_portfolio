@@ -27,10 +27,11 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
       className="fixed top-4 left-0 w-full z-50 flex justify-center px-4 pointer-events-none"
     >
       {/* Desktop Nav */}
-      <nav className="hidden md:flex bg-white border-4 border-black rounded-full px-6 py-3 items-center gap-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] pointer-events-auto">
+      <nav className="hidden md:flex bg-nier-light/90 backdrop-blur-sm border border-nier-dark px-6 py-2 items-center gap-6 shadow-sm pointer-events-auto">
         {navLinks.map((link) => (
-          <a key={link.href} href={link.href} className="font-bold hover:bg-[#ffda59] px-4 py-1 rounded-full transition-colors whitespace-nowrap">
-            {link.label}
+          <a key={link.href} href={link.href} className="font-mono text-xs tracking-widest uppercase text-nier-dark hover:text-nier-red hover:bg-nier-dark/5 px-4 py-2 transition-colors whitespace-nowrap relative group">
+            <span className="relative z-10">{link.label}</span>
+            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-nier-red scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
           </a>
         ))}
       </nav>
@@ -39,9 +40,9 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
       <div className="md:hidden flex justify-end w-full pointer-events-auto">
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-white border-4 border-black rounded-full p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] z-50 relative"
+          className="bg-nier-light border border-nier-dark p-3 shadow-sm z-50 relative text-nier-dark hover:bg-nier-dark/5 transition-colors"
         >
-          {isOpen ? <X size={24} strokeWidth={3} /> : <Menu size={24} strokeWidth={3} />}
+          {isOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
         </button>
       </div>
 
@@ -52,14 +53,14 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-20 left-4 right-4 bg-white border-4 border-black rounded-3xl p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] pointer-events-auto md:hidden flex flex-col gap-4"
+            className="absolute top-16 left-4 right-4 bg-nier-light border border-nier-dark p-6 shadow-md pointer-events-auto md:hidden flex flex-col gap-2"
           >
             {navLinks.map((link) => (
               <a 
                 key={link.href} 
                 href={link.href} 
                 onClick={() => setIsOpen(false)}
-                className="font-bold text-2xl hover:bg-[#ffda59] px-4 py-3 rounded-xl transition-colors text-center border-2 border-transparent hover:border-black"
+                className="font-mono text-sm tracking-widest uppercase text-nier-dark hover:text-nier-red hover:bg-nier-dark/5 px-4 py-4 transition-colors text-center border-b border-nier-dark/20 last:border-b-0"
               >
                 {link.label}
               </a>

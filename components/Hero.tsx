@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Scissors, Play, Video } from 'lucide-react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { Crosshair, Terminal, Video } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate } from 'motion/react';
 
 const shapes = [
-  { width: 120, height: 120, left: '10%', top: '20%', y: [0, -30, 0], x: [0, 20, 0], duration: 15, color: '#ffda59' },
-  { width: 80, height: 80, left: '80%', top: '15%', y: [0, 40, 0], x: [0, -10, 0], duration: 12, color: '#69f0ae' },
-  { width: 150, height: 150, left: '70%', top: '70%', y: [0, -20, 0], x: [0, -30, 0], duration: 18, color: '#ff80ab' },
-  { width: 90, height: 90, left: '20%', top: '80%', y: [0, 30, 0], x: [0, 10, 0], duration: 14, color: 'transparent' },
-  { width: 110, height: 110, left: '40%', top: '40%', y: [0, -40, 0], x: [0, 40, 0], duration: 16, color: '#ffda59' },
-  { width: 70, height: 70, left: '60%', top: '85%', y: [0, 20, 0], x: [0, -20, 0], duration: 11, color: '#69f0ae' },
+  { width: 120, height: 120, left: '10%', top: '20%', y: [0, -10, 0], x: [0, 10, 0], duration: 15, color: 'transparent', border: '1px solid #4a4843' },
+  { width: 80, height: 80, left: '80%', top: '15%', y: [0, 20, 0], x: [0, -5, 0], duration: 12, color: 'transparent', border: '1px solid #4a4843' },
+  { width: 150, height: 150, left: '70%', top: '70%', y: [0, -10, 0], x: [0, -15, 0], duration: 18, color: 'rgba(74, 72, 67, 0.05)', border: '1px solid #4a4843' },
+  { width: 90, height: 90, left: '20%', top: '80%', y: [0, 15, 0], x: [0, 5, 0], duration: 14, color: 'transparent', border: '1px solid #8b0000' },
+  { width: 110, height: 110, left: '40%', top: '40%', y: [0, -20, 0], x: [0, 20, 0], duration: 16, color: 'transparent', border: '1px solid #4a4843' },
+  { width: 70, height: 70, left: '60%', top: '85%', y: [0, 10, 0], x: [0, -10, 0], duration: 11, color: 'rgba(139, 0, 0, 0.05)', border: '1px solid #8b0000' },
 ];
 
 export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
@@ -40,14 +40,14 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
     }
   }, [isDragging, progress]);
 
-  const updateProgress = (clientX: number) => {
+  const updateProgress = useCallback((clientX: number) => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       const x = clientX - rect.left;
       const newProgress = Math.max(0, Math.min(1, x / rect.width));
       progress.set(newProgress);
     }
-  };
+  }, [progress]);
 
   useEffect(() => {
     const handlePointerMove = (e: PointerEvent) => {
@@ -68,34 +68,29 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         window.removeEventListener('pointerup', handlePointerUp);
       };
     }
-  }, [isDragging]);
+  }, [isDragging, updateProgress]);
 
-  const textSkew = useTransform(progress, [0, 0.5, 1], [-15, 0, 15]);
-  const letterSpacing = useTransform(progress, [0, 0.5, 1], ["-0.05em", "0.1em", "-0.05em"]);
-  const textColor = useTransform(progress, [0, 0.5, 1], ["rgba(0,0,0,0)", "#ffda59", "rgba(0,0,0,0)"]);
-  const strokeColor = useTransform(progress, [0, 0.5, 1], ["#000", "#000", "#000"]);
-  const textStroke = useTransform(strokeColor, c => `4px ${c}`);
+  const textSkew = useTransform(progress, [0, 0.5, 1], [-5, 0, 5]);
+  const letterSpacing = useTransform(progress, [0, 0.5, 1], ["0em", "0.2em", "0em"]);
+  const textColor = useTransform(progress, [0, 0.5, 1], ["rgba(74,72,67,0)", "#8b0000", "rgba(74,72,67,0)"]);
+  const strokeColor = useTransform(progress, [0, 0.5, 1], ["#4a4843", "#4a4843", "#4a4843"]);
+  const textStroke = useTransform(strokeColor, c => `1px ${c}`);
 
   return (
-    <section className="min-h-screen bg-[#d977ff] relative flex flex-col items-center justify-center overflow-hidden border-b-4 border-black pt-20">
+    <section className="min-h-screen bg-transparent relative flex flex-col items-center justify-center overflow-hidden border-b border-nier-dark pt-20">
       {/* Animated Background Shapes */}
-      <div className="absolute inset-0 overflow-hidden z-0">
+      <div className="absolute inset-0 overflow-hidden z-0 opacity-30">
         {shapes.map((shape, i) => (
           <motion.div
             key={i}
-            drag
-            dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
-            dragElastic={0.2}
-            dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-            whileHover={{ scale: 1.1, cursor: "grab" }}
-            whileDrag={{ scale: 1.2, cursor: "grabbing", zIndex: 50 }}
-            className="absolute rounded-full border-4 border-black"
+            className="absolute rounded-none"
             style={{
               width: shape.width,
               height: shape.height,
               left: shape.left,
               top: shape.top,
               backgroundColor: shape.color,
+              border: shape.border,
             }}
             animate={{
               y: shape.y,
@@ -112,22 +107,26 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-1/4 left-[10%] md:left-1/4 animate-float -rotate-45">
-        <Scissors size={48} className="text-black" strokeWidth={2} />
+      <div className="absolute top-1/4 left-[10%] md:left-1/4 animate-float -rotate-45 opacity-50">
+        <Crosshair size={48} className="text-nier-dark" strokeWidth={1} />
+      </div>
+      <div className="absolute bottom-1/4 right-[10%] md:right-1/4 animate-float opacity-50">
+        <Terminal size={32} className="text-nier-red" strokeWidth={1} />
       </div>
 
       {/* Main Content */}
       <div className="text-center z-10 px-4 mt-12 flex flex-col items-center">
         <motion.div
-          initial={{ scale: 0, opacity: 0, y: 100, rotate: -15 }}
-          animate={isLoaded ? { scale: 1, opacity: 1, y: 0, rotate: -2 } : { scale: 0, opacity: 0, y: 100, rotate: -15 }}
-          whileHover={{ scale: 1.05, rotate: 0, boxShadow: "16px 16px 0px 0px rgba(0,0,0,1)" }}
-          transition={{ type: "spring", stiffness: 200, damping: 15, delay: isLoaded ? 0.3 : 0 }}
-          className="bg-white border-4 border-black px-6 md:px-12 py-4 md:py-6 mb-8 md:mb-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative z-30 inline-block cursor-default"
+          initial={{ scale: 0.9, opacity: 0, y: 20 }}
+          animate={isLoaded ? { scale: 1, opacity: 1, y: 0 } : { scale: 0.9, opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: isLoaded ? 0.3 : 0 }}
+          className="nier-box px-8 md:px-16 py-6 md:py-8 mb-8 md:mb-12 z-30 inline-block cursor-default hover:bg-nier-dark hover:text-nier-light transition-colors duration-200 group"
         >
-          <h1 className="font-wide text-4xl md:text-8xl lg:text-[10rem] tracking-tighter uppercase leading-[0.85] text-black">
-            I&apos;m Ali<br/>Aliyev
+          <div className="absolute top-1 left-2 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">SYS.ID: 9S</div>
+          <h1 className="font-akira text-4xl md:text-7xl lg:text-[8rem] tracking-widest uppercase leading-[1] text-nier-dark mt-2 group-hover:text-nier-light transition-colors duration-200">
+            ALI<br/>ALIYEV
           </h1>
+          <div className="absolute bottom-1 right-2 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">[ DATA_LINK_ACTIVE ]</div>
         </motion.div>
 
         <motion.div 
@@ -137,7 +136,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           className="relative inline-block mb-12 mx-4 md:mx-16"
         >
           <motion.div 
-            className="font-wide text-5xl md:text-[10rem] tracking-tighter relative z-10" 
+            className="font-wide text-5xl md:text-[8rem] lg:text-[10rem] tracking-tighter relative z-10" 
             style={{ 
               skewX: textSkew,
               letterSpacing: letterSpacing,
@@ -145,12 +144,12 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
               WebkitTextStroke: textStroke
             }}
           >
-            EDIT
+            EDITOR
           </motion.div>
           
           <div className="absolute inset-0 flex items-center justify-center z-20">
              {/* Timeline line */}
-             <div className="w-[120%] h-2 md:h-3 bg-black absolute top-1/2 -translate-y-1/2 -left-[10%] pointer-events-none"></div>
+             <div className="w-[120%] h-[1px] md:h-[2px] bg-nier-dark absolute top-1/2 -translate-y-1/2 -left-[10%] pointer-events-none"></div>
              
              {/* Interactive Area */}
              <div 
@@ -163,12 +162,15 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
              >
                {/* Playhead */}
                <motion.div 
-                 className="w-4 md:w-6 h-16 md:h-24 bg-white border-4 border-black absolute top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
+                 className="w-1 md:w-2 h-16 md:h-24 bg-nier-red border border-nier-dark absolute top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
                  style={{ 
                    left: useTransform(progress, [0, 1], ["0%", "100%"]),
                    x: "-50%"
                  }}
-               ></motion.div>
+               >
+                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-3 h-3 border border-nier-dark bg-nier-light rotate-45"></div>
+                 <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3 h-3 border border-nier-dark bg-nier-light rotate-45"></div>
+               </motion.div>
                
                {/* Video icon */}
                <motion.div 
@@ -178,8 +180,8 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
                    x: "100%",
                  }}
                >
-                 <div className="bg-white border-4 border-black p-2 md:p-3 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-float" style={{ animationDelay: '1s', transform: 'rotate(12deg)' }}>
-                   <Video size={40} className="text-black" strokeWidth={2.5} />
+                 <div className="nier-box p-2 md:p-3 ml-4">
+                   <Video size={24} className="text-nier-dark" strokeWidth={1.5} />
                  </div>
                </motion.div>
              </div>
@@ -187,38 +189,24 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         </motion.div>
         
         <motion.a 
-          initial={{ opacity: 0, y: 50 }}
-          animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           href="https://www.youtube.com/@simongodly"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm md:text-3xl font-black text-white bg-black px-4 md:px-8 py-3 border-4 border-black rounded-full shadow-[6px_6px_0px_0px_#ffda59] cursor-pointer inline-block"
-          whileHover={{ 
-            scale: 1.05,
-            rotate: [-2, 2, -2, 0],
-            boxShadow: "10px 10px 0px 0px #69f0ae",
-            color: "#ffda59"
-          }}
-          transition={{ duration: 0.5, delay: isLoaded ? 0.7 : 0 }}
+          className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-6 md:px-10 py-4 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-nier-light transition-colors duration-200"
+          transition={{ duration: 0.8, delay: isLoaded ? 0.7 : 0 }}
         >
-          Award-winning Video Editor & Motion Designer
+          <span className="relative z-10">[ Award-winning Video Editor & Motion Designer ]</span>
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </motion.a>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 right-8 animate-spin-slow hidden md:block">
-        <svg width="100" height="100" viewBox="0 0 100 100">
-          <path id="curve" d="M 50 50 m -40 0 a 40 40 0 1 1 80 0 a 40 40 0 1 1 -80 0" fill="transparent" />
-          <text className="font-bold text-xs tracking-widest uppercase">
-            <textPath href="#curve">
-              Scroll Down • Scroll Down • Scroll Down •
-            </textPath>
-          </text>
-        </svg>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 5v14M19 12l-7 7-7-7"/>
-          </svg>
+      <div className="absolute bottom-8 right-8 hidden md:flex flex-col items-center gap-2 opacity-50">
+        <div className="text-[10px] font-mono tracking-widest text-nier-dark rotate-90 origin-right mb-8">SCROLL</div>
+        <div className="w-[1px] h-16 bg-nier-dark relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1/2 bg-nier-red animate-slide-playhead"></div>
         </div>
       </div>
     </section>

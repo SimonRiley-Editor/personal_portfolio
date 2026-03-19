@@ -33,48 +33,41 @@ export default function Awards() {
   const glassesRotate = useTransform(scrollYProgress, [0.4, 1], [0, 45]);
 
   return (
-    <section id="awards" ref={containerRef} className="bg-[#d977ff] border-b-4 border-black py-20 relative overflow-hidden">
+    <section id="awards" ref={containerRef} className="bg-nier-beige border-b border-nier-dark py-20 relative overflow-hidden">
       {/* Animated Background Rays */}
       <motion.div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] opacity-20 pointer-events-none z-0"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] opacity-[0.03] pointer-events-none z-0"
         animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
         style={{
-          background: 'conic-gradient(from 0deg, transparent 0deg 15deg, black 15deg 30deg, transparent 30deg 45deg, black 45deg 60deg, transparent 60deg 75deg, black 75deg 90deg, transparent 90deg 105deg, black 105deg 120deg, transparent 120deg 135deg, black 135deg 150deg, transparent 150deg 165deg, black 165deg 180deg, transparent 180deg 195deg, black 195deg 210deg, transparent 210deg 225deg, black 225deg 240deg, transparent 240deg 255deg, black 255deg 270deg, transparent 270deg 285deg, black 285deg 300deg, transparent 300deg 315deg, black 315deg 330deg, transparent 330deg 345deg, black 345deg 360deg)'
+          background: 'conic-gradient(from 0deg, transparent 0deg 15deg, var(--color-nier-dark) 15deg 30deg, transparent 30deg 45deg, var(--color-nier-dark) 45deg 60deg, transparent 60deg 75deg, var(--color-nier-dark) 75deg 90deg, transparent 90deg 105deg, var(--color-nier-dark) 105deg 120deg, transparent 120deg 135deg, var(--color-nier-dark) 135deg 150deg, transparent 150deg 165deg, var(--color-nier-dark) 165deg 180deg, transparent 180deg 195deg, var(--color-nier-dark) 195deg 210deg, transparent 210deg 225deg, var(--color-nier-dark) 225deg 240deg, transparent 240deg 255deg, var(--color-nier-dark) 255deg 270deg, transparent 270deg 285deg, var(--color-nier-dark) 285deg 300deg, transparent 300deg 315deg, var(--color-nier-dark) 315deg 330deg, transparent 330deg 345deg, var(--color-nier-dark) 345deg 360deg)'
         }}
       />
 
       {/* Decorative background elements */}
       <motion.div 
-        animate={{ y: [0, -20, 0], rotate: [12, 24, 12] }}
+        animate={{ y: [0, -10, 0], opacity: [0.2, 0.5, 0.2] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-10 left-10 w-8 h-8 bg-[#69f0ae] border-2 border-black z-10"
+        className="absolute top-10 left-10 w-8 h-8 border border-nier-dark z-10"
       ></motion.div>
       <motion.div 
-        animate={{ y: [0, 20, 0], rotate: [-12, -24, -12] }}
+        animate={{ y: [0, 10, 0], opacity: [0.2, 0.5, 0.2] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-20 right-20 w-6 h-6 bg-[#ffda59] border-2 border-black z-10"
+        className="absolute bottom-20 right-20 w-6 h-6 border border-nier-dark z-10"
       ></motion.div>
       <motion.div 
-        animate={{ scale: [1, 1.2, 1] }}
+        animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.5, 0.2] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 right-10 w-10 h-10 bg-white border-2 border-black rounded-full z-10"
+        className="absolute top-1/2 right-10 w-10 h-10 border border-nier-dark rounded-full z-10"
       ></motion.div>
 
       <div className="text-center mb-16 relative z-10">
         <div className="inline-block relative">
-           <div className="absolute -top-8 -left-8 md:-top-12 md:-left-12 w-16 h-16 md:w-24 md:h-24 bg-[#ffda59] border-4 border-black rounded-full flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-             <span className="text-3xl md:text-5xl absolute">😏</span>
-             <motion.span 
-               className="text-3xl md:text-5xl absolute origin-bottom-right"
-               style={{ y: glassesY, x: glassesX, rotate: glassesRotate }}
-             >
-               🕶️
-             </motion.span>
-           </div>
-           <h2 className="font-display text-5xl md:text-9xl font-black tracking-tighter uppercase">
+           <h2 className="font-akira text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase text-nier-dark">
              AWARDS
            </h2>
+           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-full max-w-[200px] h-[1px] bg-nier-dark opacity-50"></div>
+           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-nier-red"></div>
         </div>
       </div>
 
@@ -82,16 +75,16 @@ export default function Awards() {
         {awards.map((group, idx) => (
           <div key={idx} className="relative mb-12">
             {/* Year Badge */}
-            <div className="absolute -left-2 md:-left-12 top-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-[#69f0ae] border-4 border-black rounded-full flex items-center justify-center font-display font-black text-lg md:text-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] z-20">
+            <div className="absolute -left-2 md:-left-12 top-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-nier-light border border-nier-dark flex items-center justify-center font-mono font-bold text-lg md:text-xl text-nier-dark z-20 shadow-sm">
               {group.year}
             </div>
             
             {/* Award Card */}
-            <div className="bg-white border-4 border-black rounded-3xl p-6 md:p-8 md:pl-16 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] ml-6 md:ml-0">
+            <div className="nier-box p-6 md:p-8 md:pl-16 ml-6 md:ml-0">
               {group.items.map((item, i) => (
-                <div key={i} className="flex flex-col md:flex-row md:items-center justify-between py-4 border-b-2 border-black last:border-b-0">
-                  <span className="text-xl md:text-2xl font-medium">{item.title}</span>
-                  <span className="text-gray-600 font-medium mt-1 md:mt-0">{item.context}</span>
+                <div key={i} className="flex flex-col md:flex-row md:items-center justify-between py-4 border-b border-nier-dark/30 last:border-b-0">
+                  <span className="text-xl md:text-2xl font-mono text-nier-dark">{item.title}</span>
+                  <span className="text-nier-dark/70 font-mono mt-1 md:mt-0 text-sm tracking-wider uppercase">{item.context}</span>
                 </div>
               ))}
             </div>

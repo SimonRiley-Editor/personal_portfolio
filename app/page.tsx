@@ -9,6 +9,7 @@ import Awards from '@/components/Awards';
 import Work from '@/components/Work';
 import Contact from '@/components/Contact';
 import Loader from '@/components/Loader';
+import PodSystem from '@/components/PodSystem';
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,6 +24,7 @@ export default function Home() {
       <Awards />
       <Work />
       <Contact />
+      <PodSystem />
     </main>
   );
 }
