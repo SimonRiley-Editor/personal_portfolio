@@ -93,6 +93,106 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-nier-gray);
+  border-left: 1px solid var(--color-nier-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-nier-dark);
+  border: 1px solid var(--color-nier-gray);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-nier-red);
+}
+
+/* Markdown Styles */
+.markdown-body {
+  color: var(--color-nier-beige);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.markdown-body p {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body a {
+  color: var(--color-nier-red);
+  text-decoration: underline;
+}
+
+.markdown-body a:hover {
+  color: white;
+}
+
+.markdown-body strong {
+  font-weight: bold;
+  color: white;
+}
+
+.markdown-body em {
+  font-style: italic;
+}
+
+.markdown-body code {
+  background-color: rgba(230, 226, 175, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+}
+
+.markdown-body pre {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(230, 226, 175, 0.2);
+}
+
+.markdown-body pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.markdown-body ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body li {
+  margin-bottom: 0.25rem;
+}
+
+.markdown-body blockquote {
+  border-left: 2px solid var(--color-nier-red);
+  padding-left: 0.5rem;
+  margin-left: 0;
+  color: rgba(230, 226, 175, 0.7);
+  font-style: italic;
+}
+
 /* Glitch System Styles */
 .glitch-text-sexy {
   position: relative;
@@ -141,15 +241,41 @@ html {
   100% { clip-path: inset(40% 0 30% 0); }
 }
 
-.glitch-overlay-1 {
-  animation: rgb-shift 4s infinite alternate;
+/* Stage 1: Subtle */
+.glitch-stage-1 {
+  animation: subtle-flicker 4s infinite alternate;
 }
-.glitch-overlay-2 {
-  animation: rgb-shift 2s infinite alternate, screen-tear 3s infinite;
+@keyframes subtle-flicker {
+  0%, 9%, 11%, 100% { opacity: 1; }
+  10% { opacity: 0.9; }
 }
-.glitch-overlay-3 {
+
+/* Stage 2: Noticeable */
+.glitch-stage-2 {
+  animation: rgb-shift 2s infinite alternate, ui-shift 5s infinite;
+}
+@keyframes ui-shift {
+  0%, 98%, 100% { transform: translateX(0); }
+  99% { transform: translateX(2px); }
+}
+
+/* Stage 3: Aggressive */
+.glitch-stage-3 {
   animation: rgb-shift 0.5s infinite alternate, screen-tear 1s infinite;
   filter: contrast(1.2) saturate(1.2) hue-rotate(5deg);
+}
+
+/* Stage 4: Critical */
+.glitch-stage-4 {
+  animation: rgb-shift 0.1s infinite alternate, screen-tear 0.3s infinite, critical-shake 0.1s infinite;
+  filter: contrast(1.5) saturate(1.5) hue-rotate(15deg) invert(0.1);
+}
+@keyframes critical-shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  25% { transform: translate(-1px, -2px) rotate(-1deg); }
+  50% { transform: translate(-3px, 0px) rotate(1deg); }
+  75% { transform: translate(2px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -1px) rotate(-1deg); }
 }
 
 @keyframes rgb-shift {
@@ -159,8 +285,8 @@ html {
 
 @keyframes screen-tear {
   0%, 4%, 8%, 100% { transform: skewX(0deg) translateX(0); }
-  2% { transform: skewX(1deg) translateX(2px); }
-  6% { transform: skewX(-1deg) translateX(-2px); }
+  2% { transform: skewX(2deg) translateX(4px); }
+  6% { transform: skewX(-2deg) translateX(-4px); }
 }
 
 /* Structural Glitch Classes */
@@ -169,33 +295,34 @@ html {
 }
 
 .structural-glitch button, .structural-glitch a {
-  pointer-events: none;
-  opacity: 0.7;
-  filter: grayscale(1) contrast(2);
-  transform: translateX(2px);
+  pointer-events: none !important;
+  opacity: 0.5;
+  filter: grayscale(1) contrast(3);
+  transform: translateX(4px) scale(0.98);
 }
 
 .structural-glitch section:nth-child(odd) {
-  box-shadow: 10px 10px 0px rgba(139,0,0,0.3), -10px -10px 0px rgba(42,40,36,0.3);
-  transform: translate(3px, 3px);
+  box-shadow: 15px 15px 0px rgba(139,0,0,0.4), -15px -15px 0px rgba(42,40,36,0.4);
+  transform: translate(5px, 5px);
 }
 
 .structural-glitch h1, .structural-glitch h2, .structural-glitch h3 {
-  letter-spacing: -2px;
-  opacity: 0.8;
-  transform: skewX(-5deg);
+  letter-spacing: -4px;
+  opacity: 0.7;
+  transform: skewX(-10deg);
+  text-shadow: 3px 0 red, -3px 0 blue;
 }
 
 @keyframes structural-shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% { transform: translate(0.5px, 0.5px) rotate(0deg); }
+  10% { transform: translate(-0.5px, -1px) rotate(-0.5deg); }
+  20% { transform: translate(-1.5px, 0px) rotate(0.5deg); }
+  30% { transform: translate(1.5px, 1px) rotate(0deg); }
+  40% { transform: translate(0.5px, -0.5px) rotate(0.5deg); }
+  50% { transform: translate(-0.5px, 1px) rotate(-0.5deg); }
+  60% { transform: translate(-1.5px, 0.5px) rotate(0deg); }
+  70% { transform: translate(1.5px, 0.5px) rotate(-0.5deg); }
+  80% { transform: translate(-0.5px, -0.5px) rotate(0.5deg); }
+  90% { transform: translate(0.5px, 1px) rotate(0deg); }
+  100% { transform: translate(0.5px, -1px) rotate(-0.5deg); }
 }

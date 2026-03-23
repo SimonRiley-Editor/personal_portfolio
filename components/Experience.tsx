@@ -1,39 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useGlitch } from './GlitchContext';
 
 const experiences = [
   {
     period: 'Current',
-    company: 'Netflix',
-    role: 'Senior Video Editor',
+    company: 'Saintontas',
+    role: 'Motion Designer , Editor',
     location: 'Remote',
     details: [
-      'Lead editor for original documentary series.',
-      'Collaborate with directors and producers to shape narratives.',
-      'Manage a team of assistant editors and colorists.'
+      'Developed unique A-roll graphics to transform complex data into high-retention motion assets.',
+      'Engineered bespoke "Intro Edits" for character guides, creating distinct visual identities through high-impact sync.',
+      'Integrated advanced VFX and masking to elevate standard tutorials into cinematic experiences.',
+      'Leveraged 6 years of expertise in competitive AMV production to deliver professional-grade sound design and "flow."'
     ]
   },
   {
-    period: '2020—2023',
-    company: 'HBO Max',
-    role: 'Motion Designer',
-    location: 'Los Angeles, CA',
+    period: '2024-2025',
+    company: 'VillainArc$',
+    role: 'Editor',
+    location: 'Remote',
     details: [
-      'Created promotional motion graphics for social media.',
-      'Designed title sequences for original shows.'
-    ]
-  },
-  {
-    period: '2017—2020',
-    company: 'Vice Media',
-    role: 'Video Editor',
-    location: 'New York, NY',
-    details: [
-      'Edited short-form documentaries for YouTube.',
-      'Handled color grading and sound mixing.'
+      'Produced high-impact, stylized Anime Edits for a specialized crypto agency, blending high-energy visual aesthetics with corporate messaging to capture a modern, digital-native audience.',
+      'Mastered rapid-turnaround workflows for high-volume video series, ensuring professional-grade visual quality while meeting the fast-paced demands of the crypto industry.'
     ]
   }
 ];
@@ -41,6 +33,7 @@ const experiences = [
 export default function Experience() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
   const [isHoveringLog, setIsHoveringLog] = useState(false);
+  const { trackSection, reportUserAction } = useGlitch();
 
   return (
     <section id="experience" className="bg-nier-beige border-b border-nier-dark relative overflow-hidden">
@@ -83,7 +76,16 @@ export default function Experience() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-20 relative z-10">
+      <motion.div 
+        className="max-w-6xl mx-auto px-4 py-20 relative z-10"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-20%" }}
+        onViewportEnter={() => {
+          trackSection('Experience');
+          reportUserAction('is analyzing the employment history');
+        }}
+      >
         <div className="flex flex-col md:flex-row gap-12 items-start mb-20 relative">
           
           {/* System Data Block */}
@@ -180,7 +182,7 @@ export default function Experience() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

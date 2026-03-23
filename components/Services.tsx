@@ -1,10 +1,12 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'motion/react';
+import { useGlitch } from './GlitchContext';
 
 export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const { trackSection, reportUserAction } = useGlitch();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -32,8 +34,8 @@ export default function Services() {
 
   // Cursor & Click Animations
   // Move in (0.35 -> 0.45), wait (0.45 -> 0.5), click (0.5 -> 0.55)
-  const cursorX = useTransform(scrollYProgress, [0.35, 0.45, 0.65], ['-40vw', '340px', '340px']);
-  const cursorY = useTransform(scrollYProgress, [0.35, 0.45, 0.65], ['40vh', '240px', '240px']);
+  const cursorX = useTransform(scrollYProgress, [0.35, 0.45, 0.65], ['-40vw', '260px', '260px']);
+  const cursorY = useTransform(scrollYProgress, [0.35, 0.45, 0.65], ['40vh', '230px', '230px']);
   const cursorScale = useTransform(scrollYProgress, [0.45, 0.5, 0.52, 0.55], [1, 1, 0.75, 1]);
   const cursorOpacity = useTransform(scrollYProgress, [0.3, 0.35, 0.6, 0.65], [0, 1, 1, 0]);
 
@@ -51,7 +53,14 @@ export default function Services() {
 
   return (
     <section id="services" ref={containerRef} className="bg-nier-beige relative h-[300vh]">
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 border-b border-nier-dark bg-nier-beige">
+      <motion.div 
+        className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 border-b border-nier-dark bg-nier-beige"
+        onViewportEnter={() => {
+          trackSection('Services');
+          reportUserAction('is browsing available assets and services');
+        }}
+        viewport={{ once: true, margin: "-20%" }}
+      >
         
         <div className="max-w-6xl w-full mx-auto relative z-10">
           
@@ -167,23 +176,32 @@ export default function Services() {
                   GEAR
                 </h2>
                 <p className="text-sm md:text-lg font-mono mb-3 md:mb-6 text-center md:text-left text-nier-dark">
-                  &gt; Level up your edits with my custom LUTs and Premiere Pro presets!
+                  &gt; Level up your motion design with my custom After Effects presets and SFX!
                 </p>
                 <p className="text-xs md:text-sm mb-4 md:mb-8 font-mono text-center md:text-left text-nier-dark/80">
-                  &gt; All the secrets to achieving that cinematic look. You&apos;ll find color grading presets, transition packs, and sound design essentials that I use in my everyday workflow.
+                  &gt; All the secrets to achieving that high-energy, award-winning look. You&apos;ll find the exact animation curves, transition effects, and sound design essentials that I use in my everyday workflow for top-tier creators.
                 </p>
                 <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8 text-xs md:text-sm font-mono text-nier-dark">
                   <li className="flex items-start gap-2 md:gap-3">
                     <span className="text-nier-red mt-0.5">&gt;</span>
-                    <span>50+ Cinematic LUTs for Log footage.</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold">50+ Signature After Effects Presets.</span>
+                      <span className="text-nier-dark/80">Drag-and-drop motion curves, glitch maps, and shakes for AE.</span>
+                    </div>
                   </li>
                   <li className="flex items-start gap-2 md:gap-3">
                     <span className="text-nier-red mt-0.5">&gt;</span>
-                    <span>Drag-and-drop transition presets for Premiere Pro & After Effects.</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold">Elite &quot;Sonic Impact&quot; SFX Library.</span>
+                      <span className="text-nier-dark/80">Essential sound design for punchy transitions and tactile edits.</span>
+                    </div>
                   </li>
                   <li className="flex items-start gap-2 md:gap-3">
                     <span className="text-nier-red mt-0.5">&gt;</span>
-                    <span>Essential sound effects library for punchy edits.</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold">Pro-Grade Flow Transitions.</span>
+                      <span className="text-nier-dark/80">Seamless, motion-blurred transitions for Premiere Pro & After Effects.</span>
+                    </div>
                   </li>
                 </ul>
 
@@ -218,8 +236,7 @@ export default function Services() {
             <path d="M13 13l6 6" />
           </svg>
         </motion.div>
-
-      </div>
+      </motion.div>
     </section>
   );
 }

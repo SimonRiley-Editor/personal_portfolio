@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useGlitch } from './GlitchContext';
 
 interface NavbarProps {
   isLoaded?: boolean;
@@ -10,8 +11,15 @@ interface NavbarProps {
 
 export default function Navbar({ isLoaded = true }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { reportUserAction } = useGlitch();
+
+  const handleNavClick = (label: string) => {
+    reportUserAction(`is navigating to the ${label} section`);
+    setIsOpen(false);
+  };
 
   const navLinks = [
+    { href: '#about', label: 'About Me' },
     { href: '#experience', label: 'Experience' },
     { href: '#services', label: 'Services' },
     { href: '#awards', label: 'Awards' },
@@ -29,7 +37,7 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
       {/* Desktop Nav */}
       <nav className="hidden md:flex bg-nier-light/90 backdrop-blur-sm border border-nier-dark px-6 py-2 items-center gap-6 shadow-sm pointer-events-auto">
         {navLinks.map((link) => (
-          <a key={link.href} href={link.href} className="font-mono text-xs tracking-widest uppercase text-nier-dark hover:text-nier-red hover:bg-nier-dark/5 px-4 py-2 transition-colors whitespace-nowrap relative group">
+          <a key={link.href} href={link.href} onClick={() => handleNavClick(link.label)} className="font-mono text-xs tracking-widest uppercase text-nier-dark hover:text-nier-red hover:bg-nier-dark/5 px-4 py-2 transition-colors whitespace-nowrap relative group">
             <span className="relative z-10">{link.label}</span>
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-nier-red scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
           </a>
@@ -59,7 +67,7 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
               <a 
                 key={link.href} 
                 href={link.href} 
-                onClick={() => setIsOpen(false)}
+                onClick={() => handleNavClick(link.label)}
                 className="font-mono text-sm tracking-widest uppercase text-nier-dark hover:text-nier-red hover:bg-nier-dark/5 px-4 py-4 transition-colors text-center border-b border-nier-dark/20 last:border-b-0"
               >
                 {link.label}

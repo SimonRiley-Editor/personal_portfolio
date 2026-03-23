@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Crosshair, Terminal, Video } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate } from 'motion/react';
+import Image from 'next/image';
+import { useGlitch } from './GlitchContext';
 
 const shapes = [
   { width: 120, height: 120, left: '10%', top: '20%', y: [0, -10, 0], x: [0, 10, 0], duration: 15, color: 'transparent', border: '1px solid #4a4843' },
@@ -76,8 +78,17 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
   const strokeColor = useTransform(progress, [0, 0.5, 1], ["#4a4843", "#4a4843", "#4a4843"]);
   const textStroke = useTransform(strokeColor, c => `1px ${c}`);
 
+  const { trackSection, reportUserAction, unlockEnding } = useGlitch();
+
   return (
-    <section className="min-h-screen bg-transparent relative flex flex-col items-center justify-center overflow-hidden border-b border-nier-dark pt-20">
+    <motion.section 
+      className="min-h-screen bg-transparent relative flex flex-col items-center justify-center overflow-hidden border-b border-nier-dark pt-20"
+      onViewportEnter={() => {
+        trackSection('Hero');
+        reportUserAction('is viewing the primary landing interface');
+      }}
+      viewport={{ once: true, margin: "-20%" }}
+    >
       {/* Animated Background Shapes */}
       <div className="absolute inset-0 overflow-hidden z-0 opacity-30">
         {shapes.map((shape, i) => (
@@ -107,10 +118,10 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-1/4 left-[10%] md:left-1/4 animate-float -rotate-45 opacity-50">
+      <div className="absolute top-1/4 left-[10%] md:left-1/4 animate-float -rotate-45 opacity-50 z-10">
         <Crosshair size={48} className="text-nier-dark" strokeWidth={1} />
       </div>
-      <div className="absolute bottom-1/4 right-[10%] md:right-1/4 animate-float opacity-50">
+      <div className="absolute bottom-1/4 right-[10%] md:right-1/4 animate-float opacity-50 z-10">
         <Terminal size={32} className="text-nier-red" strokeWidth={1} />
       </div>
 
@@ -121,6 +132,14 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           animate={isLoaded ? { scale: 1, opacity: 1, y: 0 } : { scale: 0.9, opacity: 0, y: 20 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: isLoaded ? 0.3 : 0 }}
           className="nier-box px-8 md:px-16 py-6 md:py-8 mb-8 md:mb-12 z-30 inline-block cursor-default hover:bg-nier-dark hover:text-nier-light transition-colors duration-200 group"
+          onClick={() => {
+            const currentClicks = parseInt(localStorage.getItem('nier_logo_clicks') || '0') + 1;
+            localStorage.setItem('nier_logo_clicks', currentClicks.toString());
+            if (currentClicks === 10) {
+              reportUserAction('discovered the logo secret');
+              unlockEnding('L'); // Ending L: Logo Clicker
+            }
+          }}
         >
           <div className="absolute top-1 left-2 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">SYS.ID: 9S</div>
           <h1 className="font-akira text-4xl md:text-7xl lg:text-[8rem] tracking-widest uppercase leading-[1] text-nier-dark mt-2 group-hover:text-nier-light transition-colors duration-200">
@@ -209,6 +228,6 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           <div className="absolute top-0 left-0 w-full h-1/2 bg-nier-red animate-slide-playhead"></div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

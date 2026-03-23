@@ -1,28 +1,40 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { useGlitch } from './GlitchContext';
 
 const awards = [
   {
-    year: '2023',
+    year: '2025',
     items: [
-      { title: 'Webby Award Winner', context: 'Best Editing - Documentary' },
-      { title: 'Vimeo Staff Pick', context: 'Short Film "Neon Nights"' },
+      { title: 'BEST EDITING', context: 'DERPICON' },
+      { title: 'JUDGES CHOICE', context: 'ANIREVO' },
     ]
   },
   {
-    year: '2021',
+    year: '2024',
     items: [
-      { title: 'Emmy Nomination', context: 'Outstanding Picture Editing' },
-      { title: 'SXSW Film Festival', context: 'Official Selection' },
+      { title: '1ST PLACE', context: 'ROYAL GRINDIS AMV CONTEST' },
+      { title: 'PEOPLE\'S CHOICE', context: 'ANIREVO' },
+      { title: '1ST PLACE (EXCLUSIVE)', context: 'ANIME FESTIVAL KASSEL' },
+      { title: '1ST PLACE (OPEN)', context: 'ANIME FESTIVAL KASSEL' },
+    ]
+  },
+  {
+    year: '2023',
+    items: [
+      { title: 'JUDGES CHOICE', context: 'ANIREVO' },
+      { title: '1ST PLACE', context: 'ANIME MESSE BABELSBERG' },
+      { title: '1ST PLACE', context: 'ANIME TORONTO' },
     ]
   }
 ];
 
 export default function Awards() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const { trackSection, reportUserAction } = useGlitch();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 80%", "start 20%"]
@@ -33,7 +45,16 @@ export default function Awards() {
   const glassesRotate = useTransform(scrollYProgress, [0.4, 1], [0, 45]);
 
   return (
-    <section id="awards" ref={containerRef} className="bg-nier-beige border-b border-nier-dark py-20 relative overflow-hidden">
+    <motion.section 
+      id="awards" 
+      ref={containerRef} 
+      className="bg-nier-beige border-b border-nier-dark py-20 relative overflow-hidden"
+      onViewportEnter={() => {
+        trackSection('Awards');
+        reportUserAction('is analyzing the achievement records');
+      }}
+      viewport={{ once: true, margin: "-20%" }}
+    >
       {/* Animated Background Rays */}
       <motion.div 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vw] h-[200vw] md:w-[100vw] md:h-[100vw] opacity-[0.03] pointer-events-none z-0"
@@ -91,6 +112,6 @@ export default function Awards() {
           </div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

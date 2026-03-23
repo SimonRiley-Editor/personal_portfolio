@@ -1,8 +1,9 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
+import { useGlitch } from './GlitchContext';
 
 const projects = [
   { id: 1, title: 'Project One', img: 'https://picsum.photos/seed/edit1/800/600' },
@@ -11,8 +12,18 @@ const projects = [
 ];
 
 export default function Work() {
+  const { trackSection, reportUserAction } = useGlitch();
+
   return (
-    <section id="work" className="bg-nier-gray border-b border-nier-dark pb-20 relative overflow-hidden">
+    <motion.section 
+      id="work" 
+      className="bg-nier-gray border-b border-nier-dark pb-20 relative overflow-hidden"
+      onViewportEnter={() => {
+        trackSection('Work');
+        reportUserAction('is reviewing the project archives');
+      }}
+      viewport={{ once: true, margin: "-20%" }}
+    >
       {/* Animated Background Film Strip */}
       <div className="absolute inset-0 pointer-events-none opacity-10 z-0 flex flex-col justify-between py-10">
         {[...Array(5)].map((_, i) => (
@@ -44,16 +55,24 @@ export default function Work() {
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         {/* Main Video Player Placeholder */}
         <motion.div 
-          className="aspect-video bg-black border border-nier-dark rounded-none mb-12 relative group cursor-pointer overflow-hidden p-1"
+          className="aspect-video bg-black border border-nier-dark rounded-none mb-12 relative group overflow-hidden p-1"
           whileHover="hover"
           initial="initial"
         >
-           {/* Background Image for the video */}
-           <div className="absolute inset-1 opacity-40 bg-[url('https://picsum.photos/seed/mainedit/1920/1080')] bg-cover bg-center mix-blend-luminosity grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+           {/* Actual Video */}
+           <video 
+             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+             src="/Multifandom%20%EF%BD%9C%20Human%20ft.@ragnboneman.mp4"
+             autoPlay
+             loop
+             muted
+             playsInline
+             preload="auto"
+           />
 
            {/* Shimmer/Pulse Effect */}
            <motion.div 
-             className="absolute inset-1 bg-gradient-to-r from-transparent via-nier-light/10 to-transparent skew-x-12"
+             className="absolute inset-1 bg-gradient-to-r from-transparent via-nier-light/10 to-transparent skew-x-12 pointer-events-none"
              variants={{
                hover: {
                  x: ['-200%', '200%'],
@@ -63,22 +82,9 @@ export default function Work() {
              }}
            />
            
-           <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div 
-                className="w-16 h-16 border border-nier-dark flex items-center justify-center bg-nier-light/10 backdrop-blur-sm rounded-none"
-                variants={{
-                  initial: { scale: 0.8, opacity: 0, y: 20 },
-                  hover: { scale: 1, opacity: 1, y: 0 }
-                }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-nier-light border-b-[10px] border-b-transparent ml-1"></div>
-              </motion.div>
-           </div>
-           
            {/* Fake player controls */}
            <motion.div 
-             className="absolute bottom-1 left-1 right-1 p-4 md:p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center gap-4 border-t border-nier-dark/30"
+             className="absolute bottom-1 left-1 right-1 p-4 md:p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center gap-4 border-t border-nier-dark/30 pointer-events-none"
              variants={{
                initial: { y: 20, opacity: 0 },
                hover: { y: 0, opacity: 1 }
@@ -120,6 +126,6 @@ export default function Work() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
