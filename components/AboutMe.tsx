@@ -5,7 +5,7 @@ import { useGlitch } from './GlitchContext';
 import { useEffect } from 'react';
 
 export default function AboutMe() {
-  const { trackSection, reportUserAction } = useGlitch();
+  const { trackSection, reportUserAction, foundSecret } = useGlitch();
 
   return (
     <section className="py-24 bg-[#0a0a0a] text-white relative overflow-hidden" id="about">
@@ -146,7 +146,7 @@ export default function AboutMe() {
                   <div className="absolute top-4 left-4 text-[#e6e2af] text-xs font-mono z-30 bg-black/60 px-2 py-1 border border-[#e6e2af]/30 backdrop-blur-sm">
                     SYS.USR.01
                   </div>
-                  <div className="absolute bottom-4 right-4 text-[#e6e2af] text-xs font-mono z-30 bg-black/60 px-2 py-1 border border-[#e6e2af]/30 backdrop-blur-sm flex items-center gap-2">
+                  <div className="absolute bottom-4 right-4 text-[#e6e2af] text-xs font-mono z-30 bg-black/60 px-2 py-1 border border-[#e6e2af]/30 backdrop-blur-sm flex items-center gap-2 cursor-pointer" onClick={foundSecret}>
                     <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     ONLINE
                   </div>

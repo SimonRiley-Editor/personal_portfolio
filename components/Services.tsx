@@ -5,7 +5,7 @@ import { useGlitch } from './GlitchContext';
 
 export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { trackSection, reportUserAction } = useGlitch();
+  const { trackSection, reportUserAction, foundSecret } = useGlitch();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -212,6 +212,7 @@ export default function Services() {
                   <motion.button 
                     style={{ scale: buttonScale }}
                     className="bg-nier-dark text-nier-light border border-nier-dark px-6 py-2 md:px-8 md:py-3 font-mono text-sm tracking-widest uppercase hover:bg-nier-red transition-colors origin-center relative z-50"
+                    onClick={foundSecret}
                   >
                     [ ACQUIRE ]
                   </motion.button>

@@ -33,6 +33,7 @@ export default function PodSystem() {
     <>
       {activeGame === 'none' && (
         <FloatingPod 
+          isChatOpen={isChatOpen}
           onClick={() => setIsChatOpen(true)}
           onTriggerHacking={() => setActiveGame('hacking')} 
           onTriggerCinematic={() => {

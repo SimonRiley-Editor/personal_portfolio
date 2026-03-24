@@ -6,12 +6,13 @@ import { Cpu, Activity, Shield, Zap, AlertCircle } from 'lucide-react';
 import { useGlitch } from './GlitchContext';
 
 interface FloatingPodProps {
+  isChatOpen?: boolean;
   onClick?: () => void;
   onTriggerHacking?: () => void;
   onTriggerCinematic?: () => void;
 }
 
-export default function FloatingPod({ onClick, onTriggerHacking, onTriggerCinematic }: FloatingPodProps) {
+export default function FloatingPod({ isChatOpen, onClick, onTriggerHacking, onTriggerCinematic }: FloatingPodProps) {
   const { podMessage, setPodMessage, userState, foundSecret } = useGlitch();
   const audioCtxRef = useRef<AudioContext | null>(null);
   const [isMounted, setIsMounted] = React.useState(false);
@@ -89,7 +90,7 @@ export default function FloatingPod({ onClick, onTriggerHacking, onTriggerCinema
   return (
     <div className="fixed bottom-24 right-6 z-[9999] flex flex-col items-end pointer-events-none">
       <AnimatePresence>
-        {isMounted && podMessage && (
+        {isMounted && podMessage && !isChatOpen && (
           <motion.div
             initial={{ opacity: 0, y: 10, x: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
@@ -139,7 +140,7 @@ export default function FloatingPod({ onClick, onTriggerHacking, onTriggerCinema
             y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
             rotate: { duration: 0.1, repeat: Infinity }
           }}
-          className={`w-16 h-16 bg-[#050505] border-2 ${isMounted && userState.stage === 4 ? 'border-nier-red shadow-[0_0_20px_rgba(139,0,0,0.6)]' : 'border-[#e6e2af]/60 shadow-[0_0_15px_rgba(230,226,175,0.2)]'} flex items-center justify-center pointer-events-auto cursor-help hover:bg-[#e6e2af]/10 transition-all duration-300 group relative rounded-sm`}
+          className={`w-16 h-16 bg-[#050505] border-2 ${isMounted && userState.stage === 4 ? 'border-nier-red shadow-[0_0_20px_rgba(139,0,0,0.6)]' : 'border-[#e6e2af]/60 shadow-[0_0_15px_rgba(230,226,175,0.2)]'} flex items-center justify-center pointer-events-auto cursor-help hover:bg-[#e6e2af]/10 transition-all duration-300 group relative rounded-sm hover:border-nier-red hover:shadow-[0_0_20px_rgba(139,0,0,0.4)]`}
           onClick={() => {
             playSound('click');
             setPodMessage("POD: Manual diagnostic requested. System status: " + (userState.stage === 4 ? "UNSTABLE" : "NOMINAL"));
@@ -152,30 +153,30 @@ export default function FloatingPod({ onClick, onTriggerHacking, onTriggerCinema
             <motion.div 
               animate={{ rotate: 360 }}
               transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-              className={`absolute w-12 h-12 border border-dashed rounded-full ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-[#e6e2af]/40'}`}
+              className={`absolute w-12 h-12 border border-dashed rounded-full ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-[#e6e2af]/40 group-hover:border-nier-red'}`}
             />
             {/* Inner Ring */}
             <motion.div 
               animate={{ rotate: -360 }}
               transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-              className={`absolute w-8 h-8 border border-dotted rounded-full ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-[#e6e2af]/60'}`}
+              className={`absolute w-8 h-8 border border-dotted rounded-full ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-[#e6e2af]/60 group-hover:border-nier-red'}`}
             />
             {/* Core Eye */}
-            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${isMounted && userState.stage === 4 ? 'bg-nier-red animate-pulse' : 'bg-[#e6e2af]'}`}>
+            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${isMounted && userState.stage === 4 ? 'bg-nier-red animate-pulse' : 'bg-[#e6e2af] group-hover:bg-nier-red'}`}>
               <div className="w-1.5 h-1.5 bg-black rounded-full" />
             </div>
             {/* Antennae */}
-            <div className={`absolute -top-2 w-1 h-3 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-[#e6e2af]'}`} />
-            <div className={`absolute -bottom-2 w-1 h-2 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-[#e6e2af]'}`} />
-            <div className={`absolute -left-2 w-2 h-1 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-[#e6e2af]'}`} />
-            <div className={`absolute -right-2 w-2 h-1 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-[#e6e2af]'}`} />
+            <div className={`absolute -top-2 w-1 h-3 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-[#e6e2af] group-hover:bg-nier-red'}`} />
+            <div className={`absolute -bottom-2 w-1 h-2 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-[#e6e2af] group-hover:bg-nier-red'}`} />
+            <div className={`absolute -left-2 w-2 h-1 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-[#e6e2af] group-hover:bg-nier-red'}`} />
+            <div className={`absolute -right-2 w-2 h-1 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-[#e6e2af] group-hover:bg-nier-red'}`} />
           </div>
 
           {/* Decorative corners */}
-          <div className="absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 border-[#e6e2af]"></div>
-          <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-[#e6e2af]"></div>
-          <div className="absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 border-[#e6e2af]"></div>
-          <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 border-[#e6e2af]"></div>
+          <div className={`absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-[#e6e2af] group-hover:border-nier-red'}`}></div>
+          <div className={`absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-[#e6e2af] group-hover:border-nier-red'}`}></div>
+          <div className={`absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-[#e6e2af] group-hover:border-nier-red'}`}></div>
+          <div className={`absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-[#e6e2af] group-hover:border-nier-red'}`}></div>
 
           {/* Mini status text */}
           <div className="absolute -bottom-6 right-0 text-[9px] font-mono text-[#e6e2af]/60 tracking-tighter whitespace-nowrap bg-black/50 px-1">

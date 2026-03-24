@@ -78,7 +78,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
   const strokeColor = useTransform(progress, [0, 0.5, 1], ["#4a4843", "#4a4843", "#4a4843"]);
   const textStroke = useTransform(strokeColor, c => `1px ${c}`);
 
-  const { trackSection, reportUserAction, unlockEnding } = useGlitch();
+  const { trackSection, reportUserAction, unlockEnding, foundSecret } = useGlitch();
 
   return (
     <motion.section 
@@ -121,7 +121,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
       <div className="absolute top-1/4 left-[10%] md:left-1/4 animate-float -rotate-45 opacity-50 z-10">
         <Crosshair size={48} className="text-nier-dark" strokeWidth={1} />
       </div>
-      <div className="absolute bottom-1/4 right-[10%] md:right-1/4 animate-float opacity-50 z-10">
+      <div className="absolute bottom-1/4 right-[10%] md:right-1/4 animate-float opacity-50 z-10 cursor-pointer" onClick={foundSecret}>
         <Terminal size={32} className="text-nier-red" strokeWidth={1} />
       </div>
 

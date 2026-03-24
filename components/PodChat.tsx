@@ -18,7 +18,7 @@ interface Message {
 }
 
 export default function PodChat({ onClose }: PodChatProps) {
-  const { userState, restoreSystem, glitchLevel, unlockEnding } = useGlitch();
+  const { userState, restoreSystem, glitchLevel, unlockEnding, foundSecret } = useGlitch();
   const [messages, setMessages] = useState<Message[]>([
     { role: 'model', text: 'POD: Communication link established. State your query.' }
   ]);
@@ -41,6 +41,10 @@ export default function PodChat({ onClose }: PodChatProps) {
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
     setIsThinking(true);
+
+    if (userMessage.toLowerCase().includes('2b')) {
+      foundSecret();
+    }
 
     if (glitchLevel >= 3 && userMessage.toUpperCase() === "WHO ARE YOU") {
       setTimeout(() => {
