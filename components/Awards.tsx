@@ -33,7 +33,7 @@ const awards = [
 
 export default function Awards() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { trackSection, reportUserAction } = useGlitch();
+  const { trackSection, reportUserAction, foundSpecialSecret } = useGlitch();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -84,7 +84,7 @@ export default function Awards() {
 
       <div className="text-center mb-16 relative z-10">
         <div className="inline-block relative">
-           <h2 className="font-akira text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase text-nier-dark">
+           <h2 className="font-akira text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase text-nier-dark cursor-pointer" onClick={foundSpecialSecret}>
              AWARDS
            </h2>
            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-full max-w-[200px] h-[1px] bg-nier-dark opacity-50"></div>

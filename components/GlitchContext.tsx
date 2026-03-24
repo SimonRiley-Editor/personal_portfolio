@@ -29,6 +29,7 @@ interface GlitchContextType {
   userState: UserState;
   trackSection: (section: string) => void;
   foundSecret: () => void;
+  foundSpecialSecret: () => void;
   reportUserAction: (action: string) => void;
   unlockEnding: (endingId: string) => void;
 }
@@ -165,6 +166,7 @@ const GlitchContext = createContext<GlitchContextType>({
   },
   trackSection: () => {},
   foundSecret: () => {},
+  foundSpecialSecret: () => {},
   reportUserAction: () => {},
   unlockEnding: () => {},
 });
@@ -387,6 +389,10 @@ export const GlitchProvider = ({ children }: { children: React.ReactNode }) => {
     updateBehavior();
   }, [triggerPodMessage, updateBehavior, unlockEnding]);
 
+  const foundSpecialSecret = useCallback(() => {
+    triggerPodMessage("POD: You want to **** 2B, don't you?", true);
+  }, [triggerPodMessage]);
+
   // Structural glitch randomizer
   useEffect(() => {
     if (glitchLevel >= 2 && !isCrashed) {
@@ -596,6 +602,7 @@ export const GlitchProvider = ({ children }: { children: React.ReactNode }) => {
       userState,
       trackSection,
       foundSecret,
+      foundSpecialSecret,
       reportUserAction,
       unlockEnding
     }}>

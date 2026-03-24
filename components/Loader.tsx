@@ -556,6 +556,17 @@ export default function Loader({ onComplete }: LoaderProps) {
     }, 800);
   };
 
+  const handleSkip = () => {
+    initAudio();
+    playSound('accept');
+    setIsVisible(false);
+    reportUserAction('skipped the hacking sequence and entered the site');
+    setTimeout(() => {
+      document.body.style.overflow = 'auto';
+      onComplete();
+    }, 800);
+  };
+
   const startGame = () => {
     initAudio();
     setGameState('playing');
@@ -596,12 +607,20 @@ export default function Loader({ onComplete }: LoaderProps) {
                 On mobile, <span className="text-white">drag</span> to move.<br/>
                 Destroy the Core. Avoid red projectiles.
               </p>
-              <button 
-                onClick={startGame}
-                className="px-8 py-3 border border-[#e6e2af] text-[#e6e2af] hover:bg-[#e6e2af] hover:text-black transition-colors tracking-widest uppercase text-sm"
-              >
-                Initiate Hack
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button 
+                  onClick={startGame}
+                  className="px-8 py-3 border border-[#e6e2af] text-[#e6e2af] hover:bg-[#e6e2af] hover:text-black transition-colors tracking-widest uppercase text-sm"
+                >
+                  Initiate Hack
+                </button>
+                <button 
+                  onClick={handleSkip}
+                  className="px-8 py-3 border border-gray-600 text-gray-400 hover:bg-gray-800 hover:text-white transition-colors tracking-widest uppercase text-sm"
+                >
+                  Skip Hack
+                </button>
+              </div>
             </div>
           )}
 
