@@ -6,7 +6,8 @@ import Hero from '@/components/Hero';
 import AboutMe from '@/components/AboutMe';
 import Experience from '@/components/Experience';
 import Services from '@/components/Services';
-import AwardsWorkTransition from '@/components/AwardsWorkTransition';
+import Awards from '@/components/Awards';
+import WorkSection from '@/components/WorkSection';
 import Contact from '@/components/Contact';
 import Loader from '@/components/Loader';
 import SectionWrapper from '@/components/SectionWrapper';
@@ -41,7 +42,8 @@ export default function Home() {
       <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
         <Experience />
         <Services />
-        <AwardsWorkTransition />
+        <Awards />
+        <WorkSection />
         <Contact />
       </div>
     </main>
