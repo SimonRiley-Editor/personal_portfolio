@@ -7,7 +7,7 @@ import AboutMe from '@/components/AboutMe';
 import Experience from '@/components/Experience';
 import Services from '@/components/Services';
 import Awards from '@/components/Awards';
-import WorkSection from '@/components/WorkSection';
+import WorkSection from '@/components/work-section';
 import Contact from '@/components/Contact';
 import Loader from '@/components/Loader';
 import SectionWrapper from '@/components/SectionWrapper';
