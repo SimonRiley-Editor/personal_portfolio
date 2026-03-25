@@ -1,9 +1,10 @@
 import { motion } from 'motion/react';
 import { Code, Film, Music, Sparkles, GraduationCap, Globe, User, BrainCircuit } from 'lucide-react';
 import Image from 'next/image';
-import profileImg from '../public/image.webp';
 import { useGlitch } from './GlitchContext';
 import { useState } from 'react';
+
+const profileImg = '/image.webp';
 
 export default function AboutMe() {
   const { trackSection, reportUserAction, foundSecret } = useGlitch();
@@ -28,7 +29,7 @@ export default function AboutMe() {
             className="space-y-6"
           >
             <p className="border-l-2 border-[#e6e2af]/30 pl-5 text-gray-300">
-              I didn't begin my career as a video editor. My path started in computer engineering and programming, leading to a Master’s degree in Informatics from BSU. Although I valued the logic behind coding, it never fully connected with me. What remained constant was my love for editing.
+              I didn&apos;t begin my career as a video editor. My path started in computer engineering and programming, leading to a Master’s degree in Informatics from BSU. Although I valued the logic behind coding, it never fully connected with me. What remained constant was my love for editing.
             </p>
             <p className="border-l-2 border-[#e6e2af]/30 pl-5 text-gray-300">
               What started as a refuge editing anime clips to music to express my emotions transformed into a fiercely competitive field. Over the last 6 years, I have developed a career characterized by technical accuracy and creative influence, merging the engineering precision of my education with the pure enthusiasm of an AMV champion.
@@ -132,7 +133,7 @@ export default function AboutMe() {
             </div>
             
             <p className="italic text-gray-300 text-lg leading-relaxed relative z-10">
-              &quot;My background as a Computer Engineer means I don't just use creative software; I understand the architecture behind it. This technical depth allows me to optimize performance, troubleshoot complex VFX pipelines, and maintain peak visual quality in high-pressure environments.&quot;
+              &quot;My background as a Computer Engineer means I don&apos;t just use creative software; I understand the architecture behind it. This technical depth allows me to optimize performance, troubleshoot complex VFX pipelines, and maintain peak visual quality in high-pressure environments.&quot;
             </p>
           </motion.div>
         );

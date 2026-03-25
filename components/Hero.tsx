@@ -276,12 +276,12 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         <motion.a 
           initial={{ opacity: 0, y: 20 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          href="#work"
+          href="#cinematic-timeline"
           className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-8 md:px-12 py-5 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-nier-light transition-colors duration-300 shadow-lg"
           transition={{ duration: 0.8, delay: isLoaded ? 0.7 : 0 }}
           onClick={(e) => {
             e.preventDefault();
-            document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('cinematic-timeline')?.scrollIntoView({ behavior: 'smooth' });
           }}
         >
           <span className="relative z-10 flex items-center gap-3">

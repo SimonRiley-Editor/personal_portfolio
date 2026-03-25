@@ -22,8 +22,7 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
     { href: '#about', label: 'About Me' },
     { href: '#experience', label: 'Experience' },
     { href: '#services', label: 'Services' },
-    { href: '#awards', label: 'Awards' },
-    { href: '#work', label: 'Work' },
+    { href: '#cinematic-timeline', label: 'Awards & Work' },
     { href: '#contact', label: 'Contact' },
   ];
 

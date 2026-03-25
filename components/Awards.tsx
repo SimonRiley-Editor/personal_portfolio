@@ -45,7 +45,7 @@ export default function Awards() {
     <motion.section 
       id="awards" 
       ref={containerRef} 
-      className="bg-nier-beige border-b border-nier-dark py-24 relative overflow-hidden"
+      className="bg-nier-beige py-24 relative overflow-hidden"
       onViewportEnter={() => {
         trackSection('Awards');
         reportUserAction('is analyzing the achievement records');
