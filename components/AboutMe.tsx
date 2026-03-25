@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
 import { Code, Film, Music, Sparkles, GraduationCap, Globe, User, BrainCircuit } from 'lucide-react';
 import Image from 'next/image';
-import profileImg from '../public/image.webp';
 import { useGlitch } from './GlitchContext';
 import { useState } from 'react';
 
@@ -270,28 +269,25 @@ export default function AboutMe() {
 
                   {/* Base Image */}
                   <Image 
-                    src={profileImg} 
+                    src="/image.webp" 
                     alt="SYS.USR.01" 
                     fill
-                    referrerPolicy="no-referrer"
                     className="object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition-all duration-700"
                   />
                   
                   {/* Glitch Layers (visible on hover) */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <Image 
-                      src={profileImg} 
+                      src="/image.webp" 
                       alt="" 
                       fill
-                      referrerPolicy="no-referrer"
                       className="object-cover filter grayscale contrast-150 mix-blend-screen glitch-img-1"
                       style={{ filter: 'drop-shadow(3px 0 0 #ff4444)' }}
                     />
                     <Image 
-                      src={profileImg} 
+                      src="/image.webp" 
                       alt="" 
                       fill
-                      referrerPolicy="no-referrer"
                       className="object-cover filter grayscale contrast-150 mix-blend-screen glitch-img-2"
                       style={{ filter: 'drop-shadow(-3px 0 0 #69f0ae)' }}
                     />
