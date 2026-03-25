@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useGlitch } from './GlitchContext';
 import { useState } from 'react';
 
-const profileImg = '/image.webp';
+const profileImg = '/pp.png';
 
 export default function AboutMe() {
   const { trackSection, reportUserAction, foundSecret } = useGlitch();
