@@ -269,7 +269,7 @@ export default function AboutMe() {
 
                   {/* Base Image */}
                   <Image 
-                    src="/image.png" 
+                    src="/image.webp" 
                     alt="SYS.USR.01" 
                     fill
                     className="object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition-all duration-700"
@@ -278,14 +278,14 @@ export default function AboutMe() {
                   {/* Glitch Layers (visible on hover) */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <Image 
-                      src="/image.png" 
+                      src="/image.webp" 
                       alt="" 
                       fill
                       className="object-cover filter grayscale contrast-150 mix-blend-screen glitch-img-1"
                       style={{ filter: 'drop-shadow(3px 0 0 #ff4444)' }}
                     />
                     <Image 
-                      src="/image.png" 
+                      src="/image.webp" 
                       alt="" 
                       fill
                       className="object-cover filter grayscale contrast-150 mix-blend-screen glitch-img-2"
