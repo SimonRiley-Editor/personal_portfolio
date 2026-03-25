@@ -10,6 +10,7 @@ import Awards from '@/components/Awards';
 import Work from '@/components/Work';
 import Contact from '@/components/Contact';
 import Loader from '@/components/Loader';
+import SectionWrapper from '@/components/SectionWrapper';
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -21,16 +22,30 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white selection:bg-black selection:text-white">
+    <main className="min-h-screen bg-white selection:bg-black selection:text-white relative">
       <Loader onComplete={() => setIsLoaded(true)} />
       <Navbar isLoaded={isLoaded} />
-      <Hero isLoaded={isLoaded} />
-      <AboutMe />
-      <Experience />
-      <Services />
-      <Awards />
-      <Work />
-      <Contact />
+      
+      <SectionWrapper index={1}>
+        <Hero isLoaded={isLoaded} />
+      </SectionWrapper>
+      
+      <SectionWrapper index={2}>
+        <AboutMe />
+      </SectionWrapper>
+      
+      {/* 
+        The rest of the sections scroll normally. 
+        We wrap them in a relative container with a higher z-index 
+        so they slide over the sticky sections above.
+      */}
+      <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
+        <Experience />
+        <Services />
+        <Awards />
+        <Work />
+        <Contact />
+      </div>
     </main>
   );
 }
