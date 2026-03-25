@@ -14,6 +14,9 @@ const michroma = Michroma({ weight: '400', subsets: ['latin'], variable: '--font
 export const metadata: Metadata = {
   title: 'Video Editor Portfolio',
   description: 'Portfolio of a Video Editor and Motion Designer',
+  icons: {
+    icon: 'https://res.cloudinary.com/ds6dwbk37/image/upload/v1774436965/gemini-svg_clfjaj.svg',
+  },
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
