@@ -1,25 +1,43 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageSquare, Youtube, Twitter, Heart } from 'lucide-react';
 import { useGlitch } from './GlitchContext';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [status, setStatus] = useState<'idle' | 'transmitting' | 'success'>('idle');
   const [copied, setCopied] = useState(false);
   const [showSecret, setShowSecret] = useState(false);
   const { trackSection, reportUserAction } = useGlitch();
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleTransmit = () => {
-    if (status !== 'idle') return;
+  const handleTransmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status !== 'idle' || !formRef.current) return;
+    
     setStatus('transmitting');
-    setTimeout(() => {
-      setStatus('success');
-      setTimeout(() => {
+    
+    emailjs.sendForm(
+      'service_4jsa7ei',
+      'template_j9yjgck',
+      formRef.current,
+      'fH9kZwRMt_gbhAhcW'
+    ).then(
+      () => {
+        setStatus('success');
+        setTimeout(() => {
+          setStatus('idle');
+          if (formRef.current) formRef.current.reset();
+        }, 4000);
+      },
+      (error) => {
+        console.error('EmailJS Error:', error.text);
         setStatus('idle');
-      }, 4000);
-    }, 2000);
+        alert('Transmission failed. Please try again.');
+      }
+    );
   };
 
   return (
@@ -61,6 +79,8 @@ export default function Contact() {
           <AnimatePresence mode="wait">
             {status === 'idle' || status === 'transmitting' ? (
               <motion.form 
+                ref={formRef}
+                onSubmit={handleTransmit}
                 key="form"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -72,6 +92,8 @@ export default function Contact() {
                     <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">Identifier</label>
                     <input 
                       type="text" 
+                      name="user_name"
+                      required
                       disabled={status === 'transmitting'}
                       className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors font-mono text-sm text-nier-dark disabled:opacity-50"
                       placeholder="[ NAME ]"
@@ -81,6 +103,8 @@ export default function Contact() {
                     <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">Comm_Channel</label>
                     <input 
                       type="email" 
+                      name="user_email"
+                      required
                       disabled={status === 'transmitting'}
                       className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors font-mono text-sm text-nier-dark disabled:opacity-50"
                       placeholder="[ EMAIL ]"
@@ -91,6 +115,8 @@ export default function Contact() {
                 <div>
                   <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">Payload</label>
                   <textarea 
+                    name="message"
+                    required
                     rows={6}
                     disabled={status === 'transmitting'}
                     className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors resize-none font-mono text-sm text-nier-dark disabled:opacity-50"
@@ -99,8 +125,7 @@ export default function Contact() {
                 </div>
 
                 <button 
-                  type="button"
-                  onClick={handleTransmit}
+                  type="submit"
                   disabled={status === 'transmitting'}
                   className="w-full bg-nier-dark text-nier-light border border-nier-dark py-4 font-mono text-sm tracking-widest uppercase hover:bg-nier-red transition-colors relative group overflow-hidden disabled:hover:bg-nier-dark"
                 >

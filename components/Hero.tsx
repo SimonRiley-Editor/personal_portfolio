@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Crosshair, Terminal, Video } from 'lucide-react';
+import { Crosshair, Terminal, Video, Activity, Cpu, Database } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate } from 'motion/react';
 import Image from 'next/image';
 import { useGlitch } from './GlitchContext';
@@ -18,7 +18,16 @@ const shapes = [
 export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
   const progress = useMotionValue(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [time, setTime] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      setTime(`${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}:${now.getMilliseconds().toString().padStart(3, '0')}`);
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (!isDragging) {
@@ -89,6 +98,9 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
       }}
       viewport={{ once: true, margin: "-20%" }}
     >
+      {/* Grid Background */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" style={{ backgroundImage: 'linear-gradient(var(--color-nier-dark) 1px, transparent 1px), linear-gradient(90deg, var(--color-nier-dark) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+
       {/* Animated Background Shapes */}
       <div className="absolute inset-0 overflow-hidden z-0 opacity-30">
         {shapes.map((shape, i) => (
@@ -117,6 +129,38 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         ))}
       </div>
 
+      {/* Technical HUD Elements */}
+      <div className="absolute top-24 left-6 hidden lg:flex flex-col gap-4 opacity-60 z-10 font-mono text-[10px] text-nier-dark tracking-widest">
+        <div className="flex items-center gap-2">
+          <Activity size={12} className="text-nier-red animate-pulse" />
+          <span>SYS.STATUS: OPTIMAL</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Cpu size={12} />
+          <span>MEM.USAGE: 42.8%</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Database size={12} />
+          <span>DB.CONN: ESTABLISHED</span>
+        </div>
+        <div className="mt-4 border-l border-nier-dark pl-2 space-y-1">
+          <div>LAT: 40.3790° N</div>
+          <div>LON: 49.8920° E</div>
+          <div className="text-nier-red mt-2">{time}</div>
+        </div>
+      </div>
+
+      <div className="absolute top-24 right-6 hidden lg:flex flex-col items-end gap-2 opacity-60 z-10 font-mono text-[10px] text-nier-dark tracking-widest text-right">
+        <div className="writing-vertical-rl transform rotate-180 text-2xl font-bold tracking-[0.5em] opacity-30">
+          アリ・アリエフ
+        </div>
+        <div className="mt-4 border-r border-nier-dark pr-2 space-y-1">
+          <div>TARGET: IDENTIFIED</div>
+          <div>MODE: CREATIVE</div>
+          <div>VFX_PIPELINE: ACTIVE</div>
+        </div>
+      </div>
+
       {/* Decorative Elements */}
       <div className="absolute top-1/4 left-[10%] md:left-1/4 animate-float -rotate-45 opacity-50 z-10">
         <Crosshair size={48} className="text-nier-dark" strokeWidth={1} />
@@ -126,12 +170,12 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
       </div>
 
       {/* Main Content */}
-      <div className="text-center z-10 px-4 mt-12 flex flex-col items-center">
+      <div className="text-center z-10 px-4 mt-12 flex flex-col items-center w-full max-w-5xl">
         <motion.div
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
           animate={isLoaded ? { scale: 1, opacity: 1, y: 0 } : { scale: 0.9, opacity: 0, y: 20 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: isLoaded ? 0.3 : 0 }}
-          className="nier-box px-8 md:px-16 py-6 md:py-8 mb-8 md:mb-12 z-30 inline-block cursor-default hover:bg-nier-dark hover:text-nier-light transition-colors duration-200 group"
+          className="relative w-full nier-box px-8 md:px-16 py-8 md:py-12 mb-8 md:mb-12 z-30 cursor-default hover:bg-nier-dark hover:text-nier-light transition-colors duration-500 group overflow-hidden"
           onClick={() => {
             const currentClicks = parseInt(localStorage.getItem('nier_logo_clicks') || '0') + 1;
             localStorage.setItem('nier_logo_clicks', currentClicks.toString());
@@ -141,21 +185,43 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             }
           }}
         >
-          <div className="absolute top-1 left-2 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">SYS.ID: 9S</div>
-          <h1 className="font-akira text-4xl md:text-7xl lg:text-[8rem] tracking-widest uppercase leading-[1] text-nier-dark mt-2 group-hover:text-nier-light transition-colors duration-200">
+          {/* Hover Scanline */}
+          <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(255,255,255,0.05)_50%)] bg-[length:100%_4px] opacity-0 group-hover:opacity-100 pointer-events-none z-0" />
+          
+          <div className="absolute top-2 left-3 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-nier-red rounded-full animate-pulse" />
+            SYS.ID: 9S // AUTHORIZED
+          </div>
+          
+          <div className="absolute top-2 right-3 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">
+            ビデオエディター
+          </div>
+
+          <h1 className="font-akira text-5xl md:text-7xl lg:text-[9rem] tracking-widest uppercase leading-[0.9] text-nier-dark mt-6 group-hover:text-nier-light transition-colors duration-500 relative z-10">
             ALI<br/>ALIYEV
           </h1>
-          <div className="absolute bottom-1 right-2 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">[ DATA_LINK_ACTIVE ]</div>
+          
+          <div className="absolute bottom-2 right-3 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">
+            [ DATA_LINK_ACTIVE ]
+          </div>
+          
+          <div className="absolute bottom-2 left-3 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">
+            VER: 2.0.4b
+          </div>
+
+          {/* Corner accents */}
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-nier-red opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-nier-red opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.5, delay: isLoaded ? 0.5 : 0 }}
-          className="relative inline-block mb-12 mx-4 md:mx-16"
+          className="relative inline-block mb-16 mx-4 md:mx-16 w-full max-w-4xl"
         >
           <motion.div 
-            className="font-wide text-5xl md:text-[8rem] lg:text-[10rem] tracking-tighter relative z-10" 
+            className="font-wide text-6xl md:text-[8rem] lg:text-[11rem] tracking-tighter relative z-10" 
             style={{ 
               skewX: textSkew,
               letterSpacing: letterSpacing,
@@ -181,7 +247,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
              >
                {/* Playhead */}
                <motion.div 
-                 className="w-1 md:w-2 h-16 md:h-24 bg-nier-red border border-nier-dark absolute top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
+                 className="w-1 md:w-2 h-16 md:h-24 bg-nier-red border border-nier-dark absolute top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing shadow-[0_0_10px_rgba(139,0,0,0.5)]"
                  style={{ 
                    left: useTransform(progress, [0, 1], ["0%", "100%"]),
                    x: "-50%"
@@ -199,7 +265,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
                    x: "100%",
                  }}
                >
-                 <div className="nier-box p-2 md:p-3 ml-4">
+                 <div className="nier-box p-2 md:p-3 ml-4 bg-nier-beige/80 backdrop-blur-sm">
                    <Video size={24} className="text-nier-dark" strokeWidth={1.5} />
                  </div>
                </motion.div>
@@ -210,13 +276,18 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         <motion.a 
           initial={{ opacity: 0, y: 20 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          href="https://www.youtube.com/@simongodly"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-6 md:px-10 py-4 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-nier-light transition-colors duration-200"
+          href="#work"
+          className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-8 md:px-12 py-5 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-nier-light transition-colors duration-300 shadow-lg"
           transition={{ duration: 0.8, delay: isLoaded ? 0.7 : 0 }}
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+          }}
         >
-          <span className="relative z-10">[ Award-winning Video Editor & Motion Designer ]</span>
+          <span className="relative z-10 flex items-center gap-3">
+            <span className="w-2 h-2 bg-nier-light rounded-full animate-pulse" />
+            [ Award-winning Video Editor & Motion Designer ]
+          </span>
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </motion.a>
       </div>
