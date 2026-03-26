@@ -1,15 +1,31 @@
 @import "tailwindcss";
 
+:root {
+  --theme-nier-beige: #dad4c4;
+  --theme-nier-dark: #4a4843;
+  --theme-nier-red: #8b0000;
+  --theme-nier-light: #e8e6e1;
+  --theme-nier-gray: #2a2824;
+}
+
+.dark {
+  --theme-nier-beige: #1a1814;
+  --theme-nier-dark: #dad4c4;
+  --theme-nier-red: #ff4444;
+  --theme-nier-light: #2a2824;
+  --theme-nier-gray: #0a0908;
+}
+
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-wide: var(--font-wide), ui-sans-serif, system-ui, sans-serif;
   --font-akira: var(--font-akira), ui-sans-serif, system-ui, sans-serif;
-  --color-nier-beige: #dad4c4;
-  --color-nier-dark: #4a4843;
-  --color-nier-red: #8b0000;
-  --color-nier-light: #e8e6e1;
-  --color-nier-gray: #2a2824;
+  --color-nier-beige: var(--theme-nier-beige);
+  --color-nier-dark: var(--theme-nier-dark);
+  --color-nier-red: var(--theme-nier-red);
+  --color-nier-light: var(--theme-nier-light);
+  --color-nier-gray: var(--theme-nier-gray);
 }
 
 @layer utilities {

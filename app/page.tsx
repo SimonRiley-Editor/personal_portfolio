@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white selection:bg-black selection:text-white relative">
+    <main className="min-h-screen bg-nier-beige selection:bg-nier-dark selection:text-nier-light relative">
       <Loader onComplete={() => setIsLoaded(true)} />
       <Navbar isLoaded={isLoaded} />
       
@@ -39,7 +39,7 @@ export default function Home() {
         We wrap them in a relative container with a higher z-index 
         so they slide over the sticky sections above.
       */}
-      <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
+      <div className="relative z-10 bg-nier-beige shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
         <Experience />
         <Services />
         <Awards />

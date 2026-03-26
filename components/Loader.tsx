@@ -579,7 +579,7 @@ export default function Loader({ onComplete }: LoaderProps) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center overflow-hidden font-mono"
+          className="fixed inset-0 z-[100] bg-nier-gray flex flex-col items-center justify-center overflow-hidden font-mono"
         >
           <style>{`
             @keyframes textGlitch {
@@ -598,25 +598,25 @@ export default function Loader({ onComplete }: LoaderProps) {
 
           {gameState === 'start' && (
             <div className="text-center z-10 flex flex-col items-center">
-              <div className="text-[#e6e2af] text-xl md:text-2xl mb-6 tracking-widest animate-pulse">
+              <div className="text-nier-beige text-xl md:text-2xl mb-6 tracking-widest animate-pulse">
                 SYSTEM LOCKED. HACKING REQUIRED.
               </div>
-              <p className="text-gray-400 mb-8 text-sm md:text-base max-w-md">
+              <p className="text-nier-light/70 mb-8 text-sm md:text-base max-w-md">
                 You need to complete this to access the website.<br/><br/>
-                Use <span className="text-white">WASD</span> or <span className="text-white">Arrow Keys</span> to move.<br/>
-                On mobile, <span className="text-white">drag</span> to move.<br/>
+                Use <span className="text-nier-light">WASD</span> or <span className="text-nier-light">Arrow Keys</span> to move.<br/>
+                On mobile, <span className="text-nier-light">drag</span> to move.<br/>
                 Destroy the Core. Avoid red projectiles.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button 
                   onClick={startGame}
-                  className="px-8 py-3 border border-[#e6e2af] text-[#e6e2af] hover:bg-[#e6e2af] hover:text-black transition-colors tracking-widest uppercase text-sm"
+                  className="px-8 py-3 border border-nier-beige text-nier-beige hover:bg-nier-beige hover:text-nier-dark transition-colors tracking-widest uppercase text-sm"
                 >
                   Initiate Hack
                 </button>
                 <button 
                   onClick={handleSkip}
-                  className="px-8 py-3 border border-gray-600 text-gray-400 hover:bg-gray-800 hover:text-white transition-colors tracking-widest uppercase text-sm"
+                  className="px-8 py-3 border border-nier-dark/60 text-nier-light/70 hover:bg-nier-dark/80 hover:text-nier-light transition-colors tracking-widest uppercase text-sm"
                 >
                   Skip Hack
                 </button>
@@ -627,10 +627,10 @@ export default function Loader({ onComplete }: LoaderProps) {
           {gameState === 'playing' && (
             <>
               <canvas ref={canvasRef} className="absolute inset-0 w-full h-full cursor-none" />
-              <div className="absolute top-8 left-8 text-[#e6e2af] text-sm tracking-widest opacity-70">
+              <div className="absolute top-8 left-8 text-nier-beige text-sm tracking-widest opacity-70">
                 {sysMsg}
               </div>
-              <div className="absolute bottom-8 right-8 text-[#e6e2af] text-xs tracking-widest opacity-50">
+              <div className="absolute bottom-8 right-8 text-nier-beige text-xs tracking-widest opacity-50">
                 WASD / ARROWS TO MOVE
               </div>
             </>
@@ -641,11 +641,11 @@ export default function Loader({ onComplete }: LoaderProps) {
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-white text-3xl md:text-5xl tracking-[0.2em] font-bold mb-8 glitch-text"
+                className="text-nier-light text-3xl md:text-5xl tracking-[0.2em] font-bold mb-8 glitch-text"
               >
                 ACCESS GRANTED
               </motion.div>
-              <div className="text-[#e6e2af] text-sm md:text-base tracking-widest leading-loose mb-12 min-h-[100px]">
+              <div className="text-nier-beige text-sm md:text-base tracking-widest leading-loose mb-12 min-h-[100px]">
                 {philoText}
                 <span className="animate-pulse">_</span>
               </div>
@@ -655,7 +655,7 @@ export default function Loader({ onComplete }: LoaderProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     onClick={handleEnterSite}
-                    className="px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-all tracking-[0.3em] uppercase text-sm"
+                    className="px-8 py-3 border border-nier-light text-nier-light hover:bg-nier-light hover:text-nier-dark transition-all tracking-[0.3em] uppercase text-sm"
                   >
                     Initialize Connection
                   </motion.button>
@@ -666,10 +666,10 @@ export default function Loader({ onComplete }: LoaderProps) {
 
           {gameState === 'lost' && (
             <div className="text-center z-10">
-              <div className="text-[#ff4444] text-3xl md:text-5xl tracking-[0.2em] font-bold mb-4">
+              <div className="text-nier-red text-3xl md:text-5xl tracking-[0.2em] font-bold mb-4">
                 ACCESS DENIED
               </div>
-              <div className="text-gray-400 text-sm tracking-widest animate-pulse">
+              <div className="text-nier-light/70 text-sm tracking-widest animate-pulse">
                 RETRYING INITIATION...
               </div>
             </div>

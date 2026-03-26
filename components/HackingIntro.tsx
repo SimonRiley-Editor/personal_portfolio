@@ -377,7 +377,7 @@ export default function HackingIntro({ onComplete }: HackingIntroProps) {
 
   return (
     <div 
-      className="fixed inset-0 z-[200] bg-black overflow-hidden font-mono select-none"
+      className="fixed inset-0 z-[200] bg-nier-gray overflow-hidden font-mono select-none"
       tabIndex={0}
       autoFocus
     >
@@ -392,7 +392,7 @@ export default function HackingIntro({ onComplete }: HackingIntroProps) {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className="text-[#e6e2af] text-sm tracking-widest uppercase flicker"
+              className="text-nier-beige text-sm tracking-widest uppercase flicker"
             >
               {msg}
             </motion.div>
@@ -406,7 +406,7 @@ export default function HackingIntro({ onComplete }: HackingIntroProps) {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-white text-4xl md:text-6xl tracking-[0.5em] uppercase font-bold"
+            className="text-nier-light text-4xl md:text-6xl tracking-[0.5em] uppercase font-bold"
           >
             [ACCESS GRANTED]
           </motion.div>
@@ -417,10 +417,10 @@ export default function HackingIntro({ onComplete }: HackingIntroProps) {
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center gap-4"
           >
-            <div className="text-[#ff4444] text-4xl md:text-6xl tracking-[0.5em] uppercase font-bold">
+            <div className="text-nier-red text-4xl md:text-6xl tracking-[0.5em] uppercase font-bold">
               [ACCESS DENIED]
             </div>
-            <div className="text-white text-xl tracking-widest uppercase">
+            <div className="text-nier-light text-xl tracking-widest uppercase">
               [RETRYING...]
             </div>
           </motion.div>
@@ -429,7 +429,7 @@ export default function HackingIntro({ onComplete }: HackingIntroProps) {
 
       {/* Controls Help */}
       {gameState === 'playing' && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-500 text-xs tracking-widest uppercase opacity-50">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-nier-light/50 text-xs tracking-widest uppercase opacity-50">
           WASD to move | Mouse to aim
         </div>
       )}

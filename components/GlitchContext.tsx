@@ -618,7 +618,7 @@ export const GlitchProvider = ({ children }: { children: React.ReactNode }) => {
         )}
         {systemError && (
           <div className="fixed top-1/4 left-1/2 -translate-x-1/2 z-[110] pointer-events-none">
-            <div className="bg-red-900/90 border-2 border-red-500 text-white font-mono p-4 shadow-[0_0_20px_rgba(255,0,0,0.5)] animate-pulse">
+            <div className="bg-nier-red/90 border-2 border-nier-red text-nier-light font-mono p-4 shadow-[0_0_20px_rgba(255,0,0,0.5)] animate-pulse">
               <p className="font-bold text-lg mb-2">SYSTEM FAILURE</p>
               <p>{systemError}</p>
             </div>

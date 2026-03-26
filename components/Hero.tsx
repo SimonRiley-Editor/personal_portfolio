@@ -7,12 +7,12 @@ import Image from 'next/image';
 import { useGlitch } from './GlitchContext';
 
 const shapes = [
-  { width: 120, height: 120, left: '10%', top: '20%', y: [0, -10, 0], x: [0, 10, 0], duration: 15, color: 'transparent', border: '1px solid #4a4843' },
-  { width: 80, height: 80, left: '80%', top: '15%', y: [0, 20, 0], x: [0, -5, 0], duration: 12, color: 'transparent', border: '1px solid #4a4843' },
-  { width: 150, height: 150, left: '70%', top: '70%', y: [0, -10, 0], x: [0, -15, 0], duration: 18, color: 'rgba(74, 72, 67, 0.05)', border: '1px solid #4a4843' },
-  { width: 90, height: 90, left: '20%', top: '80%', y: [0, 15, 0], x: [0, 5, 0], duration: 14, color: 'transparent', border: '1px solid #8b0000' },
-  { width: 110, height: 110, left: '40%', top: '40%', y: [0, -20, 0], x: [0, 20, 0], duration: 16, color: 'transparent', border: '1px solid #4a4843' },
-  { width: 70, height: 70, left: '60%', top: '85%', y: [0, 10, 0], x: [0, -10, 0], duration: 11, color: 'rgba(139, 0, 0, 0.05)', border: '1px solid #8b0000' },
+  { width: 120, height: 120, left: '10%', top: '20%', y: [0, -10, 0], x: [0, 10, 0], duration: 15, color: 'transparent', border: '1px solid var(--color-nier-dark)' },
+  { width: 80, height: 80, left: '80%', top: '15%', y: [0, 20, 0], x: [0, -5, 0], duration: 12, color: 'transparent', border: '1px solid var(--color-nier-dark)' },
+  { width: 150, height: 150, left: '70%', top: '70%', y: [0, -10, 0], x: [0, -15, 0], duration: 18, color: 'color-mix(in srgb, var(--color-nier-dark) 5%, transparent)', border: '1px solid var(--color-nier-dark)' },
+  { width: 90, height: 90, left: '20%', top: '80%', y: [0, 15, 0], x: [0, 5, 0], duration: 14, color: 'transparent', border: '1px solid var(--color-nier-red)' },
+  { width: 110, height: 110, left: '40%', top: '40%', y: [0, -20, 0], x: [0, 20, 0], duration: 16, color: 'transparent', border: '1px solid var(--color-nier-dark)' },
+  { width: 70, height: 70, left: '60%', top: '85%', y: [0, 10, 0], x: [0, -10, 0], duration: 11, color: 'color-mix(in srgb, var(--color-nier-red) 5%, transparent)', border: '1px solid var(--color-nier-red)' },
 ];
 
 export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
@@ -83,9 +83,8 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
 
   const textSkew = useTransform(progress, [0, 0.5, 1], [-5, 0, 5]);
   const letterSpacing = useTransform(progress, [0, 0.5, 1], ["0em", "0.2em", "0em"]);
-  const textColor = useTransform(progress, [0, 0.5, 1], ["rgba(74,72,67,0)", "#8b0000", "rgba(74,72,67,0)"]);
-  const strokeColor = useTransform(progress, [0, 0.5, 1], ["#4a4843", "#4a4843", "#4a4843"]);
-  const textStroke = useTransform(strokeColor, c => `1px ${c}`);
+  const textColor = useTransform(progress, [0, 0.5, 1], ["transparent", "var(--color-nier-red)", "transparent"]);
+  const textStroke = "1px var(--color-nier-dark)";
 
   const { trackSection, reportUserAction, unlockEnding, foundSecret } = useGlitch();
 
@@ -276,12 +275,12 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         <motion.a 
           initial={{ opacity: 0, y: 20 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          href="#cinematic-timeline"
+          href="#work"
           className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-8 md:px-12 py-5 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-nier-light transition-colors duration-300 shadow-lg"
           transition={{ duration: 0.8, delay: isLoaded ? 0.7 : 0 }}
           onClick={(e) => {
             e.preventDefault();
-            document.getElementById('cinematic-timeline')?.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
           }}
         >
           <span className="relative z-10 flex items-center gap-3">

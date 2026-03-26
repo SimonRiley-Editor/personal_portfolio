@@ -8,6 +8,40 @@ import { useGlitch } from './GlitchContext';
 const experiences = [
   {
     period: 'Current',
+    company: 'Ethin',
+    role: 'Designer and Editor',
+    location: 'Remote',
+    details: [
+      'High-Impact Thumbnails Creating clickable, high-fidelity art using advanced lighting and composition techniques.',
+      'Acted as a dedicated creative partner, providing rapid-response support for all production needs.',
+      'Leveraged technical proficiency to manage multi-disciplinary tasks from Photoshop compositions to creating Videos for chanel without compromising quality.'
+    ]
+  },
+  {
+    period: 'Current',
+    company: 'Glaivekiyo',
+    role: 'Lead Editor',
+    location: 'Remote',
+    details: [
+      'Revolutionized channel visual identity, evolving standard formats into high-engagement narratives through creative pacing.',
+      'Mastered "Retention Editing," utilizing rhythmic cutting and subtle motion cues to maximize viewer immersion.',
+      'Standardized high-fidelity workflows, delivering professional-grade visual quality that redefined the channel’s production value.',
+      'Redefined creative direction, shifting the video-making style to prioritize a professional, high-impact aesthetic.'
+    ]
+  },
+  {
+    period: 'Current',
+    company: 'Braxophone',
+    role: 'Editor',
+    location: 'Remote',
+    details: [
+      'Executed high-precision post-production, managing granular feedback loops to ensure every frame met elite-level quality standards.',
+      'Mastered rigorous quality assurance, delivering frame-perfect revisions through extended production cycles without compromising project integrity.',
+      'Maintained 100% project completion rates, demonstrating extreme reliability and dedication to meeting complex, high-pressure deadlines.'
+    ]
+  },
+  {
+    period: 'Current',
     company: 'Saintontas',
     role: 'Motion Designer , Editor',
     location: 'Remote',
@@ -16,6 +50,17 @@ const experiences = [
       'Engineered bespoke "Intro Edits" for character guides, creating distinct visual identities through high-impact sync.',
       'Integrated advanced VFX and masking to elevate standard tutorials into cinematic experiences.',
       'Leveraged 6 years of expertise in competitive AMV production to deliver professional-grade sound design and "flow."'
+    ]
+  },
+  {
+    period: '2024–2025',
+    company: 'MrPokke',
+    role: 'Video Editor',
+    location: 'Remote',
+    details: [
+      'Curated high-engagement video content, synthesizing raw stream archives into polished, high-quality narratives for the main channel.',
+      'Mastered audience retention techniques, identifying and isolating "must-watch" moments to drive consistent viewer growth.',
+      'Maintained peak visual consistency, ensuring each upload aligned with the channel\'s high standards for pacing and clarity.'
     ]
   },
   {

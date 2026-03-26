@@ -112,13 +112,13 @@ Current User Context:
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
-      className={`fixed bottom-24 right-4 md:right-24 w-[calc(100vw-2rem)] md:w-96 h-[60vh] md:h-96 max-h-[500px] bg-black/95 border border-[#e6e2af] shadow-[0_0_30px_rgba(230,226,175,0.2)] z-[9999] flex flex-col font-mono ${glitchLevel >= 2 ? 'glitch-stage-2' : ''} ${glitchLevel >= 3 ? 'glitch-stage-3' : ''}`}
+      className={`fixed bottom-24 right-4 md:right-24 w-[calc(100vw-2rem)] md:w-96 h-[60vh] md:h-96 max-h-[500px] bg-nier-gray/95 border border-nier-beige shadow-[0_0_30px_rgba(230,226,175,0.2)] z-[9999] flex flex-col font-mono ${glitchLevel >= 2 ? 'glitch-stage-2' : ''} ${glitchLevel >= 3 ? 'glitch-stage-3' : ''}`}
     >
       {/* Header */}
-      <div className={`flex items-center justify-between p-3 border-b border-[#e6e2af]/30 ${glitchLevel >= 3 ? 'bg-red-900/30' : 'bg-[#e6e2af]/10'}`}>
+      <div className={`flex items-center justify-between p-3 border-b border-nier-beige/30 ${glitchLevel >= 3 ? 'bg-nier-red/30' : 'bg-nier-beige/10'}`}>
         <div className="flex items-center gap-2">
-          <div className={`w-2 h-2 ${glitchLevel >= 3 ? 'bg-red-500 animate-ping' : 'bg-[#e6e2af] animate-pulse'}`}></div>
-          <span className={`${glitchLevel >= 3 ? 'text-red-500 glitch-text-sexy' : 'text-[#e6e2af]'} text-xs tracking-widest uppercase font-bold`} data-text="POD_TERMINAL">POD_TERMINAL</span>
+          <div className={`w-2 h-2 ${glitchLevel >= 3 ? 'bg-nier-red animate-ping' : 'bg-nier-beige animate-pulse'}`}></div>
+          <span className={`${glitchLevel >= 3 ? 'text-nier-red glitch-text-sexy' : 'text-nier-beige'} text-xs tracking-widest uppercase font-bold`} data-text="POD_TERMINAL">POD_TERMINAL</span>
         </div>
         <div className="flex items-center gap-2">
           {userState.unlockedEndings.length > 0 && (
@@ -127,7 +127,7 @@ Current User Context:
                 const endingsList = userState.unlockedEndings.map(e => `[ENDING ${e}]`).join(', ');
                 setMessages(prev => [...prev, { role: 'model', text: `POD: Unlocked Archives: ${endingsList}` }]);
               }}
-              className="text-[#e6e2af] hover:text-white transition-colors text-[10px] tracking-widest uppercase border border-[#e6e2af]/30 px-2 py-1 hover:bg-[#e6e2af]/20"
+              className="text-nier-beige hover:text-nier-light transition-colors text-[10px] tracking-widest uppercase border border-nier-beige/30 px-2 py-1 hover:bg-nier-beige/20"
               title="View Endings"
             >
               [ARCHIVES]
@@ -138,12 +138,12 @@ Current User Context:
               restoreSystem();
               setMessages([{ role: 'model', text: 'POD: System restored. Memory wiped. Awaiting input.' }]);
             }}
-            className="text-[#e6e2af] hover:text-white transition-colors text-[10px] tracking-widest uppercase border border-[#e6e2af]/30 px-2 py-1 hover:bg-[#e6e2af]/20"
+            className="text-nier-beige hover:text-nier-light transition-colors text-[10px] tracking-widest uppercase border border-nier-beige/30 px-2 py-1 hover:bg-nier-beige/20"
             title="Restore System"
           >
             [RESTORE]
           </button>
-          <button onClick={onClose} className="text-[#e6e2af] hover:text-white transition-colors">
+          <button onClick={onClose} className="text-nier-beige hover:text-nier-light transition-colors">
             <X size={16} />
           </button>
         </div>
@@ -155,8 +155,8 @@ Current User Context:
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[85%] p-3 text-xs leading-relaxed ${
               msg.role === 'user' 
-                ? 'bg-[#e6e2af] text-black border border-[#e6e2af]' 
-                : 'bg-transparent text-[#e6e2af] border border-[#e6e2af]/30'
+                ? 'bg-nier-beige text-nier-dark border border-nier-beige' 
+                : 'bg-transparent text-nier-beige border border-nier-beige/30'
             }`}>
               <div className="markdown-body">
                 <ReactMarkdown>{msg.text}</ReactMarkdown>
@@ -166,10 +166,10 @@ Current User Context:
         ))}
         {isThinking && (
           <div className="flex justify-start">
-            <div className="max-w-[85%] p-3 text-xs leading-relaxed bg-transparent text-[#e6e2af]/70 border border-[#e6e2af]/30 flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-[#e6e2af] animate-bounce" style={{ animationDelay: '0ms' }}></div>
-              <div className="w-1.5 h-1.5 bg-[#e6e2af] animate-bounce" style={{ animationDelay: '150ms' }}></div>
-              <div className="w-1.5 h-1.5 bg-[#e6e2af] animate-bounce" style={{ animationDelay: '300ms' }}></div>
+            <div className="max-w-[85%] p-3 text-xs leading-relaxed bg-transparent text-nier-beige/70 border border-nier-beige/30 flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-nier-beige animate-bounce" style={{ animationDelay: '0ms' }}></div>
+              <div className="w-1.5 h-1.5 bg-nier-beige animate-bounce" style={{ animationDelay: '150ms' }}></div>
+              <div className="w-1.5 h-1.5 bg-nier-beige animate-bounce" style={{ animationDelay: '300ms' }}></div>
               <span className="ml-2 tracking-widest">PROCESSING...</span>
             </div>
           </div>
@@ -178,7 +178,7 @@ Current User Context:
       </div>
 
       {/* Input */}
-      <div className="p-3 border-t border-[#e6e2af]/30 bg-black">
+      <div className="p-3 border-t border-nier-beige/30 bg-nier-gray">
         <div className="flex items-center gap-2">
           <input 
             type="text" 
@@ -186,13 +186,13 @@ Current User Context:
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="[ ENTER QUERY ]"
-            className="flex-1 bg-transparent border border-[#e6e2af]/30 text-[#e6e2af] text-xs p-2 focus:outline-none focus:border-[#e6e2af] transition-colors"
+            className="flex-1 bg-transparent border border-nier-beige/30 text-nier-beige text-xs p-2 focus:outline-none focus:border-nier-beige transition-colors"
             disabled={isThinking}
           />
           <button 
             onClick={handleSend}
             disabled={isThinking || !input.trim()}
-            className="p-2 bg-[#e6e2af]/10 border border-[#e6e2af]/30 text-[#e6e2af] hover:bg-[#e6e2af] hover:text-black transition-colors disabled:opacity-50 disabled:hover:bg-[#e6e2af]/10 disabled:hover:text-[#e6e2af]"
+            className="p-2 bg-nier-beige/10 border border-nier-beige/30 text-nier-beige hover:bg-nier-beige hover:text-nier-dark transition-colors disabled:opacity-50 disabled:hover:bg-nier-beige/10 disabled:hover:text-nier-beige"
           >
             <Send size={14} />
           </button>

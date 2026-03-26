@@ -54,7 +54,7 @@ export default function MusicPlayer() {
     <>
       <audio
         ref={audioRef}
-        src="/bgm.mp3"
+        src="https://res.cloudinary.com/ds6dwbk37/video/upload/v1774501473/bgm_ye67vo.mp3"
         loop
         preload="auto"
       />

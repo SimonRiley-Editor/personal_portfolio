@@ -95,7 +95,7 @@ export default function WorkSection() {
               onClick={() => handleCategoryChange(category.id)}
               className={`px-6 py-2 font-mono text-sm tracking-widest uppercase border transition-colors ${
                 activeCategory === category.id
-                  ? 'border-nier-light text-black bg-nier-light'
+                  ? 'border-nier-light text-nier-dark bg-nier-light'
                   : 'border-nier-dark text-nier-light hover:border-nier-light/50'
               }`}
             >
@@ -151,7 +151,7 @@ export default function WorkSection() {
                 />
                 <div className="absolute inset-0 border border-nier-dark/50 pointer-events-none"></div>
               </div>
-              <div className={`absolute bottom-2 left-2 ${activeVideo === p.id ? 'bg-white text-black' : 'bg-nier-dark/80 text-nier-light'} font-mono text-[10px] px-2 py-1 tracking-widest border border-nier-dark transition-colors`}>
+              <div className={`absolute bottom-2 left-2 ${activeVideo === p.id ? 'bg-nier-light text-nier-dark' : 'bg-nier-dark/80 text-nier-light'} font-mono text-[10px] px-2 py-1 tracking-widest border border-nier-dark transition-colors`}>
                 [ {p.title.toUpperCase()} ]
               </div>
             </div>

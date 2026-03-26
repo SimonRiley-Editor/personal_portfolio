@@ -716,7 +716,7 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 bg-[#050505] overflow-hidden font-mono text-[#e6e2af] select-none cursor-crosshair"
+      className="fixed inset-0 z-50 bg-nier-gray overflow-hidden font-mono text-nier-beige select-none cursor-crosshair"
       tabIndex={0}
       autoFocus
     >
@@ -734,8 +734,8 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.1 }}
-              className="text-2xl md:text-4xl tracking-[0.3em] font-bold text-center bg-black/50 px-8 py-4 rounded border border-[#e6e2af]/30 backdrop-blur-sm"
-              style={{ textShadow: '0 0 10px #e6e2af' }}
+              className="text-2xl md:text-4xl tracking-[0.3em] font-bold text-center bg-nier-gray/50 px-8 py-4 rounded border border-nier-beige/30 backdrop-blur-sm"
+              style={{ textShadow: '0 0 10px var(--nier-beige)' }}
             >
               {message}
             </motion.div>
@@ -749,7 +749,7 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               onClick={handleRetry}
-              className="mt-8 pointer-events-auto px-8 py-3 border border-[#e6e2af] text-[#e6e2af] hover:bg-[#e6e2af] hover:text-black transition-colors tracking-widest uppercase"
+              className="mt-8 pointer-events-auto px-8 py-3 border border-nier-beige text-nier-beige hover:bg-nier-beige hover:text-nier-dark transition-colors tracking-widest uppercase"
             >
               [RETRY]
             </motion.button>
@@ -781,7 +781,7 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="text-xs tracking-widest bg-black/50 px-3 py-1 border-l-2 border-[#e6e2af]"
+              className="text-xs tracking-widest bg-nier-gray/50 px-3 py-1 border-l-2 border-nier-beige"
             >
               {log.text}
             </motion.div>

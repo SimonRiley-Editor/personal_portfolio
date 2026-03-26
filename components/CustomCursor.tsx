@@ -30,8 +30,8 @@ export default function CustomCursor() {
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        fill="#e8e6e1"
-        stroke="#4a4843"
+        fill="var(--nier-beige)"
+        stroke="var(--nier-dark)"
         strokeWidth="1.5"
         className="drop-shadow-sm"
       >

@@ -120,28 +120,28 @@ REBOOTING...`;
   }, [phase, errorText, purgeText, rebootText]);
 
   return (
-    <div className={`fixed inset-0 z-[9999] bg-[#050505] text-[#ff4444] font-mono p-8 flex flex-col pointer-events-auto overflow-hidden animate-pulse transition-opacity duration-500 ease-in-out ${isExiting ? 'opacity-0' : 'opacity-100'}`}>
+    <div className={`fixed inset-0 z-[9999] bg-nier-gray text-nier-red font-mono p-8 flex flex-col pointer-events-auto overflow-hidden animate-pulse transition-opacity duration-500 ease-in-out ${isExiting ? 'opacity-0' : 'opacity-100'}`}>
       {/* Static Scanlines */}
       <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(transparent_50%,rgba(255,0,0,0.25)_50%)] bg-[length:100%_4px]" />
       
       <div className="relative z-10 max-w-4xl w-full mx-auto mt-20">
-        <div className="flex items-center gap-4 mb-8 border-b-2 border-[#ff4444] pb-4">
-          <div className="w-8 h-8 bg-[#ff4444] animate-ping" />
+        <div className="flex items-center gap-4 mb-8 border-b-2 border-nier-red pb-4">
+          <div className="w-8 h-8 bg-nier-red animate-ping" />
           <h1 className="text-4xl md:text-6xl font-bold tracking-widest uppercase glitch-text-sexy" data-text="SYSTEM FAILURE">SYSTEM FAILURE</h1>
         </div>
         
-        <div className="bg-[#1a0505] border border-[#ff4444]/50 p-6 min-h-[400px] shadow-[0_0_30px_rgba(255,0,0,0.3)]">
+        <div className="bg-nier-red/10 border border-nier-red/50 p-6 min-h-[400px] shadow-[0_0_30px_rgba(255,0,0,0.3)]">
           <pre className="whitespace-pre-wrap text-lg md:text-xl leading-relaxed">
             {text}
             {phase === 'purge' && (
               <div className="mt-4">
-                <div className="w-full bg-red-950 h-4 border border-red-500">
-                  <div className="bg-red-500 h-full transition-all duration-100" style={{ width: `${Math.min(progress, 100)}%` }} />
+                <div className="w-full bg-nier-red/20 h-4 border border-nier-red">
+                  <div className="bg-nier-red h-full transition-all duration-100" style={{ width: `${Math.min(progress, 100)}%` }} />
                 </div>
                 <div className="text-sm mt-1">PURGE PROGRESS: {Math.min(progress, 100)}%</div>
               </div>
             )}
-            <span className="animate-pulse bg-[#ff4444] text-black ml-1">█</span>
+            <span className="animate-pulse bg-nier-red text-nier-dark ml-1">█</span>
           </pre>
         </div>
       </div>
