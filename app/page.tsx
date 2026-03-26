@@ -30,6 +30,7 @@ export default function Home() {
         <Hero isLoaded={isLoaded} />
       </SectionWrapper>
       
+      <div id="about" className="w-full h-0" />
       <SectionWrapper index={2}>
         <AboutMe />
       </SectionWrapper>

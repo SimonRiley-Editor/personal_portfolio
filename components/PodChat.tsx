@@ -112,7 +112,7 @@ Current User Context:
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
-      className={`fixed bottom-24 right-4 md:right-24 w-[calc(100vw-2rem)] md:w-96 h-[60vh] md:h-96 max-h-[500px] bg-nier-gray/95 border border-nier-beige shadow-[0_0_30px_rgba(230,226,175,0.2)] z-[9999] flex flex-col font-mono ${glitchLevel >= 2 ? 'glitch-stage-2' : ''} ${glitchLevel >= 3 ? 'glitch-stage-3' : ''}`}
+      className={`fixed bottom-24 right-4 md:right-24 w-[calc(100vw-2rem)] md:w-96 h-[60vh] md:h-96 max-h-[500px] bg-nier-dark/95 border border-nier-beige shadow-[0_0_30px_rgba(230,226,175,0.2)] z-[9999] flex flex-col font-mono ${glitchLevel >= 2 ? 'glitch-stage-2' : ''} ${glitchLevel >= 3 ? 'glitch-stage-3' : ''}`}
     >
       {/* Header */}
       <div className={`flex items-center justify-between p-3 border-b border-nier-beige/30 ${glitchLevel >= 3 ? 'bg-nier-red/30' : 'bg-nier-beige/10'}`}>
@@ -178,7 +178,7 @@ Current User Context:
       </div>
 
       {/* Input */}
-      <div className="p-3 border-t border-nier-beige/30 bg-nier-gray">
+      <div className="p-3 border-t border-nier-beige/30 bg-transparent">
         <div className="flex items-center gap-2">
           <input 
             type="text" 
@@ -186,7 +186,7 @@ Current User Context:
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="[ ENTER QUERY ]"
-            className="flex-1 bg-transparent border border-nier-beige/30 text-nier-beige text-xs p-2 focus:outline-none focus:border-nier-beige transition-colors"
+            className="flex-1 bg-transparent border border-nier-beige/30 text-nier-beige placeholder:text-nier-beige/50 text-xs p-2 focus:outline-none focus:border-nier-beige transition-colors"
             disabled={isThinking}
           />
           <button 

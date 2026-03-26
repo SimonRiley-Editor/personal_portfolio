@@ -51,7 +51,7 @@ export default function WorkSection() {
   return (
     <motion.section 
       id="work" 
-      className="bg-nier-gray border-b border-nier-dark pb-20 relative overflow-hidden"
+      className="bg-nier-dark border-b border-nier-beige pb-20 relative overflow-hidden"
       onViewportEnter={() => {
         trackSection('Work');
         reportUserAction('is reviewing the project archives');
@@ -68,19 +68,19 @@ export default function WorkSection() {
             transition={{ duration: 20 + i * 5, repeat: Infinity, ease: "linear" }}
           >
             {[...Array(20)].map((_, j) => (
-              <div key={j} className="w-24 h-full border border-nier-dark rounded-none flex-shrink-0"></div>
+              <div key={j} className="w-24 h-full border border-nier-beige rounded-none flex-shrink-0"></div>
             ))}
           </motion.div>
         ))}
       </div>
 
       {/* Marquee Tape */}
-      <div className="bg-nier-dark border-y border-nier-dark py-2 transform -rotate-1 scale-110 overflow-hidden whitespace-nowrap mb-20 relative z-10">
+      <div className="bg-nier-beige border-y border-nier-beige py-2 transform -rotate-1 scale-110 overflow-hidden whitespace-nowrap mb-20 relative z-10">
         <div className="flex w-max animate-marquee">
-          <h2 className="font-mono text-xl md:text-2xl font-bold tracking-[0.5em] uppercase whitespace-pre text-nier-light">
+          <h2 className="font-mono text-xl md:text-2xl font-bold tracking-[0.5em] uppercase whitespace-pre text-nier-dark">
             {"[ SYSTEM DATA // WORK_LOG ] • ".repeat(10)}
           </h2>
-          <h2 className="font-mono text-xl md:text-2xl font-bold tracking-[0.5em] uppercase whitespace-pre text-nier-light">
+          <h2 className="font-mono text-xl md:text-2xl font-bold tracking-[0.5em] uppercase whitespace-pre text-nier-dark">
             {"[ SYSTEM DATA // WORK_LOG ] • ".repeat(10)}
           </h2>
         </div>
@@ -95,8 +95,8 @@ export default function WorkSection() {
               onClick={() => handleCategoryChange(category.id)}
               className={`px-6 py-2 font-mono text-sm tracking-widest uppercase border transition-colors ${
                 activeCategory === category.id
-                  ? 'border-nier-light text-nier-dark bg-nier-light'
-                  : 'border-nier-dark text-nier-light hover:border-nier-light/50'
+                  ? 'border-nier-beige text-nier-dark bg-nier-beige'
+                  : 'border-nier-beige text-nier-beige hover:border-nier-beige/50'
               }`}
             >
               [ {category.name} ]
@@ -106,7 +106,7 @@ export default function WorkSection() {
 
         {/* Main Video Player Placeholder */}
         <motion.div 
-          className="aspect-video bg-black border border-nier-dark rounded-none mb-12 relative group overflow-hidden p-1"
+          className="aspect-video bg-black border border-nier-beige rounded-none mb-12 relative group overflow-hidden p-1"
           whileHover="hover"
           initial="initial"
         >
@@ -122,7 +122,7 @@ export default function WorkSection() {
 
            {/* Shimmer/Pulse Effect */}
            <motion.div 
-             className="absolute inset-1 bg-gradient-to-r from-transparent via-nier-light/10 to-transparent skew-x-12 pointer-events-none"
+             className="absolute inset-1 bg-gradient-to-r from-transparent via-nier-beige/10 to-transparent skew-x-12 pointer-events-none"
              variants={{
                hover: {
                  x: ['-200%', '200%'],
@@ -139,7 +139,7 @@ export default function WorkSection() {
             <div 
               key={p.id} 
               onClick={() => setActiveVideo(p.id)}
-              className={`min-w-[260px] md:min-w-[400px] aspect-video bg-black border ${activeVideo === p.id ? 'border-white' : 'border-nier-dark'} rounded-none snap-center relative overflow-hidden group cursor-pointer p-1 transition-colors`}
+              className={`min-w-[260px] md:min-w-[400px] aspect-video bg-black border ${activeVideo === p.id ? 'border-white' : 'border-nier-beige'} rounded-none snap-center relative overflow-hidden group cursor-pointer p-1 transition-colors`}
             >
               <div className="absolute inset-1">
                 <Image 
@@ -149,9 +149,9 @@ export default function WorkSection() {
                   className={`object-cover transition-all duration-500 ${activeVideo === p.id ? 'grayscale-0 opacity-100' : 'opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100'}`}
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 border border-nier-dark/50 pointer-events-none"></div>
+                <div className="absolute inset-0 border border-nier-beige/50 pointer-events-none"></div>
               </div>
-              <div className={`absolute bottom-2 left-2 ${activeVideo === p.id ? 'bg-nier-light text-nier-dark' : 'bg-nier-dark/80 text-nier-light'} font-mono text-[10px] px-2 py-1 tracking-widest border border-nier-dark transition-colors`}>
+              <div className={`absolute bottom-2 left-2 ${activeVideo === p.id ? 'bg-nier-beige text-nier-dark' : 'bg-nier-dark/80 text-nier-beige'} font-mono text-[10px] px-2 py-1 tracking-widest border border-nier-beige transition-colors`}>
                 [ {p.title.toUpperCase()} ]
               </div>
             </div>

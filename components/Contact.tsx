@@ -43,7 +43,7 @@ export default function Contact() {
   return (
     <motion.section 
       id="contact" 
-      className="bg-nier-gray py-20 pb-32 px-4 min-h-screen flex flex-col items-center justify-center relative overflow-hidden border-t border-nier-dark"
+      className="bg-nier-beige py-20 pb-32 px-4 min-h-screen flex flex-col items-center justify-center relative overflow-hidden border-t border-nier-dark"
       onViewportEnter={() => {
         trackSection('Contact');
         reportUserAction('is accessing the communication terminal');
@@ -75,7 +75,7 @@ export default function Contact() {
 
       <div className="w-full max-w-2xl relative z-10">
         {/* Form Container */}
-        <div className="nier-box p-6 md:p-8 relative bg-nier-beige min-h-[400px] flex flex-col justify-center">
+        <div className="nier-box p-6 md:p-8 relative bg-nier-light min-h-[400px] flex flex-col justify-center">
           <AnimatePresence mode="wait">
             {status === 'idle' || status === 'transmitting' ? (
               <motion.form 
@@ -95,7 +95,7 @@ export default function Contact() {
                       name="user_name"
                       required
                       disabled={status === 'transmitting'}
-                      className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors font-mono text-sm text-nier-dark disabled:opacity-50"
+                      className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors font-mono text-sm text-nier-dark placeholder:text-nier-dark/50 disabled:opacity-50"
                       placeholder="[ NAME ]"
                     />
                   </div>
@@ -106,7 +106,7 @@ export default function Contact() {
                       name="user_email"
                       required
                       disabled={status === 'transmitting'}
-                      className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors font-mono text-sm text-nier-dark disabled:opacity-50"
+                      className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors font-mono text-sm text-nier-dark placeholder:text-nier-dark/50 disabled:opacity-50"
                       placeholder="[ EMAIL ]"
                     />
                   </div>
@@ -119,7 +119,7 @@ export default function Contact() {
                     required
                     rows={6}
                     disabled={status === 'transmitting'}
-                    className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors resize-none font-mono text-sm text-nier-dark disabled:opacity-50"
+                    className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors resize-none font-mono text-sm text-nier-dark placeholder:text-nier-dark/50 disabled:opacity-50"
                     placeholder="[ ENTER MESSAGE DATA ]"
                   ></textarea>
                 </div>
@@ -127,7 +127,7 @@ export default function Contact() {
                 <button 
                   type="submit"
                   disabled={status === 'transmitting'}
-                  className="w-full bg-nier-dark text-nier-light border border-nier-dark py-4 font-mono text-sm tracking-widest uppercase hover:bg-nier-red transition-colors relative group overflow-hidden disabled:hover:bg-nier-dark"
+                  className="w-full bg-nier-dark text-nier-light border border-nier-dark py-4 font-mono text-sm tracking-widest uppercase hover:bg-nier-red hover:text-white transition-colors relative group overflow-hidden disabled:hover:bg-nier-dark disabled:hover:text-nier-light"
                 >
                   <span className="relative z-10">
                     {status === 'transmitting' ? '[ TRANSMITTING DATA... ]' : '[ TRANSMIT ]'}
@@ -210,7 +210,7 @@ export default function Contact() {
               setCopied(true);
               setTimeout(() => setCopied(false), 3000);
             }}
-            className="group relative border border-nier-dark bg-nier-beige p-6 flex flex-col items-center justify-center overflow-hidden cursor-pointer"
+            className="group relative border border-nier-dark bg-nier-light p-6 flex flex-col items-center justify-center overflow-hidden cursor-pointer"
             whileHover="hover"
             initial="initial"
           >
@@ -222,7 +222,7 @@ export default function Contact() {
               }}
               transition={{ duration: 0.3, ease: "circOut" }}
             />
-            <div className="relative z-10 flex flex-col items-center gap-3 group-hover:text-nier-light transition-colors duration-300">
+            <div className="relative z-10 flex flex-col items-center gap-3 text-nier-dark group-hover:text-nier-light transition-colors duration-300">
               <MessageSquare size={32} strokeWidth={1.5} />
               <div className="text-center">
                 <div className="font-akira text-sm tracking-widest mb-1">DISCORD</div>
@@ -241,7 +241,7 @@ export default function Contact() {
             href="https://www.youtube.com/@simongodly/videos"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative border border-nier-dark bg-nier-beige p-6 flex flex-col items-center justify-center overflow-hidden cursor-pointer"
+            className="group relative border border-nier-dark bg-nier-light p-6 flex flex-col items-center justify-center overflow-hidden cursor-pointer"
             whileHover="hover"
             initial="initial"
           >
@@ -253,7 +253,7 @@ export default function Contact() {
               }}
               transition={{ duration: 0.3, ease: "circOut" }}
             />
-            <div className="relative z-10 flex flex-col items-center gap-3 group-hover:text-nier-light transition-colors duration-300">
+            <div className="relative z-10 flex flex-col items-center gap-3 text-nier-dark group-hover:text-nier-light transition-colors duration-300">
               <Youtube size={32} strokeWidth={1.5} />
               <div className="text-center">
                 <div className="font-akira text-sm tracking-widest mb-1">YOUTUBE</div>
@@ -269,7 +269,7 @@ export default function Contact() {
             href="https://x.com/Sim0nG0dly"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative border border-nier-dark bg-nier-beige p-6 flex flex-col items-center justify-center overflow-hidden cursor-pointer"
+            className="group relative border border-nier-dark bg-nier-light p-6 flex flex-col items-center justify-center overflow-hidden cursor-pointer"
             whileHover="hover"
             initial="initial"
           >
@@ -281,7 +281,7 @@ export default function Contact() {
               }}
               transition={{ duration: 0.3, ease: "circOut" }}
             />
-            <div className="relative z-10 flex flex-col items-center gap-3 group-hover:text-nier-light transition-colors duration-300">
+            <div className="relative z-10 flex flex-col items-center gap-3 text-nier-dark group-hover:text-nier-light transition-colors duration-300">
               <Twitter size={32} strokeWidth={1.5} />
               <div className="text-center">
                 <div className="font-akira text-sm tracking-widest mb-1">X / TWITTER</div>

@@ -19,7 +19,7 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[100000] hidden md:block"
+      className="fixed top-0 left-0 pointer-events-none z-[100000] hidden md:block mix-blend-difference"
       style={{
         x: cursorX,
         y: cursorY,
@@ -30,10 +30,9 @@ export default function CustomCursor() {
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        fill="var(--nier-beige)"
-        stroke="var(--nier-dark)"
+        fill="#ffffff"
+        stroke="#ffffff"
         strokeWidth="1.5"
-        className="drop-shadow-sm"
       >
         <path d="M2 2l20 10-8 2-2 8z" />
       </svg>

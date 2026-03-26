@@ -131,7 +131,7 @@ html {
 
 /* Markdown Styles */
 .markdown-body {
-  color: var(--color-nier-beige);
+  color: inherit;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1.5;
@@ -151,12 +151,12 @@ html {
 }
 
 .markdown-body a:hover {
-  color: white;
+  color: inherit;
 }
 
 .markdown-body strong {
   font-weight: bold;
-  color: white;
+  color: inherit;
 }
 
 .markdown-body em {
@@ -164,19 +164,21 @@ html {
 }
 
 .markdown-body code {
-  background-color: rgba(230, 226, 175, 0.1);
+  background-color: var(--color-nier-dark);
+  color: var(--color-nier-light);
   padding: 0.1rem 0.3rem;
   border-radius: 2px;
   font-family: var(--font-mono);
 }
 
 .markdown-body pre {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--color-nier-dark);
+  color: var(--color-nier-light);
   padding: 0.5rem;
   border-radius: 4px;
   overflow-x: auto;
   margin-bottom: 0.5rem;
-  border: 1px solid rgba(230, 226, 175, 0.2);
+  border: 1px solid var(--color-nier-light);
 }
 
 .markdown-body pre code {
@@ -205,7 +207,8 @@ html {
   border-left: 2px solid var(--color-nier-red);
   padding-left: 0.5rem;
   margin-left: 0;
-  color: rgba(230, 226, 175, 0.7);
+  color: inherit;
+  opacity: 0.8;
   font-style: italic;
 }
 

@@ -579,7 +579,7 @@ export default function Loader({ onComplete }: LoaderProps) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[100] bg-nier-gray flex flex-col items-center justify-center overflow-hidden font-mono"
+          className="fixed inset-0 z-[100] bg-nier-dark flex flex-col items-center justify-center overflow-hidden font-mono"
         >
           <style>{`
             @keyframes textGlitch {
@@ -616,7 +616,7 @@ export default function Loader({ onComplete }: LoaderProps) {
                 </button>
                 <button 
                   onClick={handleSkip}
-                  className="px-8 py-3 border border-nier-dark/60 text-nier-light/70 hover:bg-nier-dark/80 hover:text-nier-light transition-colors tracking-widest uppercase text-sm"
+                  className="px-8 py-3 border border-nier-beige/60 text-nier-beige/70 hover:bg-nier-beige/80 hover:text-nier-dark transition-colors tracking-widest uppercase text-sm"
                 >
                   Skip Hack
                 </button>
@@ -627,10 +627,10 @@ export default function Loader({ onComplete }: LoaderProps) {
           {gameState === 'playing' && (
             <>
               <canvas ref={canvasRef} className="absolute inset-0 w-full h-full cursor-none" />
-              <div className="absolute top-8 left-8 text-nier-beige text-sm tracking-widest opacity-70">
+              <div className="absolute top-8 left-8 text-white text-sm tracking-widest opacity-70">
                 {sysMsg}
               </div>
-              <div className="absolute bottom-8 right-8 text-nier-beige text-xs tracking-widest opacity-50">
+              <div className="absolute bottom-8 right-8 text-white text-xs tracking-widest opacity-50">
                 WASD / ARROWS TO MOVE
               </div>
             </>

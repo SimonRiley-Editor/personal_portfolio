@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Code, Film, Music, Sparkles, GraduationCap, Globe, User, BrainCircuit } from 'lucide-react';
+import { Code, Film, Music, Sparkles, GraduationCap, Globe, User, BrainCircuit, Wrench, Zap } from 'lucide-react';
 import Image from 'next/image';
 import { useGlitch } from './GlitchContext';
 import { useState } from 'react';
@@ -12,6 +12,8 @@ export default function AboutMe() {
 
   const tabs = [
     { id: 'bio', label: 'Biography', icon: User },
+    { id: 'skills', label: 'Skills', icon: Zap },
+    { id: 'software', label: 'Software Toolkit', icon: Wrench },
     { id: 'education', label: 'Education', icon: GraduationCap },
     { id: 'languages', label: 'Languages', icon: Globe },
     { id: 'philosophy', label: 'Philosophy', icon: BrainCircuit },
@@ -37,6 +39,52 @@ export default function AboutMe() {
             <p className="border-l-2 border-nier-beige/30 pl-5 text-nier-light/80">
               My work is deeply rooted in a passion for digital art from winning multiple Editing Tournaments to partnering with top tier content creators like Braxaphone, Glaivekiyo, and Saintontas. I don’t merely “complete projects”; I craft unforgettable visual experiences. Whether I’m constructing intricate After Effects compositions or designing narrative-driven cinematic openings, my aim remains consistent: to create experiences that are not only viewed but truly felt.
             </p>
+          </motion.div>
+        );
+      case 'skills':
+        return (
+          <motion.div 
+            key="skills"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="space-y-6"
+          >
+            {[
+              { title: 'Motion Design', desc: 'An evolving discipline I continuously refine, already applied in creating high-level graphics and dynamic character guides inspired by game aesthetics.' },
+              { title: 'Video Editing', desc: 'Capable of bringing any vision to life, transforming ideas into cinematic, engaging videos with strong visual storytelling.' },
+              { title: 'Sound Design', desc: 'As passionate about sound as editing, I enhance videos with immersive, high-impact audio that elevates overall quality and emotion.' },
+              { title: 'Thumbnail Artistry', desc: 'Designing high-conversion thumbnails that instantly capture attention and drive clicks through strong composition and visual clarity.' },
+              { title: 'VFX & Masking', desc: 'Built through years of AMV experience, mastering rotoscoping, masking, and compositing using Adobe After Effects and Adobe Premiere Pro to significantly enhance visual depth and polish.' },
+              { title: 'Frontend Development', desc: 'Building responsive, visually refined interfaces that merge design and functionality, with a focus on smooth interactions and performance-driven experiences.' }
+            ].map((skill, idx) => (
+              <div key={idx} className="border-l-2 border-nier-beige/30 pl-5">
+                <h4 className="text-nier-light font-semibold text-lg mb-1">{skill.title}</h4>
+                <p className="text-nier-light/70 text-sm leading-relaxed">{skill.desc}</p>
+              </div>
+            ))}
+          </motion.div>
+        );
+      case 'software':
+        return (
+          <motion.div 
+            key="software"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          >
+            {[
+              { title: 'Adobe After Effects', desc: 'Specialist in intricate keyframing, motion graphics, and high-end VFX.' },
+              { title: 'Adobe Premiere Pro', desc: 'Expert in long-form narrative structure and rapid-turnaround cutting.' },
+              { title: 'Adobe Photoshop', desc: 'Advanced digital manipulation for high-impact static assets and thumbnails.' },
+              { title: 'Sony Vegas Pro', desc: 'Legacy expertise; the foundation of my editing career and rhythmic "flow" style.' }
+            ].map((software, idx) => (
+              <div key={idx} className="p-4 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors">
+                <h4 className="text-nier-light font-semibold mb-2">{software.title}</h4>
+                <p className="text-nier-light/70 text-sm leading-relaxed">{software.desc}</p>
+              </div>
+            ))}
           </motion.div>
         );
       case 'education':
@@ -143,7 +191,7 @@ export default function AboutMe() {
   };
 
   return (
-    <section className="py-24 bg-nier-gray text-nier-light relative overflow-hidden" id="about">
+    <section className="py-24 bg-nier-gray text-nier-light relative overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(var(--color-nier-dark) 1px, transparent 1px), linear-gradient(90deg, var(--color-nier-dark) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />

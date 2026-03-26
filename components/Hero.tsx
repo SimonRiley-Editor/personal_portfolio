@@ -276,7 +276,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           initial={{ opacity: 0, y: 20 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           href="#work"
-          className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-8 md:px-12 py-5 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-nier-light transition-colors duration-300 shadow-lg"
+          className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-8 md:px-12 py-5 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-white transition-colors duration-300 shadow-lg"
           transition={{ duration: 0.8, delay: isLoaded ? 0.7 : 0 }}
           onClick={(e) => {
             e.preventDefault();

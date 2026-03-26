@@ -92,13 +92,13 @@ export default function CinematicTimeline() {
     <section 
       id="cinematic-timeline" 
       ref={containerRef} 
-      className="relative h-[400vh] bg-nier-gray"
+      className="relative h-[400vh] bg-nier-dark"
       onMouseEnter={() => {
         trackSection('Cinematic Timeline');
         reportUserAction('entered the cinematic timeline');
       }}
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-nier-gray flex items-center justify-center">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-nier-dark flex items-center justify-center">
         
         {/* Background Grid Parallax */}
         <motion.div 
@@ -132,7 +132,7 @@ export default function CinematicTimeline() {
           >
             {awards.map((group, yearIdx) => (
               <div key={yearIdx} className="flex flex-col gap-6 w-[300px] md:w-[400px]">
-                <h3 className="font-akira text-4xl text-nier-dark opacity-50">{group.year}</h3>
+                <h3 className="font-akira text-4xl text-nier-beige opacity-50">{group.year}</h3>
                 {group.items.map((item, i) => {
                   const Icon = item.icon;
                   return (
@@ -173,7 +173,7 @@ export default function CinematicTimeline() {
 
         {/* ================= SCENE 2: WORK ================= */}
         <motion.div 
-          className="absolute inset-0 flex flex-col items-center justify-center px-4 bg-nier-gray z-30"
+          className="absolute inset-0 flex flex-col items-center justify-center px-4 bg-nier-dark z-30"
           style={{ 
             opacity: workOpacity, 
             scale: workScale,
@@ -196,8 +196,8 @@ export default function CinematicTimeline() {
                     }}
                     className={`px-4 py-2 font-mono text-xs tracking-widest uppercase border transition-colors ${
                       activeCategory === category.id
-                        ? 'border-nier-light text-black bg-nier-light'
-                        : 'border-nier-dark text-nier-light hover:border-nier-light/50'
+                        ? 'border-nier-beige text-nier-dark bg-nier-beige'
+                        : 'border-nier-beige text-nier-beige hover:border-nier-beige/50'
                     }`}
                   >
                     [{category.name}]
@@ -217,8 +217,8 @@ export default function CinematicTimeline() {
                   }}
                   className={`px-3 py-1.5 font-mono text-[10px] whitespace-nowrap tracking-widest uppercase border transition-colors ${
                     activeCategory === category.id
-                      ? 'border-nier-light text-black bg-nier-light'
-                      : 'border-nier-dark text-nier-light hover:border-nier-light/50'
+                      ? 'border-nier-beige text-nier-dark bg-nier-beige'
+                      : 'border-nier-beige text-nier-beige hover:border-nier-beige/50'
                   }`}
                 >
                   [{category.name}]
@@ -227,7 +227,7 @@ export default function CinematicTimeline() {
             </div>
 
             {/* Main Video Player */}
-            <div className="aspect-video bg-black border border-nier-dark relative group overflow-hidden p-1 mb-6 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+            <div className="aspect-video bg-black border border-nier-beige relative group overflow-hidden p-1 mb-6 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
                <iframe 
                  className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 relative z-10"
                  src={`https://www.youtube.com/embed/${activeVideo}?autoplay=0&mute=0&rel=0&modestbranding=1`}
@@ -244,7 +244,7 @@ export default function CinematicTimeline() {
                 <div 
                   key={p.id} 
                   onClick={() => setActiveVideo(p.id)}
-                  className={`min-w-[160px] md:min-w-[240px] aspect-video bg-black border ${activeVideo === p.id ? 'border-nier-red' : 'border-nier-dark'} snap-center relative overflow-hidden group cursor-pointer p-1 transition-colors`}
+                  className={`min-w-[160px] md:min-w-[240px] aspect-video bg-black border ${activeVideo === p.id ? 'border-nier-red' : 'border-nier-beige'} snap-center relative overflow-hidden group cursor-pointer p-1 transition-colors`}
                 >
                   <div className="absolute inset-1">
                     <Image 
@@ -255,7 +255,7 @@ export default function CinematicTimeline() {
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <div className={`absolute bottom-2 left-2 ${activeVideo === p.id ? 'bg-nier-red text-white' : 'bg-nier-dark/80 text-nier-light'} font-mono text-[8px] md:text-[10px] px-2 py-1 tracking-widest border border-nier-dark transition-colors z-10`}>
+                  <div className={`absolute bottom-2 left-2 ${activeVideo === p.id ? 'bg-nier-red text-white' : 'bg-nier-dark/80 text-nier-beige'} font-mono text-[8px] md:text-[10px] px-2 py-1 tracking-widest border border-nier-beige transition-colors z-10`}>
                     [{p.title}]
                   </div>
                   {activeVideo === p.id && (
@@ -272,11 +272,11 @@ export default function CinematicTimeline() {
         {/* Cinematic Letterboxing */}
         <div className="absolute top-0 left-0 w-full h-[8vh] bg-black z-50 pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-full h-[8vh] bg-black z-50 flex items-center justify-between px-8 pointer-events-none">
-          <div className="font-mono text-[10px] text-nier-dark tracking-widest animate-pulse">REC</div>
-          <div className="font-mono text-[10px] text-nier-dark tracking-widest">
+          <div className="font-mono text-[10px] text-white/50 tracking-widest animate-pulse">REC</div>
+          <div className="font-mono text-[10px] text-white/50 tracking-widest">
             {/* Simple progress bar */}
             <motion.div 
-              className="w-32 h-[1px] bg-nier-dark relative"
+              className="w-32 h-[1px] bg-white/30 relative"
             >
               <motion.div 
                 className="absolute top-0 left-0 h-full bg-nier-red"

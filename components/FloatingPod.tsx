@@ -95,7 +95,7 @@ export default function FloatingPod({ isChatOpen, onClick, onTriggerHacking, onT
             initial={{ opacity: 0, y: 10, x: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, x: 20, scale: 0.9 }}
-            className="mb-4 max-w-xs bg-nier-gray/90 text-nier-beige p-4 border-l-4 border-nier-beige text-xs font-mono tracking-widest shadow-[0_0_20px_rgba(230,226,175,0.15)] backdrop-blur-md relative"
+            className="mb-4 max-w-xs bg-nier-dark/90 text-nier-beige p-4 border-l-4 border-nier-beige text-xs font-mono tracking-widest shadow-[0_0_20px_rgba(230,226,175,0.15)] backdrop-blur-md relative"
           >
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-nier-beige/50 to-transparent"></div>
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-nier-beige/50 to-transparent"></div>
@@ -140,7 +140,7 @@ export default function FloatingPod({ isChatOpen, onClick, onTriggerHacking, onT
             y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
             rotate: { duration: 0.1, repeat: Infinity }
           }}
-          className={`w-16 h-16 bg-nier-gray border-2 ${isMounted && userState.stage === 4 ? 'border-nier-red shadow-[0_0_20px_rgba(139,0,0,0.6)]' : 'border-nier-beige/60 shadow-[0_0_15px_rgba(230,226,175,0.2)]'} flex items-center justify-center pointer-events-auto cursor-help hover:bg-nier-beige/10 transition-all duration-300 group relative rounded-sm hover:border-nier-red hover:shadow-[0_0_20px_rgba(139,0,0,0.4)]`}
+          className={`w-16 h-16 bg-nier-dark border-2 ${isMounted && userState.stage === 4 ? 'border-nier-red shadow-[0_0_20px_rgba(139,0,0,0.6)]' : 'border-nier-beige/60 shadow-[0_0_15px_rgba(230,226,175,0.2)]'} flex items-center justify-center pointer-events-auto cursor-help hover:bg-nier-beige/10 transition-all duration-300 group relative rounded-sm hover:border-nier-red hover:shadow-[0_0_20px_rgba(139,0,0,0.4)]`}
           onClick={() => {
             playSound('click');
             setPodMessage("POD: Manual diagnostic requested. System status: " + (userState.stage === 4 ? "UNSTABLE" : "NOMINAL"));
@@ -179,7 +179,7 @@ export default function FloatingPod({ isChatOpen, onClick, onTriggerHacking, onT
           <div className={`absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-nier-beige group-hover:border-nier-red'}`}></div>
 
           {/* Mini status text */}
-          <div className="absolute -bottom-6 right-0 text-[9px] font-mono text-nier-beige/60 tracking-tighter whitespace-nowrap bg-nier-gray/50 px-1">
+          <div className="absolute -bottom-6 right-0 text-[9px] font-mono text-nier-beige/60 tracking-tighter whitespace-nowrap bg-nier-dark/50 px-1">
             {isMounted ? `S:${userState.stage} | C:${userState.clicks} | T:${userState.sessionTime}s` : 'S:1 | C:0 | T:0s'}
           </div>
         </motion.div>

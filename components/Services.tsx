@@ -78,7 +78,7 @@ export default function Services() {
 
           <motion.div 
             style={{ x: bg1X, y: bg1Y, rotate: bg1Rotate }}
-            className="absolute inset-0 bg-nier-gray border border-nier-dark -z-10 origin-bottom-left overflow-hidden"
+            className="absolute inset-0 bg-nier-beige border border-nier-dark -z-10 origin-bottom-left overflow-hidden"
           >
             {/* Funny editor notes scattered around */}
             <div className="absolute top-12 left-8 md:top-20 md:left-20 font-mono text-sm md:text-xl text-nier-dark/50 transform -rotate-6 select-none pointer-events-none">
@@ -117,7 +117,7 @@ export default function Services() {
               {/* Image Placeholder */}
               <motion.div 
                 style={{ x: imageX, opacity: imageOpacity }}
-                className="w-full max-w-[180px] md:max-w-none md:w-1/2 aspect-square md:aspect-[3/4] bg-nier-gray border border-nier-dark flex items-center justify-center p-4 md:p-8 transform -rotate-3 mx-auto md:mx-0 relative overflow-hidden"
+                className="w-full max-w-[180px] md:max-w-none md:w-1/2 aspect-square md:aspect-[3/4] bg-nier-beige border border-nier-dark flex items-center justify-center p-4 md:p-8 transform -rotate-3 mx-auto md:mx-0 relative overflow-hidden"
               >
                  {/* Original Text */}
                  <motion.div 
@@ -147,7 +147,7 @@ export default function Services() {
                        
                        {/* Fun Objects Inside */}
                        {/* Video File */}
-                       <div className="absolute bottom-4 left-2 w-12 h-12 md:w-16 md:h-16 bg-nier-gray border border-nier-dark transform -rotate-12 flex items-center justify-center">
+                       <div className="absolute bottom-4 left-2 w-12 h-12 md:w-16 md:h-16 bg-nier-beige border border-nier-dark transform -rotate-12 flex items-center justify-center">
                           <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-nier-dark border-b-[6px] border-b-transparent ml-1"></div>
                        </div>
                        {/* Audio File */}
@@ -211,7 +211,7 @@ export default function Services() {
                   </button>
                   <motion.button 
                     style={{ scale: buttonScale }}
-                    className="bg-nier-dark text-nier-light border border-nier-dark px-6 py-2 md:px-8 md:py-3 font-mono text-sm tracking-widest uppercase hover:bg-nier-red transition-colors origin-center relative z-50"
+                    className="bg-nier-dark text-nier-light border border-nier-dark px-6 py-2 md:px-8 md:py-3 font-mono text-sm tracking-widest uppercase hover:bg-nier-red hover:text-white transition-colors origin-center relative z-50"
                     onClick={foundSecret}
                   >
                     [ ACQUIRE ]
