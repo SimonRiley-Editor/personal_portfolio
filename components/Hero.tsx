@@ -197,7 +197,8 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           </div>
 
           <h1 className="font-akira text-5xl md:text-7xl lg:text-[9rem] tracking-widest uppercase leading-[0.9] text-nier-dark mt-6 group-hover:text-nier-light transition-colors duration-500 relative z-10">
-            ALI<br/>ALIYEV
+            <span className="block group-hover:opacity-0 transition-opacity duration-300">ALI<br/>ALIYEV</span>
+            <span className="absolute top-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">SIMON<br/>GODLY</span>
           </h1>
           
           <div className="absolute bottom-2 right-3 text-[10px] font-mono text-nier-dark opacity-50 group-hover:text-nier-light group-hover:opacity-80 transition-colors duration-200">
@@ -276,7 +277,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           initial={{ opacity: 0, y: 20 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           href="#work"
-          className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-8 md:px-12 py-5 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-white transition-colors duration-300 shadow-lg"
+          className="text-xs md:text-sm font-mono tracking-widest text-nier-light bg-nier-dark px-8 md:px-12 py-5 border border-nier-dark cursor-pointer inline-block uppercase relative group overflow-hidden hover:bg-nier-red hover:text-nier-light transition-colors duration-300 shadow-lg"
           transition={{ duration: 0.8, delay: isLoaded ? 0.7 : 0 }}
           onClick={(e) => {
             e.preventDefault();
