@@ -30,13 +30,13 @@ export default function AboutMe() {
             transition={{ duration: 0.4 }}
             className="space-y-6"
           >
-            <p className="border-l-2 border-nier-beige/30 pl-5 text-nier-light/80">
+            <p className="border-l-2 border-nier-beige/30 pl-5 text-[#e8e6e1]/80">
               I didn&apos;t begin my career as a video editor. My path started in computer engineering and programming, leading to a Master’s degree in Informatics from BSU. Although I valued the logic behind coding, it never fully connected with me. What remained constant was my love for editing.
             </p>
-            <p className="border-l-2 border-nier-beige/30 pl-5 text-nier-light/80">
+            <p className="border-l-2 border-nier-beige/30 pl-5 text-[#e8e6e1]/80">
               What started as a refuge editing anime clips to music to express my emotions transformed into a fiercely competitive field. Over the last 6 years, I have developed a career characterized by technical accuracy and creative influence, merging the engineering precision of my education with the pure enthusiasm of an AMV champion.
             </p>
-            <p className="border-l-2 border-nier-beige/30 pl-5 text-nier-light/80">
+            <p className="border-l-2 border-nier-beige/30 pl-5 text-[#e8e6e1]/80">
               My work is deeply rooted in a passion for digital art from winning multiple Editing Tournaments to partnering with top tier content creators like Braxaphone, Glaivekiyo, and Saintontas. I don’t merely “complete projects”; I craft unforgettable visual experiences. Whether I’m constructing intricate After Effects compositions or designing narrative-driven cinematic openings, my aim remains consistent: to create experiences that are not only viewed but truly felt.
             </p>
           </motion.div>
@@ -59,8 +59,8 @@ export default function AboutMe() {
               { title: 'Frontend Development', desc: 'Building responsive, visually refined interfaces that merge design and functionality, with a focus on smooth interactions and performance-driven experiences.' }
             ].map((skill, idx) => (
               <div key={idx} className="border-l-2 border-nier-beige/30 pl-5">
-                <h4 className="text-nier-light font-semibold text-lg mb-1">{skill.title}</h4>
-                <p className="text-nier-light/70 text-sm leading-relaxed">{skill.desc}</p>
+                <h4 className="text-[#e8e6e1] font-semibold text-lg mb-1">{skill.title}</h4>
+                <p className="text-[#e8e6e1]/70 text-sm leading-relaxed">{skill.desc}</p>
               </div>
             ))}
           </motion.div>
@@ -81,8 +81,8 @@ export default function AboutMe() {
               { title: 'Sony Vegas Pro', desc: 'Legacy expertise; the foundation of my editing career and rhythmic "flow" style.' }
             ].map((software, idx) => (
               <div key={idx} className="p-4 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors">
-                <h4 className="text-nier-light font-semibold mb-2">{software.title}</h4>
-                <p className="text-nier-light/70 text-sm leading-relaxed">{software.desc}</p>
+                <h4 className="text-[#e8e6e1] font-semibold mb-2">{software.title}</h4>
+                <p className="text-[#e8e6e1]/70 text-sm leading-relaxed">{software.desc}</p>
               </div>
             ))}
           </motion.div>
@@ -102,9 +102,9 @@ export default function AboutMe() {
                 <div className="w-2 h-2 bg-nier-beige rounded-full animate-pulse" />
               </div>
               <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
-                <h4 className="text-nier-light font-semibold text-lg group-hover:text-nier-beige transition-colors">Master of Science: Informatics</h4>
+                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">Master of Science: Informatics</h4>
                 <p className="text-nier-beige text-sm mb-3">Baku State University (BSU)</p>
-                <p className="text-sm text-nier-light/70 leading-relaxed">Advanced focus on information systems and algorithmic logic. This academic foundation allows me to approach complex project structures and data management with a systematic, high-level perspective.</p>
+                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">Advanced focus on information systems and algorithmic logic. This academic foundation allows me to approach complex project structures and data management with a systematic, high-level perspective.</p>
               </div>
             </div>
             {/* Timeline Item 2 */}
@@ -113,9 +113,9 @@ export default function AboutMe() {
                 <div className="w-2 h-2 bg-nier-dark/40 rounded-full" />
               </div>
               <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
-                <h4 className="text-nier-light font-semibold text-lg group-hover:text-nier-beige transition-colors">Bachelor of Science: Computer Engineering</h4>
+                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">Bachelor of Science: Computer Engineering</h4>
                 <p className="text-nier-beige text-sm mb-3">Azerbaijan Technical University (AzTU)</p>
-                <p className="text-sm text-nier-light/70 leading-relaxed">Fundamental engineering principles. My background in hardware architecture and system optimization provides a distinct advantage in managing heavy rendering workloads and complex software integrations.</p>
+                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">Fundamental engineering principles. My background in hardware architecture and system optimization provides a distinct advantage in managing heavy rendering workloads and complex software integrations.</p>
               </div>
             </div>
             {/* Timeline Item 3 */}
@@ -124,9 +124,9 @@ export default function AboutMe() {
                 <div className="w-2 h-2 bg-nier-dark/40 rounded-full" />
               </div>
               <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
-                <h4 className="text-nier-light font-semibold text-lg group-hover:text-nier-beige transition-colors">Professional Diploma: Digital Design</h4>
+                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">Professional Diploma: Digital Design</h4>
                 <p className="text-nier-beige text-sm mb-3">IT STEP Academy</p>
-                <p className="text-sm text-nier-light/70 leading-relaxed">A multi-disciplinary program where I bridged the gap between Front-End Development, Professional Video Editing, and Visual Retouching. This is where my technical engineering roots met professional creative production.</p>
+                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">A multi-disciplinary program where I bridged the gap between Front-End Development, Professional Video Editing, and Visual Retouching. This is where my technical engineering roots met professional creative production.</p>
               </div>
             </div>
           </motion.div>
@@ -148,7 +148,7 @@ export default function AboutMe() {
             ].map((item, idx) => (
               <div key={item.lang} className="space-y-2 p-4 rounded border border-nier-dark/80 bg-nier-dark/20">
                 <div className="flex justify-between items-end mb-2">
-                  <h4 className="text-nier-light font-semibold tracking-wide">{item.lang}</h4>
+                  <h4 className="text-[#e8e6e1] font-semibold tracking-wide">{item.lang}</h4>
                   <span className="text-xs text-nier-beige uppercase tracking-widest">{item.level}</span>
                 </div>
                 <div className="h-1.5 w-full bg-nier-dark/80 rounded-full overflow-hidden">
@@ -177,10 +177,10 @@ export default function AboutMe() {
             
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-nier-red animate-pulse" />
-              <span className="text-xs font-mono text-nier-light/50 tracking-widest uppercase">System.Log // Philosophy</span>
+              <span className="text-xs font-mono text-[#e8e6e1]/50 tracking-widest uppercase">System.Log // Philosophy</span>
             </div>
             
-            <p className="italic text-nier-light/80 text-lg leading-relaxed relative z-10">
+            <p className="italic text-[#e8e6e1]/80 text-lg leading-relaxed relative z-10">
               &quot;My background as a Computer Engineer means I don&apos;t just use creative software; I understand the architecture behind it. This technical depth allows me to optimize performance, troubleshoot complex VFX pipelines, and maintain peak visual quality in high-pressure environments.&quot;
             </p>
           </motion.div>
@@ -191,7 +191,7 @@ export default function AboutMe() {
   };
 
   return (
-    <section className="py-24 bg-nier-gray text-nier-light relative overflow-hidden">
+    <section className="py-24 bg-nier-gray text-[#e8e6e1] relative overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(var(--color-nier-dark) 1px, transparent 1px), linear-gradient(90deg, var(--color-nier-dark) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
@@ -209,7 +209,7 @@ export default function AboutMe() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-nier-light">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-[#e8e6e1]">
             <span className="text-nier-beige">01.</span> ABOUT ME
           </h2>
           <div className="w-20 h-1 bg-nier-beige mb-8" />
@@ -235,7 +235,7 @@ export default function AboutMe() {
                     className={`relative flex items-center gap-2 px-5 py-2.5 rounded-t-lg transition-all duration-300 overflow-hidden ${
                       isActive
                         ? 'text-nier-beige bg-nier-dark/60'
-                        : 'text-nier-light/50 hover:text-nier-light/80 hover:bg-nier-dark/30'
+                        : 'text-[#e8e6e1]/50 hover:text-[#e8e6e1]/80 hover:bg-nier-dark/30'
                     }`}
                   >
                     {isActive && (
@@ -252,26 +252,26 @@ export default function AboutMe() {
             </div>
 
             {/* Tab Content */}
-            <div className="text-nier-light/70 text-lg leading-relaxed min-h-[300px]">
+            <div className="text-[#e8e6e1]/70 text-lg leading-relaxed min-h-[300px]">
               {renderContent()}
             </div>
             
             <div className="pt-6 grid grid-cols-2 gap-6 border-t border-nier-dark/80">
               <div className="flex items-center gap-3">
                 <Code className="w-5 h-5 text-nier-beige" />
-                <span className="text-nier-light text-sm tracking-wider uppercase">Frontend Dev</span>
+                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">Frontend Dev</span>
               </div>
               <div className="flex items-center gap-3">
                 <Film className="w-5 h-5 text-nier-beige" />
-                <span className="text-nier-light text-sm tracking-wider uppercase">Video Editor</span>
+                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">Video Editor</span>
               </div>
               <div className="flex items-center gap-3">
                 <Music className="w-5 h-5 text-nier-beige" />
-                <span className="text-nier-light text-sm tracking-wider uppercase">Sound Designer</span>
+                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">Sound Designer</span>
               </div>
               <div className="flex items-center gap-3">
                 <Sparkles className="w-5 h-5 text-nier-beige" />
-                <span className="text-nier-light text-sm tracking-wider uppercase">Motion Designer</span>
+                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">Motion Designer</span>
               </div>
             </div>
           </motion.div>

@@ -214,17 +214,17 @@ export default function Experience() {
                   >
                     <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-8 w-full">
                       <div className="flex flex-col w-full md:w-48">
-                        <span className={`font-mono text-sm tracking-widest mb-1 ${expandedIndex === index ? 'text-nier-light/60' : 'text-nier-dark/60'}`}>[{exp.period}]</span>
-                        <span className={`text-xl font-mono uppercase font-bold ${expandedIndex === index ? 'text-nier-light' : 'text-nier-dark'}`}>{exp.company}</span>
+                        <span className={`font-mono text-sm tracking-widest mb-1 ${expandedIndex === index ? 'text-[#e8e6e1]/60' : 'text-nier-dark/60'}`}>[{exp.period}]</span>
+                        <span className={`text-xl font-mono uppercase font-bold ${expandedIndex === index ? 'text-[#e8e6e1]' : 'text-nier-dark'}`}>{exp.company}</span>
                       </div>
                       <div className="flex flex-col w-full md:w-64">
-                        <span className={`text-sm font-mono uppercase ${expandedIndex === index ? 'text-nier-light/90' : 'text-nier-dark/90'}`}>{exp.role}</span>
-                        <span className={`text-xs font-mono uppercase mt-1 ${expandedIndex === index ? 'text-nier-light/50' : 'text-nier-dark/50'}`}>{exp.location}</span>
+                        <span className={`text-sm font-mono uppercase ${expandedIndex === index ? 'text-[#e8e6e1]/90' : 'text-nier-dark/90'}`}>{exp.role}</span>
+                        <span className={`text-xs font-mono uppercase mt-1 ${expandedIndex === index ? 'text-[#e8e6e1]/50' : 'text-nier-dark/50'}`}>{exp.location}</span>
                       </div>
                     </div>
                     <div className={`mt-4 md:mt-0 p-2 border ${
                       expandedIndex === index 
-                        ? 'border-nier-light/30 text-nier-light bg-nier-light/10' 
+                        ? 'border-[#e8e6e1]/30 text-[#e8e6e1] bg-nier-light/10' 
                         : 'border-nier-dark/30 text-nier-dark bg-nier-dark/5 group-hover:bg-nier-dark/10'
                     }`}>
                       <motion.div
@@ -243,7 +243,7 @@ export default function Experience() {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden border-t border-nier-light/10"
+                        className="overflow-hidden border-t border-[#e8e6e1]/10"
                       >
                         <div className="p-6 bg-nier-gray/95">
                           <ul className="space-y-4">
@@ -253,7 +253,7 @@ export default function Experience() {
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.1 + (i * 0.05) }}
-                                className="text-sm font-mono text-nier-light/80 flex items-start gap-3"
+                                className="text-sm font-mono text-[#e8e6e1]/80 flex items-start gap-3"
                               >
                                 <span className="text-nier-red mt-0.5 select-none">&gt;</span>
                                 <span className="leading-relaxed">{detail}</span>

@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --theme-nier-beige: #dad4c4;
-  --theme-nier-dark: #4a4843;
+  --theme-nier-beige: #d1cbb8;
+  --theme-nier-dark: #45433e;
   --theme-nier-red: #8b0000;
-  --theme-nier-light: #e8e6e1;
+  --theme-nier-light: #dfdcd3;
   --theme-nier-gray: #2a2824;
 }
 
 .dark {
   --theme-nier-beige: #1a1814;
-  --theme-nier-dark: #dad4c4;
-  --theme-nier-red: #ff4444;
+  --theme-nier-dark: #c4beac;
+  --theme-nier-red: #cc3333;
   --theme-nier-light: #2a2824;
   --theme-nier-gray: #0a0908;
 }
@@ -127,6 +127,48 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-nier-red);
+}
+
+/* Custom Horizontal Scrollbar for Carousels */
+.nier-horizontal-scrollbar::-webkit-scrollbar {
+  height: 12px;
+}
+
+.nier-horizontal-scrollbar::-webkit-scrollbar-track {
+  background: linear-gradient(to bottom, transparent 5px, var(--color-nier-dark) 5px, var(--color-nier-dark) 7px, transparent 7px);
+}
+
+.nier-horizontal-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-nier-dark);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+.nier-horizontal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-nier-red);
+}
+
+.dark .nier-horizontal-scrollbar::-webkit-scrollbar-track {
+  background: linear-gradient(to bottom, transparent 5px, var(--color-nier-light) 5px, var(--color-nier-light) 7px, transparent 7px);
+}
+
+.dark .nier-horizontal-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-nier-beige);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+.dark .nier-horizontal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-nier-red);
+}
+
+.nier-horizontal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-nier-dark) transparent;
+}
+
+.dark .nier-horizontal-scrollbar {
+  scrollbar-color: var(--color-nier-beige) transparent;
 }
 
 /* Markdown Styles */
