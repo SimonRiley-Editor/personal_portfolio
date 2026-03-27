@@ -63,11 +63,26 @@ export default function PodChat({ onClose }: PodChatProps) {
 
       const ai = new GoogleGenAI({ apiKey });
       
-      const contents = messages.map(msg => ({
-        role: msg.role === 'model' ? 'model' : 'user',
-        parts: [{ text: msg.text }]
-      }));
-      contents.push({ role: 'user', parts: [{ text: userMessage }] });
+      // The Gemini API requires the conversation history to start with a 'user' message
+      // and alternate between 'user' and 'model'.
+      const rawContents = messages
+        .filter((msg, index) => !(index === 0 && msg.role === 'model'))
+        .map(msg => ({
+          role: msg.role === 'model' ? 'model' : 'user',
+          parts: [{ text: msg.text }]
+        }));
+      rawContents.push({ role: 'user', parts: [{ text: userMessage }] });
+
+      // Collapse consecutive messages from the same role and filter out empty messages
+      const contents: { role: 'user' | 'model', parts: { text: string }[] }[] = [];
+      for (const msg of rawContents) {
+        if (!msg.parts[0].text.trim()) continue; // Skip empty messages
+        if (contents.length > 0 && contents[contents.length - 1].role === msg.role) {
+          contents[contents.length - 1].parts[0].text += '\n\n' + msg.parts[0].text;
+        } else {
+          contents.push(msg as { role: 'user' | 'model', parts: { text: string }[] });
+        }
+      }
 
       const responseStream = await ai.models.generateContentStream({
         model: 'gemini-3.1-pro-preview',

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Crosshair, Terminal, Video, Activity, Cpu, Database } from 'lucide-react';
-import { motion, useMotionValue, useTransform, animate } from 'motion/react';
+import { motion, useMotionValue, useTransform, animate, useMotionTemplate } from 'motion/react';
 import Image from 'next/image';
 import { useGlitch } from './GlitchContext';
 
@@ -74,17 +74,21 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
     if (isDragging) {
       window.addEventListener('pointermove', handlePointerMove);
       window.addEventListener('pointerup', handlePointerUp);
+      window.addEventListener('pointercancel', handlePointerUp);
       return () => {
         window.removeEventListener('pointermove', handlePointerMove);
         window.removeEventListener('pointerup', handlePointerUp);
+        window.removeEventListener('pointercancel', handlePointerUp);
       };
     }
   }, [isDragging, updateProgress]);
 
   const textSkew = useTransform(progress, [0, 0.5, 1], [-5, 0, 5]);
   const letterSpacing = useTransform(progress, [0, 0.5, 1], ["0em", "0.2em", "0em"]);
-  const textColor = useTransform(progress, [0, 0.5, 1], ["transparent", "var(--color-nier-red)", "transparent"]);
   const textStroke = "1px var(--color-nier-dark)";
+  
+  const clipRight = useTransform(progress, [0, 1], [110, -10]);
+  const clipPath = useMotionTemplate`inset(0 ${clipRight}% 0 0)`;
 
   const { trackSection, reportUserAction, unlockEnding, foundSecret } = useGlitch();
 
@@ -220,17 +224,34 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           transition={{ duration: 0.5, delay: isLoaded ? 0.5 : 0 }}
           className="relative inline-block mb-16 mx-4 md:mx-16 w-full max-w-4xl"
         >
-          <motion.div 
-            className="font-wide text-6xl md:text-[8rem] lg:text-[11rem] tracking-tighter relative z-10" 
-            style={{ 
-              skewX: textSkew,
-              letterSpacing: letterSpacing,
-              color: textColor,
-              WebkitTextStroke: textStroke
-            }}
-          >
-            EDITOR
-          </motion.div>
+          <div className="relative z-10">
+            {/* Base Layer (Uncolored) */}
+            <motion.div 
+              className="font-wide text-6xl md:text-[8rem] lg:text-[11rem] tracking-tighter" 
+              style={{ 
+                skewX: textSkew,
+                letterSpacing: letterSpacing,
+                color: "transparent",
+                WebkitTextStroke: textStroke
+              }}
+            >
+              EDITOR
+            </motion.div>
+            
+            {/* Top Layer (Colored) */}
+            <motion.div 
+              className="font-wide text-6xl md:text-[8rem] lg:text-[11rem] tracking-tighter absolute top-0 left-0 w-full h-full" 
+              style={{ 
+                skewX: textSkew,
+                letterSpacing: letterSpacing,
+                color: "var(--color-nier-red)",
+                WebkitTextStroke: textStroke,
+                clipPath: clipPath
+              }}
+            >
+              EDITOR
+            </motion.div>
+          </div>
           
           <div className="absolute inset-0 flex items-center justify-center z-20">
              {/* Timeline line */}
@@ -239,7 +260,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
              {/* Interactive Area */}
              <div 
                ref={containerRef}
-               className="absolute top-1/2 -translate-y-1/2 left-[-10%] right-[-10%] h-32 cursor-pointer touch-none"
+               className="absolute top-1/2 -translate-y-1/2 left-[-10%] right-[-10%] h-32 cursor-pointer touch-pan-y"
                onPointerDown={(e) => {
                  setIsDragging(true);
                  updateProgress(e.clientX);
@@ -247,7 +268,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
              >
                {/* Playhead */}
                <motion.div 
-                 className="w-1 md:w-2 h-16 md:h-24 bg-nier-red border border-nier-dark absolute top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing shadow-[0_0_10px_rgba(139,0,0,0.5)]"
+                 className="w-1 md:w-2 h-16 md:h-24 bg-nier-red border border-nier-dark absolute top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing shadow-[0_0_10px_rgba(139,0,0,0.5)] z-10"
                  style={{ 
                    left: useTransform(progress, [0, 1], ["0%", "100%"]),
                    x: "-50%"
@@ -255,18 +276,12 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
                >
                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-3 h-3 border border-nier-dark bg-nier-light rotate-45"></div>
                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3 h-3 border border-nier-dark bg-nier-light rotate-45"></div>
-               </motion.div>
-               
-               {/* Video icon */}
-               <motion.div 
-                 className="absolute top-1/2 -translate-y-1/2 pointer-events-none" 
-                 style={{ 
-                   left: useTransform(progress, [0, 1], ["0%", "100%"]),
-                   x: "100%",
-                 }}
-               >
-                 <div className="nier-box p-2 md:p-3 ml-4 bg-nier-beige/80 backdrop-blur-sm">
-                   <Video size={24} className="text-nier-dark" strokeWidth={1.5} />
+                 
+                 {/* Video icon */}
+                 <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 pointer-events-none">
+                   <div className="nier-box p-2 md:p-3 bg-nier-beige/80 backdrop-blur-sm">
+                     <Video size={24} className="text-nier-dark" strokeWidth={1.5} />
+                   </div>
                  </div>
                </motion.div>
              </div>
