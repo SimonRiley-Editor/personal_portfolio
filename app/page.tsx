@@ -11,6 +11,7 @@ import WorkSection from '@/components/work-section';
 import Contact from '@/components/Contact';
 import Loader from '@/components/Loader';
 import SectionWrapper from '@/components/SectionWrapper';
+import Presentation from '@/components/Presentation';
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -41,6 +42,7 @@ export default function Home() {
         so they slide over the sticky sections above.
       */}
       <div className="relative z-10 bg-nier-beige shadow-[0_-20px_50px_rgba(0,0,0,0.3)]">
+        <Presentation />
         <Experience />
         <Services />
         <Awards />

@@ -21,6 +21,7 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
 
   const navLinks = [
     { href: '#about', label: 'About Me' },
+    { href: '#presentation', label: 'Presentation' },
     { href: '#experience', label: 'Experience' },
     { href: '#services', label: 'Services' },
     { href: '#awards', label: 'Awards' },

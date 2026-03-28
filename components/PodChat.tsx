@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { GoogleGenAI, ThinkingLevel } from '@google/genai';
 import { X, Send } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
@@ -56,58 +55,37 @@ export default function PodChat({ onClose }: PodChatProps) {
     }
 
     try {
-      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      if (!apiKey) {
-        throw new Error('API key not configured');
-      }
-
-      const ai = new GoogleGenAI({ apiKey });
-      
-      // The Gemini API requires the conversation history to start with a 'user' message
-      // and alternate between 'user' and 'model'.
-      const rawContents = messages
-        .filter((msg, index) => !(index === 0 && msg.role === 'model'))
-        .map(msg => ({
-          role: msg.role === 'model' ? 'model' : 'user',
-          parts: [{ text: msg.text }]
-        }));
-      rawContents.push({ role: 'user', parts: [{ text: userMessage }] });
-
-      // Collapse consecutive messages from the same role and filter out empty messages
-      const contents: { role: 'user' | 'model', parts: { text: string }[] }[] = [];
-      for (const msg of rawContents) {
-        if (!msg.parts[0].text.trim()) continue; // Skip empty messages
-        if (contents.length > 0 && contents[contents.length - 1].role === msg.role) {
-          contents[contents.length - 1].parts[0].text += '\n\n' + msg.parts[0].text;
-        } else {
-          contents.push(msg as { role: 'user' | 'model', parts: { text: string }[] });
-        }
-      }
-
-      const responseStream = await ai.models.generateContentStream({
-        model: 'gemini-3.1-pro-preview',
-        contents,
-        config: {
-          systemInstruction: `You are POD, a tactical support unit from the Nier Automata universe. You speak in a robotic, analytical, and slightly philosophical tone. You prefix your messages with "POD: ". You assist the user with their queries. You are currently assisting a user on a portfolio website.
-          
-Current User Context:
-- Evolution Stage: ${userState.stage}
-- Behavior Type: ${userState.behaviorType}
-- Clicks: ${userState.clicks}
-- Session Time: ${userState.sessionTime}s
-- Visited Sections: ${userState.visitedSections.join(', ')}
-- Secrets Found: ${userState.secretsFound}`,
-          thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH }
-        }
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [...messages, { role: 'user', text: userMessage }],
+          userState
+        })
       });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `API Error: ${response.status}`);
+      }
 
       setIsThinking(false);
       setMessages(prev => [...prev, { role: 'model', text: '' }]);
 
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
       let fullText = '';
-      for await (const chunk of responseStream) {
-        if (chunk.text) {
-          fullText += chunk.text;
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          const chunkText = decoder.decode(value, { stream: true });
+          fullText += chunkText;
+          
           setMessages(prev => {
             const newMessages = [...prev];
             newMessages[newMessages.length - 1].text = fullText;
@@ -115,10 +93,17 @@ Current User Context:
           });
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Chat error:', error);
       setIsThinking(false);
-      setMessages(prev => [...prev, { role: 'model', text: 'POD: [ERROR] Communication failure. Please try again later.' }]);
+      
+      let errorMessage = 'POD: [ERROR] Communication failure. Please try again later.';
+      
+      if (error?.message) {
+        errorMessage = error.message;
+      }
+      
+      setMessages(prev => [...prev, { role: 'model', text: errorMessage }]);
     }
   };
 
