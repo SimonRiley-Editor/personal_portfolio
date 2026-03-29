@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Crosshair, Terminal, Video, Activity, Cpu, Database } from 'lucide-react';
+import { Crosshair, Terminal, Video, Activity, Cpu, Database, Trophy, Play } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate, useMotionTemplate } from 'motion/react';
 import Image from 'next/image';
 import { useGlitch } from './GlitchContext';
@@ -171,6 +171,83 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
       <div className="absolute bottom-1/4 right-[10%] md:right-1/4 animate-float opacity-50 z-10 cursor-pointer" onClick={foundSecret}>
         <Terminal size={32} className="text-nier-red" strokeWidth={1} />
       </div>
+
+      {/* Featured Award Panel */}
+      <motion.div 
+        initial={{ opacity: 0, x: -50 }}
+        animate={isLoaded ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+        transition={{ duration: 0.8, delay: isLoaded ? 0.8 : 0 }}
+        className="absolute bottom-8 left-4 md:left-8 z-40 hidden sm:flex flex-col gap-2 max-w-[260px]"
+      >
+        <div className="flex items-center gap-2 text-[10px] font-mono tracking-widest text-nier-dark bg-nier-beige/80 backdrop-blur-sm px-2 py-1 border border-nier-dark/30 w-fit">
+          <Trophy size={12} className="text-nier-red" />
+          <span>FEATURED_ARCHIVES</span>
+        </div>
+        
+        <div className="flex flex-col gap-3">
+          <a href="https://youtu.be/z-VnFmpcrmU" target="_blank" rel="noopener noreferrer" className="group relative bg-nier-dark/90 border border-nier-dark p-1 shadow-lg hover:border-nier-red transition-colors duration-300 block">
+            {/* Corner accents */}
+            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-nier-red opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-nier-red opacity-0 group-hover:opacity-100 transition-opacity" />
+            
+            <div className="relative aspect-video w-full overflow-hidden bg-black">
+              <Image 
+                src="https://res.cloudinary.com/ds6dwbk37/image/upload/v1774598330/thumblifyai-youtube-thumbnail_xy9jml.jpg" 
+                alt="Best in Show - DerpiCon 2024" 
+                fill
+                className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 filter grayscale group-hover:grayscale-0"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] pointer-events-none opacity-50" />
+              
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full border border-nier-beige/50 flex items-center justify-center bg-black/40 backdrop-blur-sm group-hover:border-nier-red group-hover:text-nier-red text-nier-beige transition-colors">
+                  <Play size={14} className="ml-1" />
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-2 bg-nier-dark text-nier-beige">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider mb-0.5 group-hover:text-nier-light transition-colors line-clamp-1">
+                Best in Show
+              </h4>
+              <p className="text-[9px] font-mono opacity-60 line-clamp-1">
+                DerpiCon 2024
+              </p>
+            </div>
+          </a>
+
+          <a href="https://youtu.be/TaGrFtPV7lU" target="_blank" rel="noopener noreferrer" className="group relative bg-nier-dark/90 border border-nier-dark p-1 shadow-lg hover:border-nier-red transition-colors duration-300 block">
+            {/* Corner accents */}
+            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-nier-red opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-nier-red opacity-0 group-hover:opacity-100 transition-opacity" />
+            
+            <div className="relative aspect-video w-full overflow-hidden bg-black">
+              <Image 
+                src="https://i.ytimg.com/vi/TaGrFtPV7lU/maxresdefault.jpg" 
+                alt="1st Place - AniRevo, Animesse, Anime Toronto 2023" 
+                fill
+                className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 filter grayscale group-hover:grayscale-0"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] pointer-events-none opacity-50" />
+              
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full border border-nier-beige/50 flex items-center justify-center bg-black/40 backdrop-blur-sm group-hover:border-nier-red group-hover:text-nier-red text-nier-beige transition-colors">
+                  <Play size={14} className="ml-1" />
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-2 bg-nier-dark text-nier-beige">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider mb-0.5 group-hover:text-nier-light transition-colors line-clamp-1">
+                Triple 1st Place
+              </h4>
+              <p className="text-[9px] font-mono opacity-60 line-clamp-1" title="AniRevo, Animesse, Anime Toronto 2023">
+                AniRevo, Animesse, Anime Toronto '23
+              </p>
+            </div>
+          </a>
+        </div>
+      </motion.div>
 
       {/* Main Content */}
       <div className="text-center z-10 px-4 mt-12 flex flex-col items-center w-full max-w-5xl">
