@@ -8,27 +8,14 @@ export default function CustomCursor() {
   const cursorY = useMotionValue(-100);
 
   useEffect(() => {
-    let animationFrameId: number;
-    let latestX = -100;
-    let latestY = -100;
-
     const moveCursor = (e: MouseEvent) => {
-      latestX = e.clientX;
-      latestY = e.clientY;
-      
-      if (!animationFrameId) {
-        animationFrameId = requestAnimationFrame(() => {
-          cursorX.set(latestX);
-          cursorY.set(latestY);
-          animationFrameId = 0;
-        });
-      }
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     window.addEventListener('mousemove', moveCursor, { passive: true });
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, [cursorX, cursorY]);
 
