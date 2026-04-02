@@ -1,8 +1,10 @@
 import { motion } from 'motion/react';
 import { Database, Maximize2, ExternalLink } from 'lucide-react';
+import { useLanguage } from './LanguageContext';
 
 export default function Presentation() {
   const slidesUrl = "https://docs.google.com/presentation/d/e/2PACX-1vT-IE_7oHLKQJ_KK4Ll6mbbxnS1pqSXXFvi_7Mu10xkU3KusVdvaPnBHF6dBPDGdY7yusicF8SA-vqK/pubembed?start=false&loop=false&delayms=5000";
+  const { t } = useLanguage();
 
   return (
     <section id="presentation" className="py-24 bg-nier-beige text-nier-dark relative overflow-hidden border-y border-nier-dark/20">
@@ -24,14 +26,14 @@ export default function Presentation() {
               <Database className="w-5 h-5 text-nier-dark animate-pulse" />
               <span className="text-sm font-mono tracking-widest uppercase font-bold">System.Archive // Data Retrieval</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-nier-dark">
-              <span className="text-nier-dark/50">02.</span> PORTFOLIO DECK
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-nier-dark uppercase">
+              <span className="text-nier-dark/50">02.</span> {t('presentation.subtitle')}
             </h2>
             <div className="w-20 h-1 bg-nier-dark mt-4" />
           </div>
           
           <div className="font-mono text-sm text-nier-dark/70 bg-nier-dark/5 px-4 py-2 border border-nier-dark/20">
-            STATUS: <span className="text-green-600 font-bold">ONLINE</span>
+            {t('presentation.status')} <span className="text-green-600 font-bold">{t('presentation.online')}</span>
           </div>
         </motion.div>
 
@@ -54,7 +56,7 @@ export default function Presentation() {
             <div className="bg-nier-dark text-nier-beige px-4 py-2 flex justify-between items-center font-mono text-xs md:text-sm mb-1 md:mb-2">
               <div className="flex items-center gap-4">
                 <span className="animate-pulse">▶</span>
-                <span>DATA_STREAM_ACTIVE</span>
+                <span>{t('presentation.data_stream')}</span>
               </div>
               <div className="flex items-center gap-4 opacity-70">
                 <Maximize2 className="w-4 h-4 hidden md:block" />
@@ -77,14 +79,14 @@ export default function Presentation() {
 
             {/* Bottom Bar */}
             <div className="bg-nier-dark text-nier-beige px-4 py-2 mt-1 md:mt-2 flex justify-between items-center font-mono text-xs md:text-sm">
-              <span>ENCRYPTION: NONE</span>
+              <span>{t('presentation.encryption')}</span>
               <a 
                 href={slidesUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-white transition-colors"
               >
-                <span>OPEN_EXTERNAL</span>
+                <span>{t('presentation.open_external')}</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>

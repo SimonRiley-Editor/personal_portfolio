@@ -4,30 +4,31 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Trophy, Medal, Star, Award, ShieldCheck } from 'lucide-react';
 import { useGlitch } from './GlitchContext';
+import { useLanguage } from './LanguageContext';
 
 const awards = [
   {
     year: '2025',
     items: [
-      { title: 'BEST EDITING', context: 'DERPICON', icon: Trophy },
-      { title: 'JUDGES CHOICE', context: 'ANIREVO', icon: Star },
+      { titleKey: 'awards.best_editing', context: 'DERPICON', icon: Trophy },
+      { titleKey: 'awards.judges_choice', context: 'ANIREVO', icon: Star },
     ]
   },
   {
     year: '2024',
     items: [
-      { title: '1ST PLACE', context: 'ROYAL GRINDIS AMV CONTEST', icon: Medal },
-      { title: 'MOST IMPACTFUL', context: 'ANIREVO', icon: Star },
-      { title: '1ST PLACE (EXCLUSIVE)', context: 'ANIME FESTIVAL KASSEL', icon: Trophy },
-      { title: '1ST PLACE (OPEN)', context: 'ANIME FESTIVAL KASSEL', icon: Award },
+      { titleKey: 'awards.1st_place', context: 'ROYAL GRINDIS AMV CONTEST', icon: Medal },
+      { titleKey: 'awards.most_impactful', context: 'ANIREVO', icon: Star },
+      { titleKey: 'awards.1st_place_exclusive', context: 'ANIME FESTIVAL KASSEL', icon: Trophy },
+      { titleKey: 'awards.1st_place_open', context: 'ANIME FESTIVAL KASSEL', icon: Award },
     ]
   },
   {
     year: '2023',
     items: [
-      { title: 'JUDGES CHOICE', context: 'ANIREVO', icon: Star },
-      { title: '1ST PLACE', context: 'ANIME MESSE BABELSBERG', icon: Medal },
-      { title: '1ST PLACE', context: 'ANIME TORONTO', icon: Trophy },
+      { titleKey: 'awards.judges_choice', context: 'ANIREVO', icon: Star },
+      { titleKey: 'awards.1st_place', context: 'ANIME MESSE BABELSBERG', icon: Medal },
+      { titleKey: 'awards.1st_place', context: 'ANIME TORONTO', icon: Trophy },
     ]
   }
 ];
@@ -35,6 +36,7 @@ const awards = [
 export default function Awards() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { trackSection, reportUserAction, foundSpecialSecret } = useGlitch();
+  const { t } = useLanguage();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -68,14 +70,14 @@ export default function Awards() {
       <div className="text-center mb-20 relative z-10">
         <div className="inline-block relative">
            <h2 className="font-akira text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase text-nier-dark cursor-pointer" onClick={foundSpecialSecret}>
-             AWARDS
+             {t('awards.title')}
            </h2>
            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-full max-w-[200px] h-[1px] bg-nier-dark opacity-50"></div>
            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-nier-red"></div>
         </div>
         <div className="mt-8 flex items-center justify-center gap-3">
           <div className="w-2 h-2 bg-nier-red animate-pulse" />
-          <span className="font-mono text-xs tracking-[0.3em] text-nier-dark uppercase">Achievement_Database_Loaded</span>
+          <span className="font-mono text-xs tracking-[0.3em] text-nier-dark uppercase">{t('awards.achievement_loaded')}</span>
         </div>
       </div>
 
@@ -116,10 +118,10 @@ export default function Awards() {
                       <div className="space-y-6">
                         <div className="flex items-center gap-3">
                           <Icon className="w-6 h-6 text-nier-red group-hover:text-nier-light transition-colors" />
-                          <span className="font-mono text-xs tracking-[0.2em] opacity-60 uppercase">Record_{group.year}_{i+1}</span>
+                          <span className="font-mono text-xs tracking-[0.2em] opacity-60 uppercase">{t('awards.record')}_{group.year}_{i+1}</span>
                         </div>
                         <div>
-                          <h4 className="font-akira text-xl md:text-2xl mb-3 tracking-wide leading-tight">{item.title}</h4>
+                          <h4 className="font-akira text-xl md:text-2xl mb-3 tracking-wide leading-tight">{t(item.titleKey)}</h4>
                           <p className="font-mono text-sm tracking-widest uppercase opacity-80 text-nier-red group-hover:text-nier-light transition-colors">{item.context}</p>
                         </div>
                       </div>

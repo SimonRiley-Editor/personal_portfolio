@@ -1,13 +1,25 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Music } from 'lucide-react';
 import { useGlitch } from './GlitchContext';
+
+const tracks = [
+  {
+    title: 'City Ruins',
+    url: 'https://res.cloudinary.com/ds6dwbk37/video/upload/v1774501473/bgm_ye67vo.mp3'
+  },
+  {
+    title: 'Weight of the World',
+    url: 'https://res.cloudinary.com/ds6dwbk37/video/upload/v1775054346/Weight_of_the_World_%E5%A3%8A%E3%83%AC%E3%82%BF%E4%B8%96%E7%95%8C%E3%83%8E%E6%AD%8C_gmxmf6.mp3'
+  }
+];
 
 export default function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.3);
   const [isHovered, setIsHovered] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   const { glitchLevel, isCrashed } = useGlitch();
 
@@ -31,7 +43,7 @@ export default function MusicPlayer() {
         audioRef.current.pause();
       }
     }
-  }, [playing, volume, glitchLevel, isCrashed]);
+  }, [playing, volume, glitchLevel, isCrashed, currentTrackIndex]);
 
   // Auto-play attempt on first interaction
   useEffect(() => {
@@ -50,12 +62,20 @@ export default function MusicPlayer() {
     };
   }, []);
 
+  const nextTrack = () => {
+    setCurrentTrackIndex((prev) => (prev + 1) % tracks.length);
+  };
+
+  const prevTrack = () => {
+    setCurrentTrackIndex((prev) => (prev - 1 + tracks.length) % tracks.length);
+  };
+
   return (
     <>
       <audio
         ref={audioRef}
-        src="https://res.cloudinary.com/ds6dwbk37/video/upload/v1774501473/bgm_ye67vo.mp3"
-        loop
+        src={tracks[currentTrackIndex].url}
+        onEnded={nextTrack}
         preload="auto"
       />
 
@@ -65,17 +85,26 @@ export default function MusicPlayer() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        <div className={`flex items-center gap-1 transition-all duration-300 overflow-hidden ${isHovered ? 'w-16 opacity-100' : 'w-0 opacity-0'}`}>
+          <button onClick={prevTrack} className="hover:text-nier-red transition-colors p-1" aria-label="Previous Track">
+            <SkipBack size={14} />
+          </button>
+          <button onClick={nextTrack} className="hover:text-nier-red transition-colors p-1" aria-label="Next Track">
+            <SkipForward size={14} />
+          </button>
+        </div>
+
         <button
           onClick={() => setPlaying(!playing)}
-          className="hover:text-nier-red transition-colors focus:outline-none flex items-center justify-center w-6 h-6"
+          className="hover:text-nier-red transition-colors focus:outline-none flex items-center justify-center w-6 h-6 shrink-0"
           aria-label={playing ? "Pause Background Music" : "Play Background Music"}
         >
           {playing ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" className="ml-0.5" />}
         </button>
         
-        <div className="w-[1px] h-4 bg-nier-light/20"></div>
+        <div className="w-[1px] h-4 bg-nier-light/20 shrink-0"></div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button 
             onClick={() => setVolume(volume === 0 ? 0.3 : 0)}
             className="hover:text-nier-red transition-colors focus:outline-none flex items-center justify-center w-6 h-6"
@@ -101,9 +130,18 @@ export default function MusicPlayer() {
             />
           </div>
         </div>
+
+        <div className={`overflow-hidden transition-all duration-300 ease-in-out flex items-center border-l border-nier-light/20 ${
+          isHovered ? 'w-32 opacity-100 pl-3' : 'w-0 opacity-0 pl-0 border-transparent'
+        }`}>
+          <div className="flex flex-col whitespace-nowrap">
+            <span className="font-mono text-[8px] text-nier-light/50 tracking-widest uppercase">NOW PLAYING</span>
+            <span className="font-mono text-[10px] tracking-wider truncate w-28 text-nier-red">{tracks[currentTrackIndex].title}</span>
+          </div>
+        </div>
         
         <div 
-          className={`font-mono text-[10px] tracking-widest transition-all duration-300 flex items-center ${
+          className={`font-mono text-[10px] tracking-widest transition-all duration-300 flex items-center shrink-0 ${
             isHovered ? 'w-0 opacity-0 overflow-hidden' : 'w-8 opacity-70'
           }`}
         >

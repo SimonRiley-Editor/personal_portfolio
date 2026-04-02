@@ -88,14 +88,14 @@ export default function FloatingPod({ isChatOpen, onClick, onTriggerHacking, onT
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-[9999] flex flex-col items-end pointer-events-none">
+    <div className="fixed bottom-20 right-4 md:bottom-24 md:right-6 z-[9999] flex flex-col items-end pointer-events-none">
       <AnimatePresence>
         {isMounted && podMessage && !isChatOpen && (
           <motion.div
             initial={{ opacity: 0, y: 10, x: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, x: 20, scale: 0.9 }}
-            className="mb-4 max-w-xs bg-nier-dark/90 text-nier-beige p-4 border-l-4 border-nier-beige text-xs font-mono tracking-widest shadow-[0_0_20px_rgba(230,226,175,0.15)] backdrop-blur-md relative"
+            className="mb-4 max-w-[220px] md:max-w-xs bg-nier-dark/90 text-nier-beige p-3 md:p-4 border-l-4 border-nier-beige text-[10px] md:text-xs font-mono tracking-widest shadow-[0_0_20px_rgba(230,226,175,0.15)] backdrop-blur-md relative"
           >
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-nier-beige/50 to-transparent"></div>
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-nier-beige/50 to-transparent"></div>
@@ -140,7 +140,7 @@ export default function FloatingPod({ isChatOpen, onClick, onTriggerHacking, onT
             y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
             rotate: { duration: 0.1, repeat: Infinity }
           }}
-          className={`w-16 h-16 bg-nier-dark border-2 ${isMounted && userState.stage === 4 ? 'border-nier-red shadow-[0_0_20px_rgba(139,0,0,0.6)]' : 'border-nier-beige/60 shadow-[0_0_15px_rgba(230,226,175,0.2)]'} flex items-center justify-center pointer-events-auto cursor-help hover:bg-nier-beige/10 transition-all duration-300 group relative rounded-sm hover:border-nier-red hover:shadow-[0_0_20px_rgba(139,0,0,0.4)]`}
+          className={`w-12 h-12 md:w-16 md:h-16 bg-nier-dark border-2 ${isMounted && userState.stage === 4 ? 'border-nier-red shadow-[0_0_20px_rgba(139,0,0,0.6)]' : 'border-nier-beige/60 shadow-[0_0_15px_rgba(230,226,175,0.2)]'} flex items-center justify-center pointer-events-auto cursor-help hover:bg-nier-beige/10 transition-all duration-300 group relative rounded-sm hover:border-nier-red hover:shadow-[0_0_20px_rgba(139,0,0,0.4)]`}
           onClick={() => {
             playSound('click');
             setPodMessage("POD: Manual diagnostic requested. System status: " + (userState.stage === 4 ? "UNSTABLE" : "NOMINAL"));
@@ -153,17 +153,17 @@ export default function FloatingPod({ isChatOpen, onClick, onTriggerHacking, onT
             <motion.div 
               animate={{ rotate: 360 }}
               transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-              className={`absolute w-12 h-12 border border-dashed rounded-full ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-nier-beige/40 group-hover:border-nier-red'}`}
+              className={`absolute w-8 h-8 md:w-12 md:h-12 border border-dashed rounded-full ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-nier-beige/40 group-hover:border-nier-red'}`}
             />
             {/* Inner Ring */}
             <motion.div 
               animate={{ rotate: -360 }}
               transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-              className={`absolute w-8 h-8 border border-dotted rounded-full ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-nier-beige/60 group-hover:border-nier-red'}`}
+              className={`absolute w-6 h-6 md:w-8 md:h-8 border border-dotted rounded-full ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-nier-beige/60 group-hover:border-nier-red'}`}
             />
             {/* Core Eye */}
-            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${isMounted && userState.stage === 4 ? 'bg-nier-red animate-pulse' : 'bg-nier-beige group-hover:bg-nier-red'}`}>
-              <div className="w-1.5 h-1.5 bg-nier-dark rounded-full" />
+            <div className={`w-3 h-3 md:w-4 md:h-4 rounded-full flex items-center justify-center ${isMounted && userState.stage === 4 ? 'bg-nier-red animate-pulse' : 'bg-nier-beige group-hover:bg-nier-red'}`}>
+              <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-nier-dark rounded-full" />
             </div>
             {/* Antennae */}
             <div className={`absolute -top-2 w-1 h-3 ${isMounted && userState.stage === 4 ? 'bg-nier-red' : 'bg-nier-beige group-hover:bg-nier-red'}`} />
@@ -179,7 +179,7 @@ export default function FloatingPod({ isChatOpen, onClick, onTriggerHacking, onT
           <div className={`absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 ${isMounted && userState.stage === 4 ? 'border-nier-red' : 'border-nier-beige group-hover:border-nier-red'}`}></div>
 
           {/* Mini status text */}
-          <div className="absolute -bottom-6 right-0 text-[9px] font-mono text-nier-beige/60 tracking-tighter whitespace-nowrap bg-nier-dark/50 px-1">
+          <div className="absolute -bottom-5 md:-bottom-6 right-0 text-[8px] md:text-[9px] font-mono text-nier-beige/60 tracking-tighter whitespace-nowrap bg-nier-dark/50 px-1">
             {isMounted ? `S:${userState.stage} | C:${userState.clicks} | T:${userState.sessionTime}s` : 'S:1 | C:0 | T:0s'}
           </div>
         </motion.div>

@@ -8,18 +8,33 @@ export default function CustomCursor() {
   const cursorY = useMotionValue(-100);
 
   useEffect(() => {
+    let animationFrameId: number;
+    let latestX = -100;
+    let latestY = -100;
+
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+      latestX = e.clientX;
+      latestY = e.clientY;
+      
+      if (!animationFrameId) {
+        animationFrameId = requestAnimationFrame(() => {
+          cursorX.set(latestX);
+          cursorY.set(latestY);
+          animationFrameId = 0;
+        });
+      }
     };
 
-    window.addEventListener('mousemove', moveCursor);
-    return () => window.removeEventListener('mousemove', moveCursor);
+    window.addEventListener('mousemove', moveCursor, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', moveCursor);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
   }, [cursorX, cursorY]);
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[100000] hidden md:block mix-blend-difference"
+      className="fixed top-0 left-0 pointer-events-none z-[100000] hidden [@media(pointer:fine)]:block mix-blend-difference"
       style={{
         x: cursorX,
         y: cursorY,

@@ -4,11 +4,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import { useGlitch } from './GlitchContext';
+import { useLanguage } from './LanguageContext';
 
 const categories = [
   {
     id: 'amvs',
-    name: 'AMVs / Edits',
+    nameKey: 'work.category_amvs',
     type: 'video',
     projects: [
       { id: 'o9FOYN3gMRQ', title: 'Project 01' },
@@ -19,7 +20,7 @@ const categories = [
   },
   {
     id: 'content-creators',
-    name: 'Content Creators',
+    nameKey: 'work.category_creators',
     type: 'video',
     projects: [
       { id: 'pnCGwr5_2lU', title: 'Creator Edit 10' },
@@ -39,7 +40,7 @@ const categories = [
   },
   {
     id: 'thumbnails',
-    name: 'Thumbnails',
+    nameKey: 'work.category_thumbnails',
     type: 'image',
     projects: [
       { id: 'https://res.cloudinary.com/ds6dwbk37/image/upload/v1774598330/thumblifyai-youtube-thumbnail_xy9jml.jpg', title: 'Thumbnail 01' },
@@ -57,6 +58,7 @@ const categories = [
 
 export default function WorkSection() {
   const { trackSection, reportUserAction } = useGlitch();
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [activeVideo, setActiveVideo] = useState(categories[0].projects[0].id);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -114,10 +116,10 @@ export default function WorkSection() {
       <div className="bg-nier-dark border-y border-nier-dark py-2 transform -rotate-1 scale-110 overflow-hidden whitespace-nowrap mb-20 relative z-10">
         <div className="flex w-max animate-marquee">
           <h2 className="font-mono text-xl md:text-2xl font-bold tracking-[0.5em] uppercase whitespace-pre text-nier-beige">
-            {"[ SYSTEM DATA // WORK_LOG ] • ".repeat(10)}
+            {t('work.system_data').repeat(10)}
           </h2>
           <h2 className="font-mono text-xl md:text-2xl font-bold tracking-[0.5em] uppercase whitespace-pre text-nier-beige">
-            {"[ SYSTEM DATA // WORK_LOG ] • ".repeat(10)}
+            {t('work.system_data').repeat(10)}
           </h2>
         </div>
       </div>
@@ -129,13 +131,13 @@ export default function WorkSection() {
             <button
               key={category.id}
               onClick={() => handleCategoryChange(category.id)}
-              className={`px-6 py-3 font-mono text-sm md:text-base font-bold tracking-widest uppercase border-2 transition-all duration-300 ${
+              className={`px-4 py-2 md:px-6 md:py-3 font-mono text-xs md:text-base font-bold tracking-widest uppercase border-2 transition-all duration-300 ${
                 activeCategory === category.id
                   ? 'border-nier-dark bg-nier-dark text-nier-beige shadow-[0_0_15px_rgba(0,0,0,0.5)] scale-105 dark:border-nier-light dark:bg-nier-light dark:text-nier-dark dark:shadow-[0_0_15px_rgba(255,255,255,0.3)]'
                   : 'border-nier-dark text-nier-dark bg-nier-beige hover:bg-nier-red hover:text-white hover:border-nier-red hover:scale-105 dark:border-nier-light dark:text-nier-light dark:bg-nier-dark dark:hover:bg-nier-red dark:hover:text-white dark:hover:border-nier-red'
               }`}
             >
-              [ {category.name} ]
+              [ {t(category.nameKey)} ]
             </button>
           ))}
         </div>
@@ -208,6 +210,8 @@ export default function WorkSection() {
                     src={currentCategory.type === 'video' ? `https://img.youtube.com/vi/${p.id}/hqdefault.jpg` : p.id}
                     alt={p.title} 
                     fill 
+                    sizes="(max-width: 768px) 260px, 400px"
+                    loading="lazy"
                     className={`object-cover transition-all duration-500 ${activeVideo === p.id ? 'grayscale-0 opacity-100' : 'opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100'}`}
                     referrerPolicy="no-referrer"
                   />

@@ -112,7 +112,7 @@ export default function PodChat({ onClose }: PodChatProps) {
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
-      className={`fixed bottom-24 right-4 md:right-24 w-[calc(100vw-2rem)] md:w-96 h-[60vh] md:h-96 max-h-[500px] bg-nier-dark/95 border border-nier-beige shadow-[0_0_30px_rgba(230,226,175,0.2)] z-[9999] flex flex-col font-mono ${glitchLevel >= 2 ? 'glitch-stage-2' : ''} ${glitchLevel >= 3 ? 'glitch-stage-3' : ''}`}
+      className={`fixed bottom-20 right-4 md:bottom-24 md:right-24 w-[calc(100vw-2rem)] md:w-96 h-[50vh] md:h-96 max-h-[500px] bg-nier-dark/95 border border-nier-beige shadow-[0_0_30px_rgba(230,226,175,0.2)] z-[9999] flex flex-col font-mono ${glitchLevel >= 2 ? 'glitch-stage-2' : ''} ${glitchLevel >= 3 ? 'glitch-stage-3' : ''}`}
     >
       {/* Header */}
       <div className={`flex items-center justify-between p-3 border-b border-nier-beige/30 ${glitchLevel >= 3 ? 'bg-nier-red/30' : 'bg-nier-beige/10'}`}>

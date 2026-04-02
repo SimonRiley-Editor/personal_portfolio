@@ -3,20 +3,22 @@ import { Code, Film, Music, Sparkles, GraduationCap, Globe, User, BrainCircuit, 
 import Image from 'next/image';
 import { useGlitch } from './GlitchContext';
 import { useState } from 'react';
+import { useLanguage } from './LanguageContext';
 
 const profileImg = 'https://res.cloudinary.com/ds6dwbk37/image/upload/v1774436237/pp_itmpcf.png';
 
 export default function AboutMe() {
   const { trackSection, reportUserAction, foundSecret } = useGlitch();
   const [activeTab, setActiveTab] = useState('bio');
+  const { t } = useLanguage();
 
   const tabs = [
-    { id: 'bio', label: 'Biography', icon: User },
-    { id: 'skills', label: 'Skills', icon: Zap },
-    { id: 'software', label: 'Software Toolkit', icon: Wrench },
-    { id: 'education', label: 'Education', icon: GraduationCap },
-    { id: 'languages', label: 'Languages', icon: Globe },
-    { id: 'philosophy', label: 'Philosophy', icon: BrainCircuit },
+    { id: 'bio', label: t('about.bio'), icon: User },
+    { id: 'skills', label: t('about.skills'), icon: Zap },
+    { id: 'software', label: t('about.software'), icon: Wrench },
+    { id: 'education', label: t('about.education'), icon: GraduationCap },
+    { id: 'languages', label: t('about.languages'), icon: Globe },
+    { id: 'philosophy', label: t('about.philosophy'), icon: BrainCircuit },
   ];
 
   const renderContent = () => {
@@ -31,13 +33,13 @@ export default function AboutMe() {
             className="space-y-6"
           >
             <p className="border-l-2 border-nier-beige/30 pl-5 text-[#e8e6e1]/80">
-              I didn&apos;t begin my career as a video editor. My path started in computer engineering and programming, leading to a Master’s degree in Informatics from BSU. Although I valued the logic behind coding, it never fully connected with me. What remained constant was my love for editing.
+              {t('about.bio_p1')}
             </p>
             <p className="border-l-2 border-nier-beige/30 pl-5 text-[#e8e6e1]/80">
-              What started as a refuge editing anime clips to music to express my emotions transformed into a fiercely competitive field. Over the last 6 years, I have developed a career characterized by technical accuracy and creative influence, merging the engineering precision of my education with the pure enthusiasm of an AMV champion.
+              {t('about.bio_p2')}
             </p>
             <p className="border-l-2 border-nier-beige/30 pl-5 text-[#e8e6e1]/80">
-              My work is deeply rooted in a passion for digital art from winning multiple Editing Tournaments to partnering with top tier content creators like Braxaphone, Glaivekiyo, and Saintontas. I don’t merely “complete projects”; I craft unforgettable visual experiences. Whether I’m constructing intricate After Effects compositions or designing narrative-driven cinematic openings, my aim remains consistent: to create experiences that are not only viewed but truly felt.
+              {t('about.bio_p3')}
             </p>
           </motion.div>
         );
@@ -51,12 +53,12 @@ export default function AboutMe() {
             className="space-y-6"
           >
             {[
-              { title: 'Motion Design', desc: 'An evolving discipline I continuously refine, already applied in creating high-level graphics and dynamic character guides inspired by game aesthetics.' },
-              { title: 'Video Editing', desc: 'Capable of bringing any vision to life, transforming ideas into cinematic, engaging videos with strong visual storytelling.' },
-              { title: 'Sound Design', desc: 'As passionate about sound as editing, I enhance videos with immersive, high-impact audio that elevates overall quality and emotion.' },
-              { title: 'Thumbnail Artistry', desc: 'Designing high-conversion thumbnails that instantly capture attention and drive clicks through strong composition and visual clarity.' },
-              { title: 'VFX & Masking', desc: 'Built through years of AMV experience, mastering rotoscoping, masking, and compositing using Adobe After Effects and Adobe Premiere Pro to significantly enhance visual depth and polish.' },
-              { title: 'Frontend Development', desc: 'Building responsive, visually refined interfaces that merge design and functionality, with a focus on smooth interactions and performance-driven experiences.' }
+              { title: t('about.skill_1_title'), desc: t('about.skill_1_desc') },
+              { title: t('about.skill_2_title'), desc: t('about.skill_2_desc') },
+              { title: t('about.skill_3_title'), desc: t('about.skill_3_desc') },
+              { title: t('about.skill_4_title'), desc: t('about.skill_4_desc') },
+              { title: t('about.skill_5_title'), desc: t('about.skill_5_desc') },
+              { title: t('about.skill_6_title'), desc: t('about.skill_6_desc') }
             ].map((skill, idx) => (
               <div key={idx} className="border-l-2 border-nier-beige/30 pl-5">
                 <h4 className="text-[#e8e6e1] font-semibold text-lg mb-1">{skill.title}</h4>
@@ -75,10 +77,10 @@ export default function AboutMe() {
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
             {[
-              { title: 'Adobe After Effects', desc: 'Specialist in intricate keyframing, motion graphics, and high-end VFX.' },
-              { title: 'Adobe Premiere Pro', desc: 'Expert in long-form narrative structure and rapid-turnaround cutting.' },
-              { title: 'Adobe Photoshop', desc: 'Advanced digital manipulation for high-impact static assets and thumbnails.' },
-              { title: 'Sony Vegas Pro', desc: 'Legacy expertise; the foundation of my editing career and rhythmic "flow" style.' }
+              { title: t('about.soft_1_title'), desc: t('about.soft_1_desc') },
+              { title: t('about.soft_2_title'), desc: t('about.soft_2_desc') },
+              { title: t('about.soft_3_title'), desc: t('about.soft_3_desc') },
+              { title: t('about.soft_4_title'), desc: t('about.soft_4_desc') }
             ].map((software, idx) => (
               <div key={idx} className="p-4 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors">
                 <h4 className="text-[#e8e6e1] font-semibold mb-2">{software.title}</h4>
@@ -102,9 +104,9 @@ export default function AboutMe() {
                 <div className="w-2 h-2 bg-nier-beige rounded-full animate-pulse" />
               </div>
               <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
-                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">Master of Science: Informatics</h4>
+                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">{t('about.edu_1_title')}</h4>
                 <p className="text-nier-beige text-sm mb-3">Baku State University (BSU)</p>
-                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">Advanced focus on information systems and algorithmic logic. This academic foundation allows me to approach complex project structures and data management with a systematic, high-level perspective.</p>
+                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">{t('about.edu_1_desc')}</p>
               </div>
             </div>
             {/* Timeline Item 2 */}
@@ -113,9 +115,9 @@ export default function AboutMe() {
                 <div className="w-2 h-2 bg-nier-dark/40 rounded-full" />
               </div>
               <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
-                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">Bachelor of Science: Computer Engineering</h4>
+                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">{t('about.edu_2_title')}</h4>
                 <p className="text-nier-beige text-sm mb-3">Azerbaijan Technical University (AzTU)</p>
-                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">Fundamental engineering principles. My background in hardware architecture and system optimization provides a distinct advantage in managing heavy rendering workloads and complex software integrations.</p>
+                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">{t('about.edu_2_desc')}</p>
               </div>
             </div>
             {/* Timeline Item 3 */}
@@ -124,9 +126,9 @@ export default function AboutMe() {
                 <div className="w-2 h-2 bg-nier-dark/40 rounded-full" />
               </div>
               <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
-                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">Professional Diploma: Digital Design</h4>
+                <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">{t('about.edu_3_title')}</h4>
                 <p className="text-nier-beige text-sm mb-3">IT STEP Academy</p>
-                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">A multi-disciplinary program where I bridged the gap between Front-End Development, Professional Video Editing, and Visual Retouching. This is where my technical engineering roots met professional creative production.</p>
+                <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">{t('about.edu_3_desc')}</p>
               </div>
             </div>
           </motion.div>
@@ -141,10 +143,10 @@ export default function AboutMe() {
             className="grid grid-cols-1 gap-6"
           >
             {[
-              { lang: 'Azerbaijani', level: 'Native', percentage: 100 },
-              { lang: 'Russian', level: 'Bilingual', percentage: 95 },
-              { lang: 'English', level: 'Professional Working Proficiency', percentage: 85 },
-              { lang: 'Turkish', level: 'Professional Working Proficiency', percentage: 80 },
+              { lang: t('about.lang_1'), level: t('about.lang_1_level'), percentage: 100 },
+              { lang: t('about.lang_2'), level: t('about.lang_2_level'), percentage: 95 },
+              { lang: t('about.lang_3'), level: t('about.lang_3_level'), percentage: 85 },
+              { lang: t('about.lang_4'), level: t('about.lang_4_level'), percentage: 80 },
             ].map((item, idx) => (
               <div key={item.lang} className="space-y-2 p-4 rounded border border-nier-dark/80 bg-nier-dark/20">
                 <div className="flex justify-between items-end mb-2">
@@ -177,11 +179,11 @@ export default function AboutMe() {
             
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-nier-red animate-pulse" />
-              <span className="text-xs font-mono text-[#e8e6e1]/50 tracking-widest uppercase">System.Log // Philosophy</span>
+              <span className="text-xs font-mono text-[#e8e6e1]/50 tracking-widest uppercase">{t('about.philosophy_log')}</span>
             </div>
             
             <p className="italic text-[#e8e6e1]/80 text-lg leading-relaxed relative z-10">
-              &quot;My background as a Computer Engineer means I don&apos;t just use creative software; I understand the architecture behind it. This technical depth allows me to optimize performance, troubleshoot complex VFX pipelines, and maintain peak visual quality in high-pressure environments.&quot;
+              &quot;{t('about.philosophy_quote')}&quot;
             </p>
           </motion.div>
         );
@@ -209,8 +211,8 @@ export default function AboutMe() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-[#e8e6e1]">
-            <span className="text-nier-beige">01.</span> ABOUT ME
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-[#e8e6e1] uppercase">
+            <span className="text-nier-beige">01.</span> {t('about.title')}
           </h2>
           <div className="w-20 h-1 bg-nier-beige mb-8" />
         </motion.div>
@@ -232,7 +234,7 @@ export default function AboutMe() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex items-center gap-2 px-5 py-2.5 rounded-t-lg transition-all duration-300 overflow-hidden ${
+                    className={`relative flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-5 md:py-2.5 rounded-t-lg transition-all duration-300 overflow-hidden ${
                       isActive
                         ? 'text-nier-beige bg-nier-dark/60'
                         : 'text-[#e8e6e1]/50 hover:text-[#e8e6e1]/80 hover:bg-nier-dark/30'
@@ -244,8 +246,8 @@ export default function AboutMe() {
                         className="absolute bottom-0 left-0 right-0 h-0.5 bg-nier-beige"
                       />
                     )}
-                    <Icon className={`w-4 h-4 ${isActive ? 'animate-pulse' : ''}`} />
-                    <span className="font-medium tracking-wide text-sm">{tab.label}</span>
+                    <Icon className={`w-3.5 h-3.5 md:w-4 md:h-4 ${isActive ? 'animate-pulse' : ''}`} />
+                    <span className="font-medium tracking-wide text-xs md:text-sm">{tab.label}</span>
                   </button>
                 );
               })}
@@ -259,19 +261,19 @@ export default function AboutMe() {
             <div className="pt-6 grid grid-cols-2 gap-6 border-t border-nier-dark/80">
               <div className="flex items-center gap-3">
                 <Code className="w-5 h-5 text-nier-beige" />
-                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">Frontend Dev</span>
+                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">{t('about.frontend')}</span>
               </div>
               <div className="flex items-center gap-3">
                 <Film className="w-5 h-5 text-nier-beige" />
-                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">Video Editor</span>
+                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">{t('about.video')}</span>
               </div>
               <div className="flex items-center gap-3">
                 <Music className="w-5 h-5 text-nier-beige" />
-                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">Sound Designer</span>
+                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">{t('about.sound')}</span>
               </div>
               <div className="flex items-center gap-3">
                 <Sparkles className="w-5 h-5 text-nier-beige" />
-                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">Motion Designer</span>
+                <span className="text-[#e8e6e1] text-sm tracking-wider uppercase">{t('about.motion')}</span>
               </div>
             </div>
           </motion.div>

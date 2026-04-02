@@ -495,7 +495,14 @@ export const GlitchProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Idle detection
   useEffect(() => {
+    let lastResetTime = 0;
+    
     const resetIdle = () => {
+      const now = Date.now();
+      // Throttle to max once per second to save CPU/Memory
+      if (now - lastResetTime < 1000) return;
+      lastResetTime = now;
+      
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
       idleTimerRef.current = setTimeout(() => {
         const msg = DIALOGUE.idle[Math.floor(Math.random() * DIALOGUE.idle.length)];
@@ -504,10 +511,10 @@ export const GlitchProvider = ({ children }: { children: React.ReactNode }) => {
       }, 45000); // 45 seconds idle
     };
 
-    window.addEventListener('mousemove', resetIdle);
-    window.addEventListener('keydown', resetIdle);
-    window.addEventListener('click', resetIdle);
-    window.addEventListener('scroll', resetIdle);
+    window.addEventListener('mousemove', resetIdle, { passive: true });
+    window.addEventListener('keydown', resetIdle, { passive: true });
+    window.addEventListener('click', resetIdle, { passive: true });
+    window.addEventListener('scroll', resetIdle, { passive: true });
     resetIdle();
 
     return () => {

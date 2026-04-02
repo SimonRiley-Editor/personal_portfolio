@@ -1,11 +1,13 @@
 'use client';
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'motion/react';
+import { useLanguage } from './LanguageContext';
 import { useGlitch } from './GlitchContext';
 
 export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { trackSection, reportUserAction, foundSecret } = useGlitch();
+  const { t } = useLanguage();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -72,7 +74,7 @@ export default function Services() {
             {/* Deep background pattern and text */}
             <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'radial-gradient(var(--color-nier-dark) 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
             <h1 className="text-[15vw] font-akira text-nier-dark/10 whitespace-nowrap transform -rotate-12 select-none pointer-events-none">
-              SYSTEM_DATA
+              {t('services.system_data')}
             </h1>
           </motion.div>
 
@@ -82,19 +84,19 @@ export default function Services() {
           >
             {/* Funny editor notes scattered around */}
             <div className="absolute top-12 left-8 md:top-20 md:left-20 font-mono text-sm md:text-xl text-nier-dark/50 transform -rotate-6 select-none pointer-events-none">
-              &gt; Analyzing_Combat_Data...
+              {t('services.analyzing')}
             </div>
             
             <div className="absolute top-32 right-8 md:top-40 md:right-24 font-mono text-xl md:text-3xl text-nier-dark/40 transform rotate-3 select-none pointer-events-none">
-              [ ENCRYPTED ]
+              {t('services.encrypted')}
             </div>
 
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2 font-akira text-4xl md:text-8xl text-nier-dark/20 transform -rotate-6 select-none pointer-events-none whitespace-nowrap">
-              ERROR_404
+              {t('services.error')}
             </div>
 
             <div className="absolute top-[60%] right-10 md:right-1/4 font-mono text-sm md:text-lg text-nier-red transform rotate-12 border border-nier-red p-2 select-none pointer-events-none bg-nier-light">
-              [ WARNING: DATA CORRUPTION ]
+              {t('services.warning')}
             </div>
 
             <div className="absolute top-1/2 left-4 md:left-12 font-mono text-lg md:text-2xl text-nier-dark/30 transform -rotate-90 origin-left select-none pointer-events-none">
@@ -102,7 +104,7 @@ export default function Services() {
             </div>
             
             <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-nier-dark/60 select-none pointer-events-none">
-              <span className="font-mono text-xs md:text-sm tracking-widest mb-2 uppercase">Scroll to Decrypt</span>
+              <span className="font-mono text-xs md:text-sm tracking-widest mb-2 uppercase">{t('services.scroll')}</span>
               <div className="w-[1px] h-8 bg-nier-dark animate-pulse"></div>
             </div>
           </motion.div>
@@ -125,7 +127,7 @@ export default function Services() {
                    transition={{ duration: 0.2 }}
                    className="text-center absolute inset-0 flex flex-col items-center justify-center"
                  >
-                   <div className="font-mono text-xl md:text-2xl tracking-widest mb-2 md:mb-4 text-nier-dark uppercase">Assets &<br/>Data</div>
+                   <div className="font-mono text-xl md:text-2xl tracking-widest mb-2 md:mb-4 text-nier-dark uppercase whitespace-pre-line">{t('services.assets')}</div>
                    <div className="w-16 h-16 md:w-32 md:h-32 border border-nier-dark rounded-full mx-auto flex items-center justify-center bg-nier-light relative">
                      <div className="w-8 h-8 md:w-16 md:h-16 bg-nier-dark rounded-full"></div>
                      <div className="absolute inset-0 border border-nier-dark rounded-full animate-ping opacity-20"></div>
@@ -170,51 +172,51 @@ export default function Services() {
               >
                 <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
                   <div className="w-2 h-2 bg-nier-red"></div>
-                  <span className="font-mono text-xs tracking-widest text-nier-dark uppercase">Equipment_Log</span>
+                  <span className="font-mono text-xs tracking-widest text-nier-dark uppercase">{t('services.equipment_log')}</span>
                 </div>
                 <h2 className="font-akira text-3xl md:text-6xl tracking-tighter mb-3 md:mb-6 uppercase text-center md:text-left text-nier-dark">
-                  GEAR
+                  {t('services.gear')}
                 </h2>
                 <p className="text-sm md:text-lg font-mono mb-3 md:mb-6 text-center md:text-left text-nier-dark">
-                  &gt; Level up your motion design with my custom After Effects presets and SFX!
+                  {t('services.desc_1')}
                 </p>
                 <p className="text-xs md:text-sm mb-4 md:mb-8 font-mono text-center md:text-left text-nier-dark/80">
-                  &gt; All the secrets to achieving that high-energy, award-winning look. You&apos;ll find the exact animation curves, transition effects, and sound design essentials that I use in my everyday workflow for top-tier creators.
+                  {t('services.desc_2')}
                 </p>
                 <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8 text-xs md:text-sm font-mono text-nier-dark">
                   <li className="flex items-start gap-2 md:gap-3">
                     <span className="text-nier-red mt-0.5">&gt;</span>
                     <div className="flex flex-col">
-                      <span className="font-bold">50+ Signature After Effects Presets.</span>
-                      <span className="text-nier-dark/80">Drag-and-drop motion curves, glitch maps, and shakes for AE.</span>
+                      <span className="font-bold">{t('services.item_1_title')}</span>
+                      <span className="text-nier-dark/80">{t('services.item_1_desc')}</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-2 md:gap-3">
                     <span className="text-nier-red mt-0.5">&gt;</span>
                     <div className="flex flex-col">
-                      <span className="font-bold">Elite &quot;Sonic Impact&quot; SFX Library.</span>
-                      <span className="text-nier-dark/80">Essential sound design for punchy transitions and tactile edits.</span>
+                      <span className="font-bold">{t('services.item_2_title')}</span>
+                      <span className="text-nier-dark/80">{t('services.item_2_desc')}</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-2 md:gap-3">
                     <span className="text-nier-red mt-0.5">&gt;</span>
                     <div className="flex flex-col">
-                      <span className="font-bold">Pro-Grade Flow Transitions.</span>
-                      <span className="text-nier-dark/80">Seamless, motion-blurred transitions for Premiere Pro & After Effects.</span>
+                      <span className="font-bold">{t('services.item_3_title')}</span>
+                      <span className="text-nier-dark/80">{t('services.item_3_desc')}</span>
                     </div>
                   </li>
                 </ul>
 
                 <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
                   <button className="bg-transparent border border-nier-dark px-6 py-2 md:px-8 md:py-3 font-mono text-sm tracking-widest uppercase hover:bg-nier-dark hover:text-nier-light transition-colors">
-                    [ DETAILS ]
+                    {t('services.details')}
                   </button>
                   <motion.button 
                     style={{ scale: buttonScale }}
                     className="bg-nier-dark text-nier-light border border-nier-dark px-6 py-2 md:px-8 md:py-3 font-mono text-sm tracking-widest uppercase hover:bg-nier-red hover:text-white transition-colors origin-center relative z-50"
                     onClick={foundSecret}
                   >
-                    [ ACQUIRE ]
+                    {t('services.acquire')}
                   </motion.button>
                 </div>
               </motion.div>

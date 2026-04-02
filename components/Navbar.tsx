@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useGlitch } from './GlitchContext';
 import { ThemeToggle } from './ThemeToggle';
+import { useLanguage } from './LanguageContext';
 
 interface NavbarProps {
   isLoaded?: boolean;
@@ -13,6 +14,7 @@ interface NavbarProps {
 export default function Navbar({ isLoaded = true }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { reportUserAction } = useGlitch();
+  const { t } = useLanguage();
 
   const handleNavClick = (label: string) => {
     reportUserAction(`is navigating to the ${label} section`);
@@ -20,13 +22,13 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
   };
 
   const navLinks = [
-    { href: '#about', label: 'About Me' },
-    { href: '#presentation', label: 'Presentation' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#services', label: 'Services' },
-    { href: '#awards', label: 'Awards' },
-    { href: '#work', label: 'Work' },
-    { href: '#contact', label: 'Contact' },
+    { href: '#about', label: t('nav.about') },
+    { href: '#presentation', label: t('nav.presentation') },
+    { href: '#experience', label: t('nav.experience') },
+    { href: '#services', label: t('nav.services') },
+    { href: '#awards', label: t('nav.awards') },
+    { href: '#work', label: t('nav.work') },
+    { href: '#contact', label: t('nav.contact') },
   ];
 
   return (

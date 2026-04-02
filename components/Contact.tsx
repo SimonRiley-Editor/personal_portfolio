@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageSquare, Youtube, Twitter, Heart } from 'lucide-react';
 import { useGlitch } from './GlitchContext';
+import { useLanguage } from './LanguageContext';
 import emailjs from '@emailjs/browser';
 
 export default function Contact() {
@@ -11,6 +12,7 @@ export default function Contact() {
   const [copied, setCopied] = useState(false);
   const [showSecret, setShowSecret] = useState(false);
   const { trackSection, reportUserAction } = useGlitch();
+  const { t } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleTransmit = (e: React.FormEvent) => {
@@ -64,11 +66,11 @@ export default function Contact() {
 
       <div className="text-center mb-12 relative z-10">
         <h2 className="font-akira text-4xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-nier-dark">
-          DATA_LINK
+          {t('contact.data_link')}
         </h2>
         <div className="flex items-center justify-center gap-4 mt-4">
           <div className="w-12 h-[1px] bg-nier-dark"></div>
-          <span className="font-mono text-xs tracking-[0.3em] text-nier-dark/70 uppercase">Establish Connection</span>
+          <span className="font-mono text-xs tracking-[0.3em] text-nier-dark/70 uppercase">{t('contact.establish_connection')}</span>
           <div className="w-12 h-[1px] bg-nier-dark"></div>
         </div>
       </div>
@@ -89,38 +91,38 @@ export default function Contact() {
               >
                 <div className="flex flex-col md:flex-row gap-6">
                   <div className="flex-1">
-                    <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">Identifier</label>
+                    <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">{t('contact.identifier')}</label>
                     <input 
                       type="text" 
                       name="user_name"
                       required
                       disabled={status === 'transmitting'}
                       className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors font-mono text-sm text-nier-dark placeholder:text-nier-dark/50 disabled:opacity-50"
-                      placeholder="[ NAME ]"
+                      placeholder={t('contact.name_placeholder')}
                     />
                   </div>
                   <div className="flex-1">
-                    <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">Comm_Channel</label>
+                    <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">{t('contact.comm_channel')}</label>
                     <input 
                       type="email" 
                       name="user_email"
                       required
                       disabled={status === 'transmitting'}
                       className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors font-mono text-sm text-nier-dark placeholder:text-nier-dark/50 disabled:opacity-50"
-                      placeholder="[ EMAIL ]"
+                      placeholder={t('contact.email_placeholder')}
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">Payload</label>
+                  <label className="block font-mono text-xs tracking-widest mb-2 text-nier-dark uppercase">{t('contact.payload')}</label>
                   <textarea 
                     name="message"
                     required
                     rows={6}
                     disabled={status === 'transmitting'}
                     className="w-full bg-nier-light/50 border border-nier-dark/50 p-3 focus:outline-none focus:border-nier-red transition-colors resize-none font-mono text-sm text-nier-dark placeholder:text-nier-dark/50 disabled:opacity-50"
-                    placeholder="[ ENTER MESSAGE DATA ]"
+                    placeholder={t('contact.message_placeholder')}
                   ></textarea>
                 </div>
 
@@ -130,7 +132,7 @@ export default function Contact() {
                   className="w-full bg-nier-dark text-nier-light border border-nier-dark py-4 font-mono text-sm tracking-widest uppercase hover:bg-nier-red hover:text-white transition-colors relative group overflow-hidden disabled:hover:bg-nier-dark disabled:hover:text-nier-light"
                 >
                   <span className="relative z-10">
-                    {status === 'transmitting' ? '[ TRANSMITTING DATA... ]' : '[ TRANSMIT ]'}
+                    {status === 'transmitting' ? t('contact.transmitting') : t('contact.transmit')}
                   </span>
                   {status === 'transmitting' && (
                     <motion.div 
@@ -169,7 +171,7 @@ export default function Contact() {
                     <div className="w-2 h-2 bg-nier-light" />
                   </div>
                 </div>
-                <h3 className="font-akira text-2xl md:text-3xl text-nier-dark mb-4 tracking-widest">DATA RECEIVED</h3>
+                <h3 className="font-akira text-2xl md:text-3xl text-nier-dark mb-4 tracking-widest">{t('contact.data_received')}</h3>
                 <div className="w-full max-w-xs h-[1px] bg-nier-dark/30 mb-4 relative">
                   <motion.div 
                     className="absolute left-0 top-0 h-full bg-nier-red"
@@ -179,8 +181,8 @@ export default function Contact() {
                   />
                 </div>
                 <p className="font-mono text-sm tracking-widest text-nier-dark/70 uppercase leading-relaxed">
-                  Communication link established.<br/>
-                  <span className="text-nier-red font-bold mt-2 block">Awaiting further instructions.</span>
+                  {t('contact.comm_established')}<br/>
+                  <span className="text-nier-red font-bold mt-2 block">{t('contact.awaiting')}</span>
                 </p>
               </motion.div>
             )}
@@ -196,7 +198,7 @@ export default function Contact() {
       <div className="mt-32 w-full max-w-4xl relative z-10 flex flex-col items-center">
         <div className="flex items-center justify-center gap-4 mb-12 w-full">
           <div className="h-[1px] bg-nier-dark flex-1 opacity-30"></div>
-          <span className="font-mono text-xs tracking-[0.5em] text-nier-dark uppercase">Network_Nodes</span>
+          <span className="font-mono text-xs tracking-[0.5em] text-nier-dark uppercase">{t('contact.network_nodes')}</span>
           <div className="h-[1px] bg-nier-dark flex-1 opacity-30"></div>
         </div>
 
@@ -225,9 +227,9 @@ export default function Contact() {
             <div className="relative z-10 flex flex-col items-center gap-3 text-nier-dark group-hover:text-nier-light transition-colors duration-300">
               <MessageSquare size={32} strokeWidth={1.5} />
               <div className="text-center">
-                <div className="font-akira text-sm tracking-widest mb-1">DISCORD</div>
+                <div className="font-akira text-sm tracking-widest mb-1">{t('contact.discord')}</div>
                 <div className="font-mono text-xs opacity-70 group-hover:opacity-100">
-                  {copied ? <span className="text-green-400 font-bold">Username Copied successfully</span> : 'simon_kun'}
+                  {copied ? <span className="text-green-400 font-bold">{t('contact.copied')}</span> : 'simon_kun'}
                 </div>
               </div>
             </div>
@@ -256,7 +258,7 @@ export default function Contact() {
             <div className="relative z-10 flex flex-col items-center gap-3 text-nier-dark group-hover:text-nier-light transition-colors duration-300">
               <Youtube size={32} strokeWidth={1.5} />
               <div className="text-center">
-                <div className="font-akira text-sm tracking-widest mb-1">YOUTUBE</div>
+                <div className="font-akira text-sm tracking-widest mb-1">{t('contact.youtube')}</div>
                 <div className="font-mono text-xs opacity-70 group-hover:opacity-100">SimonGodly</div>
               </div>
             </div>
@@ -284,7 +286,7 @@ export default function Contact() {
             <div className="relative z-10 flex flex-col items-center gap-3 text-nier-dark group-hover:text-nier-light transition-colors duration-300">
               <Twitter size={32} strokeWidth={1.5} />
               <div className="text-center">
-                <div className="font-akira text-sm tracking-widest mb-1">X / TWITTER</div>
+                <div className="font-akira text-sm tracking-widest mb-1">{t('contact.twitter')}</div>
                 <div className="font-mono text-xs opacity-70 group-hover:opacity-100">@Sim0nG0dly</div>
               </div>
             </div>
@@ -313,15 +315,15 @@ export default function Contact() {
             <div className="flex items-start gap-4">
               <Heart className="text-nier-red animate-pulse mt-1" size={24} />
               <div>
-                <h4 className="font-akira text-sm tracking-widest mb-2">SECRET_DATA_FOUND</h4>
+                <h4 className="font-akira text-sm tracking-widest mb-2">{t('contact.secret_title')}</h4>
                 <p className="font-mono text-xs leading-relaxed opacity-80">
-                  Thx for visiting my site! I poured my heart into this design. Keep creating and stay awesome.
+                  {t('contact.secret_desc')}
                 </p>
                 <button 
                   onClick={() => setShowSecret(false)}
                   className="mt-4 font-mono text-xs text-nier-red hover:text-white transition-colors uppercase tracking-widest"
                 >
-                  [ CLOSE ]
+                  {t('contact.close')}
                 </button>
               </div>
             </div>

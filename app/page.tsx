@@ -1,17 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import AboutMe from '@/components/AboutMe';
-import Experience from '@/components/Experience';
-import Services from '@/components/Services';
-import Awards from '@/components/Awards';
-import WorkSection from '@/components/work-section';
-import Contact from '@/components/Contact';
 import Loader from '@/components/Loader';
 import SectionWrapper from '@/components/SectionWrapper';
-import Presentation from '@/components/Presentation';
+
+// Dynamically import components below the fold
+const AboutMe = dynamic(() => import('@/components/AboutMe'), { ssr: true });
+const Experience = dynamic(() => import('@/components/Experience'), { ssr: true });
+const Services = dynamic(() => import('@/components/Services'), { ssr: true });
+const Awards = dynamic(() => import('@/components/Awards'), { ssr: true });
+const WorkSection = dynamic(() => import('@/components/work-section'), { ssr: true });
+const Contact = dynamic(() => import('@/components/Contact'), { ssr: true });
+const Presentation = dynamic(() => import('@/components/Presentation'), { ssr: true });
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);

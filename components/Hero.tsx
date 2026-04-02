@@ -5,6 +5,7 @@ import { Crosshair, Terminal, Video, Activity, Cpu, Database, Trophy, Play } fro
 import { motion, useMotionValue, useTransform, animate, useMotionTemplate } from 'motion/react';
 import Image from 'next/image';
 import { useGlitch } from './GlitchContext';
+import { useLanguage } from './LanguageContext';
 
 const shapes = [
   { width: 120, height: 120, left: '10%', top: '20%', y: [0, -10, 0], x: [0, 10, 0], duration: 15, color: 'transparent', border: '1px solid var(--color-nier-dark)' },
@@ -18,15 +19,23 @@ const shapes = [
 export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
   const progress = useMotionValue(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [time, setTime] = useState('');
+  const timeRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      setTime(`${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}:${now.getMilliseconds().toString().padStart(3, '0')}`);
-    }, 50);
-    return () => clearInterval(interval);
+    let animationFrameId: number;
+    
+    const updateTime = () => {
+      if (timeRef.current) {
+        const now = new Date();
+        timeRef.current.textContent = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}:${now.getMilliseconds().toString().padStart(3, '0')}`;
+      }
+      animationFrameId = requestAnimationFrame(updateTime);
+    };
+    
+    animationFrameId = requestAnimationFrame(updateTime);
+    return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
   useEffect(() => {
@@ -61,24 +70,40 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
   }, [progress]);
 
   useEffect(() => {
+    let animationFrameId: number;
+    let latestX: number | null = null;
+
     const handlePointerMove = (e: PointerEvent) => {
       if (isDragging) {
-        updateProgress(e.clientX);
+        latestX = e.clientX;
+        if (!animationFrameId) {
+          animationFrameId = requestAnimationFrame(() => {
+            if (latestX !== null) {
+              updateProgress(latestX);
+            }
+            animationFrameId = 0;
+          });
+        }
       }
     };
 
     const handlePointerUp = () => {
       setIsDragging(false);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = 0;
+      }
     };
 
     if (isDragging) {
-      window.addEventListener('pointermove', handlePointerMove);
-      window.addEventListener('pointerup', handlePointerUp);
-      window.addEventListener('pointercancel', handlePointerUp);
+      window.addEventListener('pointermove', handlePointerMove, { passive: true });
+      window.addEventListener('pointerup', handlePointerUp, { passive: true });
+      window.addEventListener('pointercancel', handlePointerUp, { passive: true });
       return () => {
         window.removeEventListener('pointermove', handlePointerMove);
         window.removeEventListener('pointerup', handlePointerUp);
         window.removeEventListener('pointercancel', handlePointerUp);
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
       };
     }
   }, [isDragging, updateProgress]);
@@ -94,7 +119,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
 
   return (
     <motion.section 
-      className="min-h-screen bg-transparent relative flex flex-col items-center justify-center overflow-hidden border-b border-nier-dark pt-20"
+      className="min-h-[100svh] bg-transparent relative flex flex-col items-center justify-center overflow-hidden border-b border-nier-dark pt-24 pb-40 md:pb-0"
       onViewportEnter={() => {
         trackSection('Hero');
         reportUserAction('is viewing the primary landing interface');
@@ -136,20 +161,20 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
       <div className="absolute top-24 left-6 hidden lg:flex flex-col gap-4 opacity-60 z-10 font-mono text-[10px] text-nier-dark tracking-widest">
         <div className="flex items-center gap-2">
           <Activity size={12} className="text-nier-red animate-pulse" />
-          <span>SYS.STATUS: OPTIMAL</span>
+          <span>{t('hero.sys_status')}</span>
         </div>
         <div className="flex items-center gap-2">
           <Cpu size={12} />
-          <span>MEM.USAGE: 42.8%</span>
+          <span>{t('hero.mem_usage')}</span>
         </div>
         <div className="flex items-center gap-2">
           <Database size={12} />
-          <span>DB.CONN: ESTABLISHED</span>
+          <span>{t('hero.db_conn')}</span>
         </div>
         <div className="mt-4 border-l border-nier-dark pl-2 space-y-1">
           <div>LAT: 40.3790° N</div>
           <div>LON: 49.8920° E</div>
-          <div className="text-nier-red mt-2">{time}</div>
+          <div className="text-nier-red mt-2" ref={timeRef}>00:00:00:000</div>
         </div>
       </div>
 
@@ -158,9 +183,9 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           アリ・アリエフ
         </div>
         <div className="mt-4 border-r border-nier-dark pr-2 space-y-1">
-          <div>TARGET: IDENTIFIED</div>
-          <div>MODE: CREATIVE</div>
-          <div>VFX_PIPELINE: ACTIVE</div>
+          <div>{t('hero.target')}</div>
+          <div>{t('hero.mode')}</div>
+          <div>{t('hero.vfx')}</div>
         </div>
       </div>
 
@@ -177,85 +202,76 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         initial={{ opacity: 0, x: -50 }}
         animate={isLoaded ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
         transition={{ duration: 0.8, delay: isLoaded ? 0.8 : 0 }}
-        className="absolute bottom-8 left-4 md:left-8 z-40 hidden sm:flex flex-col gap-2 max-w-[260px]"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-8 z-40 flex flex-col w-[90%] sm:w-[300px] bg-nier-dark/85 backdrop-blur-md border border-nier-beige/30 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
       >
-        <div className="flex items-center gap-2 text-[10px] font-mono tracking-widest text-nier-dark bg-nier-beige/80 backdrop-blur-sm px-2 py-1 border border-nier-dark/30 w-fit">
-          <Trophy size={12} className="text-nier-red" />
-          <span>FEATURED_ARCHIVES</span>
+        {/* Header */}
+        <div className="flex items-center justify-between px-3 py-1.5 bg-nier-beige border-b border-nier-beige/30">
+          <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono tracking-widest text-nier-dark font-bold">
+            <Trophy size={12} className="text-nier-red" />
+            <span>{t('hero.featured')}</span>
+          </div>
+          <div className="flex gap-1">
+            <div className="w-1 h-1 bg-nier-dark/50"></div>
+            <div className="w-1 h-1 bg-nier-dark/50"></div>
+            <div className="w-1 h-1 bg-nier-dark/50"></div>
+          </div>
         </div>
         
-        <div className="flex flex-col gap-3">
-          <a href="https://youtu.be/z-VnFmpcrmU" target="_blank" rel="noopener noreferrer" className="group relative bg-nier-dark/90 border border-nier-dark p-1 shadow-lg hover:border-nier-red transition-colors duration-300 block">
-            {/* Corner accents */}
-            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-nier-red opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-nier-red opacity-0 group-hover:opacity-100 transition-opacity" />
+        {/* List */}
+        <div className="flex flex-col">
+          <a href="https://youtu.be/z-VnFmpcrmU" target="_blank" rel="noopener noreferrer" className="group relative flex items-center gap-3 p-2 hover:bg-nier-beige transition-colors duration-300 border-b border-nier-beige/10">
+            <div className="absolute left-0 top-0 w-1 h-full bg-nier-red opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             
-            <div className="relative aspect-video w-full overflow-hidden bg-black">
-              <Image 
-                src="https://res.cloudinary.com/ds6dwbk37/image/upload/v1774598330/thumblifyai-youtube-thumbnail_xy9jml.jpg" 
-                alt="Best in Show - DerpiCon 2024" 
-                fill
-                className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 filter grayscale group-hover:grayscale-0"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] pointer-events-none opacity-50" />
-              
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-8 h-8 rounded-full border border-nier-beige/50 flex items-center justify-center bg-black/40 backdrop-blur-sm group-hover:border-nier-red group-hover:text-nier-red text-nier-beige transition-colors">
-                  <Play size={14} className="ml-1" />
-                </div>
-              </div>
+            <div className="relative w-14 sm:w-16 aspect-video bg-black flex-shrink-0 overflow-hidden border border-nier-beige/30 group-hover:border-nier-dark/50 transition-colors">
+               <Image 
+                 src="https://res.cloudinary.com/ds6dwbk37/image/upload/v1774598330/thumblifyai-youtube-thumbnail_xy9jml.jpg" 
+                 alt="Best in Show - DerpiCon 2024" 
+                 fill
+                 className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 filter grayscale group-hover:grayscale-0"
+               />
+               <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] pointer-events-none opacity-50" />
+               <div className="absolute inset-0 flex items-center justify-center">
+                 <Play size={10} className="text-nier-beige group-hover:text-nier-light transition-colors" />
+               </div>
             </div>
             
-            <div className="p-2 bg-nier-dark text-nier-beige">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider mb-0.5 group-hover:text-nier-light transition-colors line-clamp-1">
-                Best in Show
-              </h4>
-              <p className="text-[9px] font-mono opacity-60 line-clamp-1">
-                DerpiCon 2024
-              </p>
+            <div className="flex flex-col overflow-hidden">
+              <span className="text-[10px] sm:text-[11px] font-bold text-nier-beige group-hover:text-nier-dark truncate transition-colors duration-300">Best in Show</span>
+              <span className="text-[8px] sm:text-[9px] font-mono text-nier-beige/50 group-hover:text-nier-dark/70 truncate transition-colors duration-300">DerpiCon 2024</span>
             </div>
           </a>
 
-          <a href="https://youtu.be/TaGrFtPV7lU" target="_blank" rel="noopener noreferrer" className="group relative bg-nier-dark/90 border border-nier-dark p-1 shadow-lg hover:border-nier-red transition-colors duration-300 block">
-            {/* Corner accents */}
-            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-nier-red opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-nier-red opacity-0 group-hover:opacity-100 transition-opacity" />
+          <a href="https://youtu.be/TaGrFtPV7lU" target="_blank" rel="noopener noreferrer" className="group relative flex items-center gap-3 p-2 hover:bg-nier-beige transition-colors duration-300">
+            <div className="absolute left-0 top-0 w-1 h-full bg-nier-red opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             
-            <div className="relative aspect-video w-full overflow-hidden bg-black">
-              <Image 
-                src="https://i.ytimg.com/vi/TaGrFtPV7lU/maxresdefault.jpg" 
-                alt="1st Place - AniRevo, Animesse, Anime Toronto 2023" 
-                fill
-                className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 filter grayscale group-hover:grayscale-0"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] pointer-events-none opacity-50" />
-              
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-8 h-8 rounded-full border border-nier-beige/50 flex items-center justify-center bg-black/40 backdrop-blur-sm group-hover:border-nier-red group-hover:text-nier-red text-nier-beige transition-colors">
-                  <Play size={14} className="ml-1" />
-                </div>
-              </div>
+            <div className="relative w-14 sm:w-16 aspect-video bg-black flex-shrink-0 overflow-hidden border border-nier-beige/30 group-hover:border-nier-dark/50 transition-colors">
+               <Image 
+                 src="https://i.ytimg.com/vi/TaGrFtPV7lU/maxresdefault.jpg" 
+                 alt="1st Place - AniRevo, Animesse, Anime Toronto 2023" 
+                 fill
+                 className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 filter grayscale group-hover:grayscale-0"
+               />
+               <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] pointer-events-none opacity-50" />
+               <div className="absolute inset-0 flex items-center justify-center">
+                 <Play size={10} className="text-nier-beige group-hover:text-nier-light transition-colors" />
+               </div>
             </div>
             
-            <div className="p-2 bg-nier-dark text-nier-beige">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider mb-0.5 group-hover:text-nier-light transition-colors line-clamp-1">
-                Triple 1st Place
-              </h4>
-              <p className="text-[9px] font-mono opacity-60 line-clamp-1" title="AniRevo, Animesse, Anime Toronto 2023">
-                AniRevo, Animesse, Anime Toronto '23
-              </p>
+            <div className="flex flex-col overflow-hidden">
+              <span className="text-[10px] sm:text-[11px] font-bold text-nier-beige group-hover:text-nier-dark truncate transition-colors duration-300">Triple 1st Place</span>
+              <span className="text-[8px] sm:text-[9px] font-mono text-nier-beige/50 group-hover:text-nier-dark/70 truncate transition-colors duration-300" title="AniRevo, Animesse, Anime Toronto 2023">AniRevo, Animesse &apos;23</span>
             </div>
           </a>
         </div>
       </motion.div>
 
       {/* Main Content */}
-      <div className="text-center z-10 px-4 mt-12 flex flex-col items-center w-full max-w-5xl">
+      <div className="text-center z-10 px-4 mt-8 md:mt-12 flex flex-col items-center w-full max-w-5xl">
         <motion.div
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
           animate={isLoaded ? { scale: 1, opacity: 1, y: 0 } : { scale: 0.9, opacity: 0, y: 20 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: isLoaded ? 0.3 : 0 }}
-          className="relative w-full nier-box px-8 md:px-16 py-8 md:py-12 mb-8 md:mb-12 z-30 cursor-default hover:bg-nier-dark hover:text-nier-light transition-colors duration-500 group overflow-hidden"
+          className="relative w-full nier-box px-4 sm:px-8 md:px-16 py-6 sm:py-8 md:py-12 mb-8 md:mb-12 z-30 cursor-default hover:bg-nier-dark hover:text-nier-light transition-colors duration-500 group overflow-hidden"
           onClick={() => {
             const currentClicks = parseInt(localStorage.getItem('nier_logo_clicks') || '0') + 1;
             localStorage.setItem('nier_logo_clicks', currentClicks.toString());
@@ -277,7 +293,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             ビデオエディター
           </div>
 
-          <h1 className="font-akira text-5xl md:text-7xl lg:text-[9rem] tracking-widest uppercase leading-[0.9] text-nier-dark mt-6 group-hover:text-nier-light transition-colors duration-500 relative z-10">
+          <h1 className="font-akira text-3xl sm:text-5xl md:text-7xl lg:text-[9rem] tracking-widest uppercase leading-[0.9] text-nier-dark mt-6 group-hover:text-nier-light transition-colors duration-500 relative z-10">
             <span className="block group-hover:opacity-0 transition-opacity duration-300">ALI<br/>ALIYEV</span>
             <span className="absolute top-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">SIMON<br/>GODLY</span>
           </h1>
@@ -299,12 +315,12 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           initial={{ opacity: 0, y: 50 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.5, delay: isLoaded ? 0.5 : 0 }}
-          className="relative inline-block mb-16 mx-4 md:mx-16 w-full max-w-4xl"
+          className="relative inline-block mb-10 md:mb-16 mx-4 md:mx-16 w-full max-w-4xl"
         >
           <div className="relative z-10">
             {/* Base Layer (Uncolored) */}
             <motion.div 
-              className="font-wide text-6xl md:text-[8rem] lg:text-[11rem] tracking-tighter" 
+              className="font-wide text-3xl sm:text-5xl md:text-[6rem] lg:text-[9rem] tracking-tighter" 
               style={{ 
                 skewX: textSkew,
                 letterSpacing: letterSpacing,
@@ -312,12 +328,12 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
                 WebkitTextStroke: textStroke
               }}
             >
-              EDITOR
+              {t('hero.editor')}
             </motion.div>
             
             {/* Top Layer (Colored) */}
             <motion.div 
-              className="font-wide text-6xl md:text-[8rem] lg:text-[11rem] tracking-tighter absolute top-0 left-0 w-full h-full" 
+              className="font-wide text-3xl sm:text-5xl md:text-[6rem] lg:text-[9rem] tracking-tighter absolute top-0 left-0 w-full h-full" 
               style={{ 
                 skewX: textSkew,
                 letterSpacing: letterSpacing,
@@ -326,7 +342,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
                 clipPath: clipPath
               }}
             >
-              EDITOR
+              {t('hero.editor')}
             </motion.div>
           </div>
           
@@ -378,7 +394,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         >
           <span className="relative z-10 flex items-center gap-3">
             <span className="w-2 h-2 bg-nier-light rounded-full animate-pulse" />
-            [ Award-winning Video Editor & Motion Designer ]
+            {t('hero.award_winning')}
           </span>
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </motion.a>
@@ -386,7 +402,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 right-8 hidden md:flex flex-col items-center gap-2 opacity-50">
-        <div className="text-[10px] font-mono tracking-widest text-nier-dark rotate-90 origin-right mb-8">SCROLL</div>
+        <div className="text-[10px] font-mono tracking-widest text-nier-dark rotate-90 origin-right mb-8">{t('hero.scroll')}</div>
         <div className="w-[1px] h-16 bg-nier-dark relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1/2 bg-nier-red animate-slide-playhead"></div>
         </div>
