@@ -99,33 +99,37 @@ export default function AboutMe() {
             className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:ml-[1.25rem] md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-nier-beige before:via-nier-dark before:to-transparent"
           >
             {/* Timeline Item 1 */}
-            <div className="relative flex items-start gap-6">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-nier-beige bg-nier-gray shrink-0 z-10 shadow-[0_0_10px_rgba(218,212,196,0.2)]">
-                <div className="w-2 h-2 bg-nier-beige rounded-full animate-pulse" />
+            <div className="relative flex items-start gap-6 group">
+              <div className="flex items-center justify-center w-10 h-10 shrink-0 z-10 relative group-hover:scale-110 transition-transform duration-300">
+                <div className="absolute inset-1.5 border-2 border-nier-beige rotate-45 bg-nier-gray shadow-[0_0_15px_rgba(218,212,196,0.3)]"></div>
+                <div className="absolute inset-3 border border-nier-red rotate-45"></div>
+                <div className="w-2 h-2 bg-nier-beige rotate-45 animate-pulse relative z-10"></div>
               </div>
-              <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
+              <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 group-hover:border-nier-beige/40 transition-colors">
                 <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">{t('about.edu_1_title')}</h4>
                 <p className="text-nier-beige text-sm mb-3">Baku State University (BSU)</p>
                 <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">{t('about.edu_1_desc')}</p>
               </div>
             </div>
             {/* Timeline Item 2 */}
-            <div className="relative flex items-start gap-6">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-nier-dark/60 bg-nier-gray shrink-0 z-10">
-                <div className="w-2 h-2 bg-nier-dark/40 rounded-full" />
+            <div className="relative flex items-start gap-6 group">
+              <div className="flex items-center justify-center w-10 h-10 shrink-0 z-10 relative group-hover:scale-110 transition-transform duration-300">
+                <div className="absolute inset-2 border border-nier-dark/60 rotate-45 bg-nier-gray group-hover:border-nier-beige/50 transition-colors"></div>
+                <div className="w-1.5 h-1.5 bg-nier-dark/40 rotate-45 relative z-10 group-hover:bg-nier-beige/50 transition-colors"></div>
               </div>
-              <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
+              <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 group-hover:border-nier-beige/40 transition-colors">
                 <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">{t('about.edu_2_title')}</h4>
                 <p className="text-nier-beige text-sm mb-3">Azerbaijan Technical University (AzTU)</p>
                 <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">{t('about.edu_2_desc')}</p>
               </div>
             </div>
             {/* Timeline Item 3 */}
-            <div className="relative flex items-start gap-6">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-nier-dark/60 bg-nier-gray shrink-0 z-10">
-                <div className="w-2 h-2 bg-nier-dark/40 rounded-full" />
+            <div className="relative flex items-start gap-6 group">
+              <div className="flex items-center justify-center w-10 h-10 shrink-0 z-10 relative group-hover:scale-110 transition-transform duration-300">
+                <div className="absolute inset-2 border border-nier-dark/60 rotate-45 bg-nier-gray group-hover:border-nier-beige/50 transition-colors"></div>
+                <div className="w-1.5 h-1.5 bg-nier-dark/40 rotate-45 relative z-10 group-hover:bg-nier-beige/50 transition-colors"></div>
               </div>
-              <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 hover:border-nier-beige/40 transition-colors group">
+              <div className="flex-1 p-5 rounded border border-nier-dark/80 bg-nier-dark/20 group-hover:border-nier-beige/40 transition-colors">
                 <h4 className="text-[#e8e6e1] font-semibold text-lg group-hover:text-nier-beige transition-colors">{t('about.edu_3_title')}</h4>
                 <p className="text-nier-beige text-sm mb-3">IT STEP Academy</p>
                 <p className="text-sm text-[#e8e6e1]/70 leading-relaxed">{t('about.edu_3_desc')}</p>
@@ -234,20 +238,24 @@ export default function AboutMe() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-5 md:py-2.5 rounded-t-lg transition-all duration-300 overflow-hidden ${
+                    className={`relative flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-5 md:py-2.5 rounded-t-lg transition-all duration-300 overflow-hidden group ${
                       isActive
                         ? 'text-nier-beige bg-nier-dark/60'
                         : 'text-[#e8e6e1]/50 hover:text-[#e8e6e1]/80 hover:bg-nier-dark/30'
                     }`}
                   >
+                    {/* Hover Background Effect */}
+                    {!isActive && (
+                      <div className="absolute inset-0 bg-nier-beige/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                    )}
                     {isActive && (
                       <motion.div 
                         layoutId="activeTab"
                         className="absolute bottom-0 left-0 right-0 h-0.5 bg-nier-beige"
                       />
                     )}
-                    <Icon className={`w-3.5 h-3.5 md:w-4 md:h-4 ${isActive ? 'animate-pulse' : ''}`} />
-                    <span className="font-medium tracking-wide text-xs md:text-sm">{tab.label}</span>
+                    <Icon className={`w-3.5 h-3.5 md:w-4 md:h-4 relative z-10 transition-transform duration-300 ${isActive ? 'animate-pulse' : 'group-hover:scale-110'}`} />
+                    <span className="font-medium tracking-wide text-xs md:text-sm relative z-10 transition-transform duration-300 group-hover:translate-x-0.5">{tab.label}</span>
                   </button>
                 );
               })}

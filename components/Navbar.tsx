@@ -16,9 +16,16 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
   const { reportUserAction } = useGlitch();
   const { t } = useLanguage();
 
-  const handleNavClick = (label: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, label: string) => {
+    e.preventDefault();
     reportUserAction(`is navigating to the ${label} section`);
     setIsOpen(false);
+    
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const navLinks = [
@@ -41,7 +48,7 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
       {/* Desktop Nav */}
       <nav className="hidden md:flex bg-nier-light/90 backdrop-blur-sm border border-nier-dark px-6 py-2 items-center gap-6 shadow-sm pointer-events-auto">
         {navLinks.map((link) => (
-          <a key={link.href} href={link.href} onClick={() => handleNavClick(link.label)} className="font-mono text-xs tracking-widest uppercase text-nier-dark hover:text-nier-red hover:bg-nier-dark/5 px-4 py-2 transition-colors whitespace-nowrap relative group">
+          <a key={link.href} href={link.href} onClick={(e) => handleNavClick(e, link.href, link.label)} className="font-mono text-xs tracking-widest uppercase text-nier-dark hover:text-nier-red hover:bg-nier-dark/5 px-4 py-2 transition-colors whitespace-nowrap relative group">
             <span className="relative z-10">{link.label}</span>
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-nier-red scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
           </a>
@@ -76,7 +83,7 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
               <a 
                 key={link.href} 
                 href={link.href} 
-                onClick={() => handleNavClick(link.label)}
+                onClick={(e) => handleNavClick(e, link.href, link.label)}
                 className="font-mono text-sm tracking-widest uppercase text-nier-dark hover:text-nier-red hover:bg-nier-dark/5 px-4 py-4 transition-colors text-center border-b border-nier-dark/20 last:border-b-0"
               >
                 {link.label}

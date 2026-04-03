@@ -37,7 +37,11 @@ export default function Contact() {
       (error) => {
         console.error('EmailJS Error:', error.text);
         setStatus('idle');
-        alert('Transmission failed. Please try again.');
+        if (error.text && error.text.includes('Invalid grant')) {
+          alert('Transmission failed: The connected Gmail account in EmailJS has an invalid grant. Please log in to your EmailJS dashboard and reconnect your Gmail account.');
+        } else {
+          alert('Transmission failed. Please try again.');
+        }
       }
     );
   };

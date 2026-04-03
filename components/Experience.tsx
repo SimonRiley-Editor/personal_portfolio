@@ -8,10 +8,18 @@ import { useGlitch } from './GlitchContext';
 import { useLanguage } from './LanguageContext';
 
 export default function Experience() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+  const [expandedIndices, setExpandedIndices] = useState<number[]>([0]);
   const [isHoveringLog, setIsHoveringLog] = useState(false);
   const { trackSection, reportUserAction } = useGlitch();
   const { t } = useLanguage();
+
+  const toggleExperience = (index: number) => {
+    setExpandedIndices(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
 
   const experiences = [
     {
@@ -84,7 +92,9 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="bg-nier-beige border-b border-nier-dark relative overflow-hidden">
+    <section id="experience" aria-labelledby="experience-heading" className="bg-nier-beige border-b border-nier-dark relative overflow-hidden">
+      <h2 id="experience-heading" className="sr-only">{t('experience.title')}</h2>
+      
       {/* Animated Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ 
         backgroundImage: 'linear-gradient(var(--color-nier-dark) 1px, transparent 1px), linear-gradient(90deg, var(--color-nier-dark) 1px, transparent 1px)',
@@ -101,7 +111,7 @@ export default function Experience() {
         />
       </div>
 
-      <div className="border-b border-nier-dark py-6 md:py-10 overflow-hidden bg-nier-light flex group relative z-10">
+      <div className="border-b border-nier-dark py-6 md:py-10 overflow-hidden bg-nier-light flex group relative z-10" aria-hidden="true">
         <div className="animate-marquee flex items-center w-max group-hover:[animation-play-state:paused]">
           {[...Array(8)].map((_, i) => (
             <React.Fragment key={i}>
@@ -142,6 +152,8 @@ export default function Experience() {
               className="nier-box p-6 md:p-8 relative bg-nier-light overflow-hidden group"
               onMouseEnter={() => setIsHoveringLog(true)}
               onMouseLeave={() => setIsHoveringLog(false)}
+              role="complementary"
+              aria-label="Personal Log"
             >
               {/* Character Face Hover Animation */}
               <div 
@@ -189,9 +201,17 @@ export default function Experience() {
           {/* Right Column: Timeline Accordion */}
           <div className="lg:w-2/3 w-full flex flex-col gap-6 relative">
             {/* Vertical Timeline Line */}
-            <div className="absolute left-[28px] top-8 bottom-8 w-[1px] bg-nier-dark/30 hidden md:block"></div>
+            <motion.div 
+              className="absolute left-[28px] top-8 bottom-8 w-[1px] bg-nier-dark/30 hidden md:block origin-top"
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+            />
 
-            {experiences.map((exp, index) => (
+            {experiences.map((exp, index) => {
+              const isExpanded = expandedIndices.includes(index);
+              return (
               <motion.div 
                 key={index} 
                 className="relative pl-0 md:pl-20 group"
@@ -202,46 +222,55 @@ export default function Experience() {
               >
                 {/* Timeline Node */}
                 <div className={`absolute left-[24px] top-8 w-[9px] h-[9px] border-2 hidden md:block transition-colors duration-300 z-10 ${
-                  expandedIndex === index ? 'bg-nier-red border-nier-red' : 'bg-nier-light border-nier-dark group-hover:border-nier-red'
+                  isExpanded ? 'bg-nier-red border-nier-red' : 'bg-nier-light border-nier-dark group-hover:border-nier-red'
                 }`}></div>
                 
                 {/* Experience Card */}
                 <div className={`border border-nier-dark transition-all duration-300 ${
-                  expandedIndex === index 
+                  isExpanded 
                     ? 'bg-nier-gray shadow-[8px_8px_0px_0px_var(--color-nier-red)] -translate-y-1 -translate-x-1' 
                     : 'bg-nier-light hover:shadow-[8px_8px_0px_0px_var(--color-nier-dark)] hover:-translate-y-1 hover:-translate-x-1'
                 }`}>
                   <button 
-                    onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
-                    className="w-full flex flex-row items-start md:items-center justify-between p-4 md:p-6 text-left gap-4"
+                    onClick={() => toggleExperience(index)}
+                    aria-expanded={isExpanded}
+                    aria-controls={`experience-details-${index}`}
+                    aria-label={`Toggle details for ${exp.role} at ${exp.company}`}
+                    className="w-full flex flex-row items-start md:items-center justify-between p-4 md:p-6 text-left gap-4 focus:outline-none focus:ring-2 focus:ring-nier-red focus:ring-offset-2 focus:ring-offset-nier-light"
                   >
                     <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-8 w-full">
                       <div className="flex flex-col w-full md:w-48">
-                        <span className={`font-mono text-xs md:text-sm tracking-widest mb-1 ${expandedIndex === index ? 'text-[#e8e6e1]/60' : 'text-nier-dark/60'}`}>[{exp.period}]</span>
-                        <span className={`text-lg md:text-xl font-mono uppercase font-bold ${expandedIndex === index ? 'text-[#e8e6e1]' : 'text-nier-dark'}`}>{exp.company}</span>
+                        <span className={`font-mono text-xs md:text-sm tracking-widest mb-1 ${isExpanded ? 'text-[#e8e6e1]/60' : 'text-nier-dark/60'}`}>[{exp.period}]</span>
+                        <span 
+                          className={`text-lg md:text-xl font-mono uppercase font-bold glitch-group-hover ${isExpanded ? 'text-[#e8e6e1]' : 'text-nier-dark'}`}
+                          data-text={exp.company}
+                        >
+                          {exp.company}
+                        </span>
                       </div>
                       <div className="flex flex-col w-full md:w-64">
-                        <span className={`text-xs md:text-sm font-mono uppercase ${expandedIndex === index ? 'text-[#e8e6e1]/90' : 'text-nier-dark/90'}`}>{exp.role}</span>
-                        <span className={`text-[10px] md:text-xs font-mono uppercase mt-1 ${expandedIndex === index ? 'text-[#e8e6e1]/50' : 'text-nier-dark/50'}`}>{exp.location}</span>
+                        <span className={`text-xs md:text-sm font-mono uppercase ${isExpanded ? 'text-[#e8e6e1]/90' : 'text-nier-dark/90'}`}>{exp.role}</span>
+                        <span className={`text-[10px] md:text-xs font-mono uppercase mt-1 ${isExpanded ? 'text-[#e8e6e1]/50' : 'text-nier-dark/50'}`}>{exp.location}</span>
                       </div>
                     </div>
                     <div className={`shrink-0 p-2 border ${
-                      expandedIndex === index 
+                      isExpanded 
                         ? 'border-[#e8e6e1]/30 text-[#e8e6e1] bg-nier-light/10' 
                         : 'border-nier-dark/30 text-nier-dark bg-nier-dark/5 group-hover:bg-nier-dark/10'
                     }`}>
                       <motion.div
-                        animate={{ rotate: expandedIndex === index ? 180 : 0 }}
+                        animate={{ rotate: isExpanded ? 180 : 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                       >
-                        {expandedIndex === index ? <Minus size={18} strokeWidth={2} /> : <Plus size={18} strokeWidth={2} />}
+                        {isExpanded ? <Minus size={18} strokeWidth={2} /> : <Plus size={18} strokeWidth={2} />}
                       </motion.div>
                     </div>
                   </button>
                   
                   <AnimatePresence initial={false}>
-                    {expandedIndex === index && (
+                    {isExpanded && (
                       <motion.div
+                        id={`experience-details-${index}`}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -269,7 +298,7 @@ export default function Experience() {
                   </AnimatePresence>
                 </div>
               </motion.div>
-            ))}
+            )})}
           </div>
         </div>
       </motion.div>
