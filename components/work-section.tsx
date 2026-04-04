@@ -28,17 +28,17 @@ const categories: Category[] = [
     nameKey: 'work.category_amvs',
     type: 'video',
     projects: [
+      { id: 'xT60m9aAR-Y', title: 'Project 01' },
+      { id: 'z-VnFmpcrmU', title: 'Project 02' },
       { 
         id: 'o9FOYN3gMRQ', 
-        title: 'Project 01', 
+        title: 'Project 03', 
         thumbnail: 'https://res.cloudinary.com/ds6dwbk37/image/upload/v1775199626/sddefault_yv02qz.jpg',
         description: 'A high-energy AMV editing project showcasing advanced motion graphics, seamless transitions, and precise audio synchronization.',
         technologies: ['After Effects', 'Premiere Pro', 'Blender'],
         link: 'https://youtube.com/watch?v=o9FOYN3gMRQ'
       },
-      { id: 'TaGrFtPV7lU', title: 'Project 02' },
-      { id: 'xT60m9aAR-Y', title: 'Project 03' },
-      { id: 'z-VnFmpcrmU', title: 'Project 04' },
+      { id: 'TaGrFtPV7lU', title: 'Project 04' },
     ]
   },
   {
@@ -288,6 +288,18 @@ export default function WorkSection() {
     };
   }, [isModalOpen]);
 
+  useEffect(() => {
+    const handleOpenProject = (e: Event) => {
+      const customEvent = e as CustomEvent<{ categoryId: string, projectId: string }>;
+      const { categoryId, projectId } = customEvent.detail;
+      setActiveCategory(categoryId);
+      setActiveVideo(projectId);
+      setIsModalOpen(true);
+    };
+    window.addEventListener('openProject', handleOpenProject);
+    return () => window.removeEventListener('openProject', handleOpenProject);
+  }, []);
+
   return (
     <motion.section 
       id="work" 
@@ -437,8 +449,14 @@ export default function WorkSection() {
             <motion.div 
               initial={{ y: 40, opacity: 0, scale: 0.95, rotateX: 5 }}
               animate={{ y: 0, opacity: 1, scale: 1, rotateX: 0 }}
-              exit={{ y: 20, opacity: 0, scale: 0.95, rotateX: -5 }}
-              transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+              exit={{ 
+                y: 60, 
+                opacity: 0, 
+                scale: 0.8, 
+                rotateX: -10,
+                filter: "blur(10px)"
+              }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               ref={modalRef}
               role="dialog"
               aria-modal="true"
