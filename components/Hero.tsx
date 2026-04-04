@@ -119,7 +119,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             <h2 className="text-xl md:text-2xl lg:text-3xl font-wide text-white tracking-[0.15em] uppercase mb-3 md:mb-6 group-hover:scale-105 transition-transform duration-500">
               HIGH-RETENTION<br />CONTENT
             </h2>
-            <p className="text-nier-red font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase">
+            <p className="text-nier-red font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:drop-shadow-[0_0_12px_rgba(200,0,0,0.8)] group-hover:text-red-400 transition-all duration-300 bg-black/50 px-4 py-1.5 border border-nier-red/30 backdrop-blur-sm">
               YouTube & Gaming (Braxophone)
             </p>
           </div>
@@ -140,7 +140,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             <h2 className="text-xl md:text-2xl lg:text-3xl font-wide text-white tracking-[0.15em] uppercase mb-3 md:mb-6 group-hover:scale-105 transition-transform duration-500">
               LET&apos;S MAKE YOUR<br />VIDEO UNIQUE
             </h2>
-            <p className="text-nier-red font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase">
+            <p className="text-nier-red font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:drop-shadow-[0_0_12px_rgba(200,0,0,0.8)] group-hover:text-red-400 transition-all duration-300 bg-black/50 px-4 py-1.5 border border-nier-red/30 backdrop-blur-sm">
               VFX and After Effects work
             </p>
           </div>
@@ -161,7 +161,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             <h2 className="text-xl md:text-2xl lg:text-3xl font-wide text-white tracking-[0.15em] uppercase mb-3 md:mb-6 group-hover:scale-105 transition-transform duration-500">
               CINEMATIC<br />EDITING
             </h2>
-            <p className="text-nier-red font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase">
+            <p className="text-nier-red font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:drop-shadow-[0_0_12px_rgba(200,0,0,0.8)] group-hover:text-red-400 transition-all duration-300 bg-black/50 px-4 py-1.5 border border-nier-red/30 backdrop-blur-sm">
               AMV and high-end storytelling
             </p>
           </div>
