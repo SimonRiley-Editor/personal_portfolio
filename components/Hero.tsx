@@ -141,7 +141,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
               LET&apos;S MAKE YOUR<br />VIDEO UNIQUE
             </h2>
             <p className="text-nier-red font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:drop-shadow-[0_0_12px_rgba(200,0,0,0.8)] group-hover:text-red-400 transition-all duration-300 bg-black/50 px-4 py-1.5 border border-nier-red/30 backdrop-blur-sm">
-              VFX and After Effects work
+              Motion Graphics and After Effects work
             </p>
           </div>
         </motion.div>
