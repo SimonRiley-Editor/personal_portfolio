@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useGlitch } from './GlitchContext';
-import { ThemeToggle } from './ThemeToggle';
 import { useLanguage } from './LanguageContext';
 
 interface NavbarProps {
@@ -53,15 +52,10 @@ export default function Navbar({ isLoaded = true }: NavbarProps) {
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-nier-red scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
           </a>
         ))}
-        <div className="w-[1px] h-4 bg-nier-dark/30 mx-2"></div>
-        <ThemeToggle />
       </nav>
 
       {/* Mobile Nav Toggle */}
       <div className="md:hidden flex justify-end w-full pointer-events-auto gap-2">
-        <div className="bg-nier-light border border-nier-dark shadow-sm z-50 relative flex items-center justify-center">
-          <ThemeToggle />
-        </div>
         <button 
           onClick={() => setIsOpen(!isOpen)}
           className="bg-nier-light border border-nier-dark p-3 shadow-sm z-50 relative text-nier-dark hover:bg-nier-dark/5 transition-colors"

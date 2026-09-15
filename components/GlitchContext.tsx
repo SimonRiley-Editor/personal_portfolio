@@ -222,6 +222,9 @@ export const GlitchProvider = ({ children }: { children: React.ReactNode }) => {
   const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
   const structuralTimerRef = useRef<NodeJS.Timeout | null>(null);
   const systemErrorTimerRef = useRef<NodeJS.Timeout | null>(null);
+  // sessionTime is now tracked in a ref to avoid re-rendering the entire tree every second.
+  // State is only updated when the user crosses a stage threshold.
+  const sessionTimeRef = useRef(0);
   const sessionTimerRef = useRef<NodeJS.Timeout | null>(null);
   const messageCooldownRef = useRef(false);
 
@@ -291,10 +294,27 @@ export const GlitchProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  // Session timer
+  // Session timer — tracks time in a ref, only syncs to state at stage thresholds
+  // to avoid re-rendering the whole app every second.
   useEffect(() => {
+    const STAGE_THRESHOLDS = [30, 120, 300];
+    let lastThresholdIdx = -1;
+
     sessionTimerRef.current = setInterval(() => {
-      setUserState(prev => ({ ...prev, sessionTime: prev.sessionTime + 1 }));
+      sessionTimeRef.current += 1;
+      const t = sessionTimeRef.current;
+
+      // Find which threshold bucket we're in
+      let thresholdIdx = -1;
+      if (t >= 300) thresholdIdx = 2;
+      else if (t >= 120) thresholdIdx = 1;
+      else if (t >= 30) thresholdIdx = 0;
+
+      // Only write to state when we cross a new threshold
+      if (thresholdIdx !== lastThresholdIdx) {
+        lastThresholdIdx = thresholdIdx;
+        setUserState(prev => ({ ...prev, sessionTime: t }));
+      }
     }, 1000);
     return () => {
       if (sessionTimerRef.current) clearInterval(sessionTimerRef.current);
@@ -322,10 +342,12 @@ export const GlitchProvider = ({ children }: { children: React.ReactNode }) => {
   // Evolution Stage Logic
   useEffect(() => {
     let newStage: EvolutionStage = 1;
-    // Evolution requires both time and interaction
-    if (userState.sessionTime > 300 && userState.clicks > 150) newStage = 4;
-    else if (userState.sessionTime > 120 && userState.clicks > 50) newStage = 3;
-    else if (userState.sessionTime > 30 && userState.clicks > 10) newStage = 2;
+    // Evolution requires both time and interaction.
+    // Use sessionTimeRef for the live tick value; userState.sessionTime triggers this effect at thresholds.
+    const currentTime = sessionTimeRef.current;
+    if (currentTime > 300 && userState.clicks > 150) newStage = 4;
+    else if (currentTime > 120 && userState.clicks > 50) newStage = 3;
+    else if (currentTime > 30 && userState.clicks > 10) newStage = 2;
 
     if (newStage !== userState.stage) {
       const timer = setTimeout(() => {

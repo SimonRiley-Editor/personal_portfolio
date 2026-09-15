@@ -25,7 +25,7 @@ export default function AboutMe() {
     switch (activeTab) {
       case 'bio':
         return (
-          <motion.div 
+          <motion.div
             key="bio"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -45,7 +45,7 @@ export default function AboutMe() {
         );
       case 'skills':
         return (
-          <motion.div 
+          <motion.div
             key="skills"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ export default function AboutMe() {
         );
       case 'software':
         return (
-          <motion.div 
+          <motion.div
             key="software"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export default function AboutMe() {
         );
       case 'education':
         return (
-          <motion.div 
+          <motion.div
             key="education"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -139,7 +139,7 @@ export default function AboutMe() {
         );
       case 'languages':
         return (
-          <motion.div 
+          <motion.div
             key="languages"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -158,7 +158,7 @@ export default function AboutMe() {
                   <span className="text-xs text-nier-beige uppercase tracking-widest">{item.level}</span>
                 </div>
                 <div className="h-1.5 w-full bg-nier-dark/80 rounded-full overflow-hidden">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${item.percentage}%` }}
                     transition={{ duration: 1, delay: idx * 0.1, ease: "easeOut" }}
@@ -171,7 +171,7 @@ export default function AboutMe() {
         );
       case 'philosophy':
         return (
-          <motion.div 
+          <motion.div
             key="philosophy"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -180,12 +180,12 @@ export default function AboutMe() {
           >
             <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-nier-beige" />
             <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-nier-beige" />
-            
+
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-nier-red animate-pulse" />
               <span className="text-xs font-mono text-[#e8e6e1]/50 tracking-widest uppercase">{t('about.philosophy_log')}</span>
             </div>
-            
+
             <p className="italic text-[#e8e6e1]/80 text-lg leading-relaxed relative z-10">
               &quot;{t('about.philosophy_quote')}&quot;
             </p>
@@ -238,18 +238,17 @@ export default function AboutMe() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-5 md:py-2.5 rounded-t-lg transition-all duration-300 overflow-hidden group ${
-                      isActive
+                    className={`relative flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-5 md:py-2.5 rounded-t-lg transition-all duration-300 overflow-hidden group ${isActive
                         ? 'text-nier-beige bg-nier-dark/60'
                         : 'text-[#e8e6e1]/50 hover:text-[#e8e6e1]/80 hover:bg-nier-dark/30'
-                    }`}
+                      }`}
                   >
                     {/* Hover Background Effect */}
                     {!isActive && (
                       <div className="absolute inset-0 bg-nier-beige/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                     )}
                     {isActive && (
-                      <motion.div 
+                      <motion.div
                         layoutId="activeTab"
                         className="absolute bottom-0 left-0 right-0 h-0.5 bg-nier-beige"
                       />
@@ -265,7 +264,7 @@ export default function AboutMe() {
             <div className="text-[#e8e6e1]/70 text-lg leading-relaxed min-h-[300px]">
               {renderContent()}
             </div>
-            
+
             <div className="pt-6 grid grid-cols-2 gap-6 border-t border-nier-dark/80">
               <div className="flex items-center gap-3">
                 <Code className="w-5 h-5 text-nier-beige" />
@@ -328,27 +327,27 @@ export default function AboutMe() {
                   `}</style>
 
                   {/* Base Image */}
-                  <Image 
-                    src={profileImg} 
-                    alt="SYS.USR.01" 
+                  <Image
+                    src={profileImg}
+                    alt="SYS.USR.01"
                     fill
                     referrerPolicy="no-referrer"
                     className="object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition-all duration-700"
                   />
-                  
+
                   {/* Glitch Layers (visible on hover) */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Image 
-                      src={profileImg} 
-                      alt="" 
+                    <Image
+                      src={profileImg}
+                      alt=""
                       fill
                       referrerPolicy="no-referrer"
                       className="object-cover filter grayscale contrast-150 mix-blend-screen glitch-img-1"
                       style={{ filter: 'drop-shadow(3px 0 0 #ff4444)' }}
                     />
-                    <Image 
-                      src={profileImg} 
-                      alt="" 
+                    <Image
+                      src={profileImg}
+                      alt=""
                       fill
                       referrerPolicy="no-referrer"
                       className="object-cover filter grayscale contrast-150 mix-blend-screen glitch-img-2"
@@ -360,7 +359,7 @@ export default function AboutMe() {
                   <div className="absolute inset-0 bg-nier-beige mix-blend-overlay opacity-20 z-10 pointer-events-none" />
                   <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] z-20 pointer-events-none opacity-50" />
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-nier-beige/10 via-transparent to-black/60 z-20 pointer-events-none" />
-                  
+
                   {/* Scanning Line */}
                   <div className="absolute top-0 left-0 w-full h-2 bg-nier-beige/30 shadow-[0_0_15px_var(--color-nier-beige)] z-30 animate-[scanline_4s_linear_infinite] pointer-events-none" />
 

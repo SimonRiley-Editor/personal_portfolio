@@ -11,7 +11,6 @@ const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-displ
 const archivoBlack = Archivo_Black({ weight: '400', subsets: ['latin'], variable: '--font-wide' });
 const michroma = Michroma({ weight: '400', subsets: ['latin'], variable: '--font-akira' });
 
-import { ThemeProvider } from '@/components/ThemeProvider';
 import { LanguageProvider } from '@/components/LanguageContext';
 
 export const metadata: Metadata = {
@@ -26,18 +25,16 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${archivoBlack.variable} ${michroma.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased text-nier-dark bg-nier-beige relative min-h-screen" suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <LanguageProvider>
-            <GlitchProvider>
-              <CustomCursor />
-              <MusicPlayer />
-              <div className="fixed inset-0 nier-noise z-50 mix-blend-overlay pointer-events-none"></div>
-              <div className="fixed inset-0 nier-scanlines z-50 pointer-events-none"></div>
-              <PodSystem />
-              {children}
-            </GlitchProvider>
-          </LanguageProvider>
-        </ThemeProvider>
+        <LanguageProvider>
+          <GlitchProvider>
+            <CustomCursor />
+            <MusicPlayer />
+            <div className="fixed inset-0 nier-noise z-50 mix-blend-overlay pointer-events-none"></div>
+            <div className="fixed inset-0 nier-scanlines z-50 pointer-events-none"></div>
+            <PodSystem />
+            {children}
+          </GlitchProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

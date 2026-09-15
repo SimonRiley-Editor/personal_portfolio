@@ -32,6 +32,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           loop 
           muted 
           playsInline 
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] ease-out"
         >
           <source src="https://res.cloudinary.com/ds6dwbk37/video/upload/v1775281440/ClipForHero_gfsyog.mp4" type="video/mp4" />

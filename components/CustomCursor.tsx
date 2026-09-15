@@ -14,10 +14,17 @@ export default function CustomCursor() {
       cursorY.set(e.clientY);
     };
 
+    // Use a rAF debounce so we only run the DOM query + setState once per frame,
+    // instead of on every bubbling mouseover event.
+    let rafId: number | null = null;
     const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const interactive = target.closest('a, button, input, select, textarea, [role="button"], [tabindex]:not([tabindex="-1"])');
-      setIsHovering(!!interactive);
+      if (rafId !== null) return; // Already scheduled for this frame
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const target = e.target as HTMLElement;
+        const interactive = target.closest('a, button, input, select, textarea, [role="button"], [tabindex]:not([tabindex="-1"])');
+        setIsHovering(!!interactive);
+      });
     };
 
     window.addEventListener('mousemove', moveCursor, { passive: true });
@@ -26,6 +33,7 @@ export default function CustomCursor() {
     return () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseover', handleMouseOver);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, [cursorX, cursorY]);
 

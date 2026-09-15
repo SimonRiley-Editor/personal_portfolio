@@ -7,14 +7,16 @@ import Hero from '@/components/Hero';
 import Loader from '@/components/Loader';
 import SectionWrapper from '@/components/SectionWrapper';
 
-// Dynamically import components below the fold
-const AboutMe = dynamic(() => import('@/components/AboutMe'), { ssr: true });
-const Experience = dynamic(() => import('@/components/Experience'), { ssr: true });
-const Services = dynamic(() => import('@/components/Services'), { ssr: true });
-const Awards = dynamic(() => import('@/components/Awards'), { ssr: true });
-const WorkSection = dynamic(() => import('@/components/work-section'), { ssr: true });
-const Contact = dynamic(() => import('@/components/Contact'), { ssr: true });
-const Presentation = dynamic(() => import('@/components/Presentation'), { ssr: true });
+// Dynamically import below-the-fold components with ssr: false.
+// This excludes them from the server bundle and defers their JS parse
+// until the client actually needs them, reducing initial load time.
+const AboutMe = dynamic(() => import('@/components/AboutMe'), { ssr: false });
+const Experience = dynamic(() => import('@/components/Experience'), { ssr: false });
+const Services = dynamic(() => import('@/components/Services'), { ssr: false });
+const Awards = dynamic(() => import('@/components/Awards'), { ssr: false });
+const WorkSection = dynamic(() => import('@/components/work-section'), { ssr: false });
+const Contact = dynamic(() => import('@/components/Contact'), { ssr: false });
+const Presentation = dynamic(() => import('@/components/Presentation'), { ssr: false });
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);

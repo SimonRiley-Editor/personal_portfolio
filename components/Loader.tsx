@@ -157,8 +157,19 @@ export default function Loader({ onComplete }: LoaderProps) {
       }
     };
 
+    let lastFrameTime = 0;
+    const TARGET_FPS = 60;
+    const FRAME_BUDGET = 1000 / TARGET_FPS; // ~16.67ms
+
     const loop = (time: number) => {
       if (isGameOver) return;
+
+      // Cap to 60fps — skip frames that arrive too quickly on high-refresh-rate screens
+      if (time - lastFrameTime < FRAME_BUDGET) {
+        animationFrameId = requestAnimationFrame(loop);
+        return;
+      }
+      lastFrameTime = time;
 
       // Update Player
       let dx = 0; let dy = 0;
